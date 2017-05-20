@@ -2,13 +2,12 @@
 using UnityEngine;
 using CreateThis.Math;
 using CreateThis.Unity;
-using CreateThis.VR.UI.Container;
 
-namespace CreateThis.VR.UI.Panel {
+namespace CreateThis.VR.UI {
     /* 
      * Utility methods for positioning and resizing panels
      */
-    public static class PanelLib {
+    public static class PanelUtils {
         public class PanelResizeWidth {
             public float xScale;
             public float xOffset;

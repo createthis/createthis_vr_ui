@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.Math;
+using CreateThis.Unity;
 
-namespace CreateThis.VR.UI.KineticScroller {
+namespace CreateThis.VR.UI.Scroller {
     public class KineticScroller : MonoBehaviour {
         public FixedJoint fixedJoint;
         public float space = 0.1f;
@@ -107,7 +108,7 @@ namespace CreateThis.VR.UI.KineticScroller {
                 widths.Add(height);
             }
 
-            width += Panel.SumWithSpacing(widths, space);
+            width += PanelUtils.SumWithSpacing(widths, space);
 
             return width;
         }

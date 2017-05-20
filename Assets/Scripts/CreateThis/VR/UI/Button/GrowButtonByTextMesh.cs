@@ -3,7 +3,6 @@
 using UnityEditor;
 #endif
 using UnityEngine.EventSystems;
-using CreateThis.VR.UI.Panel;
 using CreateThis.Unity;
 using CreateThis.VR.UI.Event;
 
@@ -41,7 +40,7 @@ namespace CreateThis.VR.UI.Button {
             Undo.RecordObject(transform, "Scale Main Object");
 #endif
 
-            PanelLib.PanelResizeWidth panelResizeWidth = PanelLib.ResizeWidth(gameObject, rowWidth, 0, true);
+            PanelUtils.PanelResizeWidth panelResizeWidth = PanelUtils.ResizeWidth(gameObject, rowWidth, 0, true);
             transform.localScale = new Vector3(panelResizeWidth.xScale, transform.localScale.y, transform.localScale.z);
             textMesh.gameObject.transform.SetParent(gameObject.transform, true);
             if (alignment == TextAlignment.Left) {

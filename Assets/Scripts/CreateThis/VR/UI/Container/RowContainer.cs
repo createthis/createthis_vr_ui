@@ -5,7 +5,6 @@ using UnityEditor;
 #endif
 using UnityEngine.EventSystems;
 using CreateThis.Unity;
-using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Event;
 
 namespace CreateThis.VR.UI.Container {
@@ -31,7 +30,7 @@ namespace CreateThis.VR.UI.Container {
                 widths.Add(ObjectBounds.WorldWidth(child.gameObject));
             }
 
-            width += PanelLib.SumWithSpacing(widths, spacing);
+            width += PanelUtils.SumWithSpacing(widths, spacing);
 
             return width;
         }

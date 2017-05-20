@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CreateThis.VR.UI.KineticScroller {
+namespace CreateThis.VR.UI.Scroller {
     public class KineticScrollerItem : MonoBehaviour {
         public KineticScroller kineticScroller;
 

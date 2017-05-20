@@ -5,7 +5,6 @@ using UnityEditor;
 #endif
 using UnityEngine.EventSystems;
 using CreateThis.Unity;
-using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Event;
 
 namespace CreateThis.VR.UI.Container {
@@ -28,7 +27,7 @@ namespace CreateThis.VR.UI.Container {
                 heights.Add(ObjectBounds.WorldHeight(child.gameObject));
             }
 
-            height += PanelLib.SumWithSpacing(heights, spacing);
+            height += PanelUtils.SumWithSpacing(heights, spacing);
 
             return height;
         }

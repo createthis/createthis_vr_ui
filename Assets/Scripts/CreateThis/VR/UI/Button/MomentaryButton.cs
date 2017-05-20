@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using CreateThis.VR.UI.UnityEvent;
 
 namespace CreateThis.VR.UI.Button {
     public class MomentaryButton : MonoBehaviour {
@@ -7,7 +8,7 @@ namespace CreateThis.VR.UI.Button {
         public AudioSource buttonClickUp;
         public GameObject buttonBody;
         public GameObject buttonText;
-        public MyGrabEvent onClick;
+        public GrabEvent onClick;
         public bool clickOnTriggerExit;
         public bool repeat;
 

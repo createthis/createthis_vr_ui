@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.VR.UI.UnityEvent;
 
 namespace CreateThis.VR.UI.Button {
     [ExecuteInEditMode]
@@ -7,8 +8,8 @@ namespace CreateThis.VR.UI.Button {
         public AudioSource buttonClickUp;
         public GameObject buttonBody;
         public GameObject buttonText;
-        public MyGrabEvent onClick;
-        public MyBoolEvent onClickBool;
+        public GrabEvent onClick;
+        public BoolEvent onClickBool;
         public bool clickOnTriggerExit;
 
         [SerializeField]
