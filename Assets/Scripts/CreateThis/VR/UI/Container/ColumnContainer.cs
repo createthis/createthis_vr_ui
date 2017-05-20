@@ -25,7 +25,7 @@ namespace CreateThis.VR.UI.Container {
 
             foreach (Transform child in transform) {
                 if (!child.gameObject.activeSelf) continue;
-                heights.Add(PanelLib.GetWorldHeight(child.gameObject));
+                heights.Add(ObjectBounds.WorldHeight(child.gameObject));
             }
 
             height += PanelLib.SumWithSpacing(heights, spacing);
@@ -82,12 +82,12 @@ namespace CreateThis.VR.UI.Container {
                 Transform child = transform.GetChild(i);
                 if (!child.gameObject.activeSelf) continue;
 
-                float height = PanelLib.GetWorldHeight(child.gameObject);
-                float width = PanelLib.GetWorldWidth(child.gameObject);
+                float height = ObjectBounds.WorldHeight(child.gameObject);
+                float width = ObjectBounds.WorldWidth(child.gameObject);
 
                 if (width > maxWidth) maxWidth = width;
 
-                float localY = PanelLib.WorldDistanceToLocalDistanceY(-heightSoFar - height / 2 + columnHeight / 2, gameObject);
+                float localY = TransformWithoutRotation.WorldDistanceToLocalDistanceY(-heightSoFar - height / 2 + columnHeight / 2, gameObject);
 #if UNITY_EDITOR
                 Undo.RecordObject(child.transform, "Move Child");
 #endif

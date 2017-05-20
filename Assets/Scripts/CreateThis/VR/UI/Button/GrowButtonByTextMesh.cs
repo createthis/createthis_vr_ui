@@ -4,6 +4,8 @@ using UnityEditor;
 #endif
 using UnityEngine.EventSystems;
 using CreateThis.VR.UI.Panel;
+using CreateThis.Unity;
+using CreateThis.VR.UI.Event;
 
 namespace CreateThis.VR.UI.Button {
     [ExecuteInEditMode]
@@ -44,9 +46,9 @@ namespace CreateThis.VR.UI.Button {
             textMesh.gameObject.transform.SetParent(gameObject.transform, true);
             if (alignment == TextAlignment.Left) {
                 // FIXME: this can be optimized by batching all WorldDistanceToLocalDistance calls for this object
-                float localTextMeshWidth = PanelLib.WorldDistanceToLocalDistance(TextMeshWidth(), textMesh.gameObject);
-                float localParentContainerWidth = PanelLib.WorldDistanceToLocalDistance(rowWidth, textMesh.gameObject);
-                float localPadding = PanelLib.WorldDistanceToLocalDistance(padding, textMesh.gameObject);
+                float localTextMeshWidth = TransformWithoutRotation.WorldDistanceToLocalDistance(TextMeshWidth(), textMesh.gameObject);
+                float localParentContainerWidth = TransformWithoutRotation.WorldDistanceToLocalDistance(rowWidth, textMesh.gameObject);
+                float localPadding = TransformWithoutRotation.WorldDistanceToLocalDistance(padding, textMesh.gameObject);
                 float xOffset = localTextMeshWidth / 2 + localPadding - localParentContainerWidth / 2;
                 textMesh.gameObject.transform.localPosition = new Vector3(
                     xOffset * textMesh.gameObject.transform.localScale.x,
@@ -72,7 +74,7 @@ namespace CreateThis.VR.UI.Button {
         }
 
         private float TextMeshWidth() {
-            Bounds textBounds = PanelLib.GetWorldBounds(textMesh.gameObject);
+            Bounds textBounds = ObjectBounds.ToWorld(textMesh.gameObject);
             return textBounds.size.x;
         }
 

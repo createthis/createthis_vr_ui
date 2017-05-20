@@ -28,7 +28,7 @@ namespace CreateThis.VR.UI.Container {
 
             foreach (Transform child in transform) {
                 if (!child.gameObject.activeSelf) continue;
-                widths.Add(PanelLib.GetWorldWidth(child.gameObject));
+                widths.Add(ObjectBounds.WorldWidth(child.gameObject));
             }
 
             width += PanelLib.SumWithSpacing(widths, spacing);
@@ -50,7 +50,7 @@ namespace CreateThis.VR.UI.Container {
         }
 
         private void CalculateOffset() {
-            float localRowWidth = PanelLib.WorldDistanceToLocalDistance(RowWidth(), gameObject);
+            float localRowWidth = TransformWithoutRotation.WorldDistanceToLocalDistance(RowWidth(), gameObject);
             float xOffset;
 
             switch (alignment) {
@@ -71,7 +71,7 @@ namespace CreateThis.VR.UI.Container {
         }
 
         public void SetParentContainerWidth(float value) {
-            parentContainerWidth = PanelLib.WorldDistanceToLocalDistance(value, gameObject);
+            parentContainerWidth = TransformWithoutRotation.WorldDistanceToLocalDistance(value, gameObject);
             if (log) Debug.Log("SetParentContainerWidth value=" + value + ",parentContainerWidth=" + parentContainerWidth);
             CalculateOffset();
         }
@@ -91,12 +91,12 @@ namespace CreateThis.VR.UI.Container {
                 Transform child = transform.GetChild(i);
                 if (!child.gameObject.activeSelf) continue;
 
-                float width = PanelLib.GetWorldWidth(child.gameObject);
-                float height = PanelLib.GetWorldHeight(child.gameObject);
+                float width = ObjectBounds.WorldWidth(child.gameObject);
+                float height = ObjectBounds.WorldHeight(child.gameObject);
 
                 if (height > maxHeight) maxHeight = height;
 
-                float localX = PanelLib.WorldDistanceToLocalDistance(widthSoFar + width / 2 - rowWidth / 2, gameObject);
+                float localX = TransformWithoutRotation.WorldDistanceToLocalDistance(widthSoFar + width / 2 - rowWidth / 2, gameObject);
 
 #if UNITY_EDITOR
                 Undo.RecordObject(child.transform, "Move Child");

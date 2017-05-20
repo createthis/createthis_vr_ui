@@ -73,8 +73,8 @@ namespace CreateThis.VR.UI.Container {
 
             for (int i = 0; i < transform.childCount; i++) {
                 Transform child = transform.GetChild(i);
-                float height = PanelLib.GetWorldHeight(child.gameObject);
-                float width = PanelLib.GetWorldWidth(child.gameObject);
+                float height = ObjectBounds.WorldHeight(child.gameObject);
+                float width = ObjectBounds.WorldWidth(child.gameObject);
 
                 if (width > maxWidth) maxWidth = width;
                 if (height > maxHeight) maxHeight = height;
