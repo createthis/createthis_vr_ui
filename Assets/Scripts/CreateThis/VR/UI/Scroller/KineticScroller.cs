@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.Math;
 using CreateThis.Unity;
+using CreateThis.VR.UI.Controller;
 
 namespace CreateThis.VR.UI.Scroller {
     public class KineticScroller : MonoBehaviour {

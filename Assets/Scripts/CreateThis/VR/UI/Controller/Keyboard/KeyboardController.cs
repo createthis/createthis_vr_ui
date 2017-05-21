@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.VR.UI.Panel;
 
-namespace CreateThis.VR.UI.Keyboard {
+namespace CreateThis.VR.UI.Controller.Keyboard {
     public class KeyboardController : MonoBehaviour {
         public PanelController tabletLowerCaseController;
         public PanelController tabletUpperCaseController;

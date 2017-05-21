@@ -5,19 +5,19 @@ using UnityEngine;
 using CreateThis.System;
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
+using CreateThis.VR.UI.UnityEvent;
 
 namespace CreateThis.VR.UI.Controller {
     public class FileOpenController : MonoBehaviour {
         public KineticScroller kineticScroller;
         public GameObject kineticScrollItemPrefab;
         public float height;
-        public MeshController meshController;
         public GameObject folderPrefab;
         public GameObject currentPathLabel;
+        public FilePathEvent onOpen;
 
         private string currentPath;
         private List<GameObject> list;
-        private string openPath;
 
         private GameObject InstantiatePrefabUsingGameObject(GameObject myGameObject) {
             GameObject instance = Instantiate(kineticScrollItemPrefab);
@@ -135,24 +135,6 @@ namespace CreateThis.VR.UI.Controller {
             ListDirectory();
         }
 
-        public void SaveAndOpen(string path = null) {
-            if (path == null || path == "") path = openPath;
-            meshController.unsavedPanelController.SetVisible(false);
-            meshController.Save();
-            Open(path);
-        }
-
-        public void Open(string path = null) {
-            if (path == null || path == "") path = openPath;
-            meshController.unsavedPanelController.SetVisible(false);
-            meshController.selectionManager.ClearSelectedVertices();
-            meshController.verticesManager.DeleteVertexInstances();
-            meshController.trianglesManager.DeleteTriangleInstances();
-            meshController.persistenceManager.Load(path);
-            meshController.fileOpenPanelController.SetVisible(false);
-            meshController.SetMode(meshController.modeManager.mode);
-        }
-
         public void HandleClick(GameObject fileObject) {
             FileObjectController fileObjectController = fileObject.GetComponent<FileObjectController>();
             string path = fileObjectController.path;
@@ -162,13 +144,7 @@ namespace CreateThis.VR.UI.Controller {
                 }
                 ChangeDirectory(path);
             } else {
-                if (meshController.persistenceManager.changedSinceLastSave) {
-                    openPath = path;
-                    meshController.fileOpenPanelController.SetVisible(false);
-                    meshController.unsavedPanelController.SetVisible(true);
-                } else {
-                    Open(path);
-                }
+                onOpen.Invoke(path);
             }
         }
 

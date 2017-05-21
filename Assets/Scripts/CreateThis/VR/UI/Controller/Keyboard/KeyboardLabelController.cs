@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CreateThis.VR.UI.Keyboard {
+namespace CreateThis.VR.UI.Controller.Keyboard {
     public class KeyboardLabelController : MonoBehaviour {
         public TextMesh textMesh;
         public KeyboardController keyboardController;

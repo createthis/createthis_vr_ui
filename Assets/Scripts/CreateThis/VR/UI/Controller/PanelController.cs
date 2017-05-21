@@ -1,10 +1,11 @@
 using UnityEngine;
+using CreateThis.VR.UI.Interact;
 
 namespace CreateThis.VR.UI.Panel {
     public class PanelController : MonoBehaviour {
         private int notSelectableCount;
         private BoxCollider boxCollider;
-        private SelectableController selectableController;
+        private Selectable selectable;
         private bool hasInitialized = false;
 
         public void ZeroNotSelectableCount() {
@@ -27,14 +28,14 @@ namespace CreateThis.VR.UI.Panel {
                 boxCollider.enabled = true;
             } else {
                 boxCollider.enabled = false;
-                selectableController.SetSelected(false);
+                selectable.SetSelected(false);
             }
         }
 
         public void Initialize() {
             if (hasInitialized) return;
             boxCollider = GetComponent<BoxCollider>();
-            selectableController = GetComponent<SelectableController>();
+            selectable = GetComponent<Selectable>();
             notSelectableCount = 0;
             hasInitialized = true;
         }

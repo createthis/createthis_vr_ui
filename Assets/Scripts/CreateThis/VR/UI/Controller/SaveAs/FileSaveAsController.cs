@@ -4,16 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.System;
 using CreateThis.VR.UI.Scroller;
+using CreateThis.VR.UI.Interact;
+using CreateThis.VR.UI.UnityEvent;
+using CreateThis.VR.UI.Controller.Keyboard;
 
-namespace CreateThis.VR.UI.Controller {
+namespace CreateThis.VR.UI.Controller.SaveAs {
     public class FileSaveAsController : MonoBehaviour {
         public KineticScroller kineticScroller;
         public GameObject kineticScrollItemPrefab;
         public float height;
-        public MeshController meshController;
         public GameObject folderPrefab;
         public GameObject currentPathLabel;
         public TextMesh filenameButtonTextMesh;
+        public FileSaveAsPanelController fileSaveAsPanelController;
+        public KeyboardPanelController keyboardPanelController;
+        public FilePathEvent onSaveAs;
 
         private string currentPath;
         private List<GameObject> list;
@@ -27,8 +32,8 @@ namespace CreateThis.VR.UI.Controller {
             meshFilter.mesh = myGameObject.GetComponent<MeshFilter>().mesh;
             MeshRenderer meshRenderer = instance.GetComponent<MeshRenderer>();
             meshRenderer.materials = myGameObject.GetComponent<MeshRenderer>().materials;
-            SelectableController selectableController = instance.GetComponent<SelectableController>();
-            selectableController.unselectedMaterials = meshRenderer.materials;
+            Selectable selectable = instance.GetComponent<Selectable>();
+            selectable.unselectedMaterials = meshRenderer.materials;
             BoxCollider otherBoxCollider = myGameObject.GetComponent<BoxCollider>();
             if (otherBoxCollider) {
                 BoxCollider boxCollider = instance.GetComponent<BoxCollider>();
@@ -142,26 +147,20 @@ namespace CreateThis.VR.UI.Controller {
 
         public void KeyboardCallback(string filename) {
             SetFilename(filename);
-            meshController.keyboardPanelController.SetVisible(false);
-            meshController.fileSaveAsPanelController.SetVisible(true);
+            keyboardPanelController.SetVisible(false);
+            fileSaveAsPanelController.SetVisible(true);
         }
 
         public void FileNameClick() {
-            meshController.fileSaveAsPanelController.SetVisible(false);
-            meshController.keyboardPanelController.SetBuffer(this.filename);
-            meshController.keyboardPanelController.SetCallback(KeyboardCallback);
-            meshController.keyboardPanelController.SetVisible(true);
+            fileSaveAsPanelController.SetVisible(false);
+            keyboardPanelController.SetBuffer(this.filename);
+            keyboardPanelController.SetCallback(KeyboardCallback);
+            keyboardPanelController.SetVisible(true);
         }
 
         public void SaveAs() {
             string path = Path.Combine(currentPath, filename);
-            meshController.selectionManager.ClearSelectedVertices();
-            meshController.verticesManager.DeleteVertexInstances();
-            meshController.trianglesManager.DeleteTriangleInstances();
-            meshController.persistenceManager.Save(path);
-            meshController.fileSaveAsPanelController.SetVisible(false);
-            meshController.notificationPanelController.DisplayMessage("Saved");
-            meshController.SetMode(meshController.modeManager.mode);
+            onSaveAs.Invoke(path);
         }
 
         public void HandleClick(GameObject fileObject) {
@@ -196,7 +195,6 @@ namespace CreateThis.VR.UI.Controller {
             UpdateCurrentPathLabel();
             list = new List<GameObject>();
             ListDirectory();
-            SetFilename(Path.GetFileNameWithoutExtension(meshController.persistenceManager.lastFilePath));
         }
 
         // Update is called once per frame
