@@ -5,9 +5,10 @@ using UnityEngine;
 using CreateThis.System;
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
+using CreateThis.VR.UI.Panel;
 
 namespace CreateThis.VR.UI.File {
-    public abstract class FileBase : MonoBehaviour {
+    public abstract class FileBase : StandardPanel {
         public KineticScroller kineticScroller;
         public GameObject kineticScrollItemPrefab;
         public float height;

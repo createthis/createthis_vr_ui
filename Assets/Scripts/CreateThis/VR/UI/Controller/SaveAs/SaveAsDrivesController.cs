@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using CreateThis.VR.UI.Button;
 
 namespace CreateThis.VR.UI.Controller {
     public class SaveAsDrivesController : MonoBehaviour {
@@ -17,7 +18,7 @@ namespace CreateThis.VR.UI.Controller {
             driveButton.transform.localRotation = Quaternion.identity;
             driveButton.transform.localScale = driveButtonPrefab.transform.localScale;
             driveButton.transform.localPosition = driveButtonPrefab.transform.localPosition + -driveButton.transform.right * DriveButtonRowLocalWidth();
-            driveButton.GetComponent<SaveAsDriveButtonController>().SetPath(path);
+            driveButton.GetComponent<DriveButton>().SetPath(path);
             driveButtons.Add(driveButton);
         }
 
