@@ -5,18 +5,17 @@ using UnityEngine;
 using CreateThis.System;
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
-using CreateThis.VR.UI.UnityEvent;
 
-namespace CreateThis.VR.UI.Controller {
-    public class FileOpenController : MonoBehaviour {
+namespace CreateThis.VR.UI.File {
+    public abstract class FileBase : MonoBehaviour {
         public KineticScroller kineticScroller;
         public GameObject kineticScrollItemPrefab;
         public float height;
         public GameObject folderPrefab;
         public GameObject currentPathLabel;
-        public FilePathEvent onOpen;
+        public string searchPattern;
 
-        private string currentPath;
+        protected string currentPath;
         private List<GameObject> list;
 
         private GameObject InstantiatePrefabUsingGameObject(GameObject myGameObject) {
@@ -49,7 +48,7 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private string[] FilesInCurrentPath() {
-            return Directory.GetFiles(currentPath, "*.obj");
+            return Directory.GetFiles(currentPath, searchPattern);
         }
 
         private string[] FoldersInCurrentPath() {
@@ -75,9 +74,9 @@ namespace CreateThis.VR.UI.Controller {
             GameObject fileObject = InstantiatePrefabUsingGameObject(meshObject);
             Destroy(meshObject);
 
-            FileObjectController fileObjectController = fileObject.AddComponent<FileObjectController>();
-            fileObjectController.path = path;
-            fileObjectController.isFolder = isFolder;
+            FileData fileData = fileObject.AddComponent<FileData>();
+            fileData.path = path;
+            fileData.isFolder = isFolder;
 
             GameObject text = new GameObject();
             TextMesh textMesh = text.AddComponent<TextMesh>();
@@ -110,7 +109,7 @@ namespace CreateThis.VR.UI.Controller {
             kineticScroller.SetList(list);
         }
 
-        public string SpecialDirectoryNameToPath(string path) {
+        private string SpecialDirectoryNameToPath(string path) {
             switch (path) {
                 case "documents":
                     return KnownFolders.GetPath(KnownFolder.Documents);
@@ -135,16 +134,20 @@ namespace CreateThis.VR.UI.Controller {
             ListDirectory();
         }
 
+        protected void ClickedFile(string path) {
+
+        }
+
         public void HandleClick(GameObject fileObject) {
-            FileObjectController fileObjectController = fileObject.GetComponent<FileObjectController>();
-            string path = fileObjectController.path;
-            if (fileObjectController.isFolder) {
-                if (fileObjectController.path == "parent") {
+            FileData fileData = fileObject.GetComponent<FileData>();
+            string path = fileData.path;
+            if (fileData.isFolder) {
+                if (fileData.path == "parent") {
                     path = GetParentPath();
                 }
                 ChangeDirectory(path);
             } else {
-                onOpen.Invoke(path);
+                ClickedFile(path);
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace CreateThis.VR.UI.Controller {
-    public class FileObjectController : MonoBehaviour {
+namespace CreateThis.VR.UI.File {
+    public class FileData : MonoBehaviour {
         public string path;
         public bool isFolder;
 

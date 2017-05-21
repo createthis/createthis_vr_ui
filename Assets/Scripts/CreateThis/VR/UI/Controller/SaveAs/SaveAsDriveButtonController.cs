@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
-using CreateThis.VR.UI.Controller.SaveAs;
+using CreateThis.VR.UI.File;
 
 namespace CreateThis.VR.UI.Controller {
     public class SaveAsDriveButtonController : MonoBehaviour {
-        public FileSaveAsController fileSaveAsController;
+        public FileSaveAs fileSaveAs;
         public TextMesh textMeshLabel;
 
         private string path;
 
         public void Click() {
-            fileSaveAsController.ChangeDirectory(path);
+            fileSaveAs.ChangeDirectory(path);
         }
 
         public void SetPath(string value) {

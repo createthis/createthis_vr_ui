@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
+using CreateThis.VR.UI.File;
 
 namespace CreateThis.VR.UI.Controller {
     public class DriveButtonController : MonoBehaviour {
-        public FileOpenController fileOpenController;
+        public FileOpen fileOpen;
         public TextMesh textMeshLabel;
 
         private string path;
 
         public void Click() {
-            fileOpenController.ChangeDirectory(path);
+            fileOpen.ChangeDirectory(path);
         }
 
         public void SetPath(string value) {
