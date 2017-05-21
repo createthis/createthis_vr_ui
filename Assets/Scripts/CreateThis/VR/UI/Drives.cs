@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.VR.UI.Button;
 
-namespace CreateThis.VR.UI.Controller {
-    public class SaveAsDrivesController : MonoBehaviour {
+namespace CreateThis.VR.UI {
+    public class Drives : MonoBehaviour {
         public GameObject driveButtonPrefab;
         public Vector3 position;
 
         private List<GameObject> driveButtons;
         private string[] drives;
+
 
         private void InstantiateDriveButton(string path) {
             GameObject driveButton = Instantiate(driveButtonPrefab);
