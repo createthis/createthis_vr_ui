@@ -113,6 +113,7 @@ namespace CreateThis.VR.UI.Button {
 
         // Use this for initialization
         void Start() {
+            Initialize();
         }
 
         // Update is called once per frame

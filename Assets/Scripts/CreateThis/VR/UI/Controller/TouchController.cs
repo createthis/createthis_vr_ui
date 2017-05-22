@@ -5,7 +5,7 @@ namespace CreateThis.VR.UI.Controller {
     public class TouchController : MonoBehaviour {
         public Material unselected;
         public Material controllerMaterial;
-        public GameObject pointerCone;
+        public GameObject pointerConePrefab;
         public string hardware;
 
         private Valve.VR.EVRButtonId touchPadButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
@@ -33,7 +33,7 @@ namespace CreateThis.VR.UI.Controller {
             spawnPoint = new GameObject();
             spawnPoint.name = "SpawnPoint";
             spawnPoint.transform.parent = this.transform;
-            pointerConeInstance = Instantiate(pointerCone, this.transform.position, this.transform.rotation);
+            pointerConeInstance = Instantiate(pointerConePrefab, this.transform.position, this.transform.rotation);
             pointerConeInstance.transform.parent = this.transform;
             UpdatePointerCone(true);
 
@@ -71,8 +71,8 @@ namespace CreateThis.VR.UI.Controller {
         public void UpdatePointerCone(bool first = true) {
             if (!first) return;
 
-            pointerConeInstance.transform.localRotation = Quaternion.Euler(90, 0, 0);
-            pointerConeInstance.transform.localPosition = new Vector3(0.007f, 0, -0.035f);
+            pointerConeInstance.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            pointerConeInstance.transform.localPosition = new Vector3(0, 0, -0.020f);
             
             UpdateSpawnPoint();
         }

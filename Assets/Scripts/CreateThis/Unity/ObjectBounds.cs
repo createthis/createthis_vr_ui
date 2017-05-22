@@ -45,7 +45,7 @@ namespace CreateThis.Unity {
                 if (target.GetComponent<ColumnContainer>()) {
                     bounds = target.GetComponent<ColumnContainer>().bounds;
                 } else {
-                    Debug.Log("Panel.GetWorldBounds " + target.name + " has no way to determine bounds. Add a BoxCollider.");
+                    Debug.Log("ObjectBounds.ToWorld " + target.name + " has no way to determine bounds. Add a BoxCollider.");
                     bounds = new Bounds();
                 }
             }

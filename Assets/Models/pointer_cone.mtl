@@ -1,0 +1,265 @@
+# Mesh Maker VR
+newmtl Material_#FFAB0000
+Ka 1 1 1
+Kd 1 0.671851 0
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#2DC3EA00
+Ka 1 1 1
+Kd 0.1764706 0.7647059 0.9176471
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#FFAB0000_2
+Ka 1 1 1
+Kd 1 0.6718509 0
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#FFAB0100
+Ka 1 1 1
+Kd 1 0.6705883 0.003921569
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#FFAB0000_3
+Ka 1 1 1
+Kd 1 0.6705883 0
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#42C32400
+Ka 1 1 1
+Kd 0.2588235 0.7647059 0.1411765
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#B8C32400
+Ka 1 1 1
+Kd 0.7199531 0.7647059 0.1411765
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#C36A2400
+Ka 1 1 1
+Kd 0.7647059 0.4159247 0.1411765
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#24C3B600
+Ka 1 1 1
+Kd 0.1411765 0.7647059 0.7143391
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#F4D82400
+Ka 1 1 1
+Kd 0.9580063 0.8452643 0.1419777
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#24D5F400
+Ka 1 1 1
+Kd 0.1419777 0.8336512 0.9580063
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#E9F42400
+Ka 1 1 1
+Kd 0.9127927 0.9580063 0.1419777
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#F4B32400
+Ka 1 1 1
+Kd 0.9580063 0.7018287 0.1419777
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#E9F42400_2
+Ka 1 1 1
+Kd 0.9127927 0.9580062 0.1419777
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#E9F42400_3
+Ka 1 1 1
+Kd 0.9127927 0.9580062 0.1419777
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#695C3C00
+Ka 1 1 1
+Kd 0.4112642 0.3595208 0.2342046
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#25C32500
+Ka 1 1 1
+Kd 0.1451813 0.7650187 0.1457602
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#614B2E00
+Ka 1 1 1
+Kd 0.3816506 0.2941715 0.1810723
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#25C32500_2
+Ka 1 1 1
+Kd 0.1451813 0.7650187 0.1457602
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#695C3C00_2
+Ka 1 1 1
+Kd 0.4112642 0.3595208 0.2342046
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#614B2E00_2
+Ka 1 1 1
+Kd 0.3816506 0.2941715 0.1810723
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#614B2E00_3
+Ka 1 1 1
+Kd 0.3803922 0.2941177 0.1803922
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#614B2E00_4
+Ka 1 1 1
+Kd 0.3803922 0.2941177 0.1803922
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
+newmtl Material_#33B8BE00
+Ka 1 1 1
+Kd 0.1987779 0.7232318 0.7432942
+Ks 0.5 0.5 0.5
+Tf 1 1 1
+Ke 0 0 0
+Ns 96.07843
+Ni 1
+d 1
+illum 2
+
