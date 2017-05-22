@@ -60,8 +60,9 @@ namespace CreateThis.Unity {
 
         private static Material ColorAndStateToMaterial(Color color, bool renderMesh, bool renderWireframe, bool renderNormals, int textureCacheId = -1) {
             Material materialInstance;
+            materialInstance = new Material(Shader.Find("Standard"));
 
-
+            /*
             if (renderMesh) {
                 materialInstance = new Material(Shader.Find("VacuumShaders/The Amazing Wireframe/Geometry Shader"));
             } else {
@@ -69,6 +70,7 @@ namespace CreateThis.Unity {
                 materialInstance.SetInt("_Cull", 0);
                 if (textureCacheId == -1) color.a = 0;
             }
+            */
 
             materialInstance.SetColor("_Color", color);
             materialInstance.EnableKeyword("_EMISSION");

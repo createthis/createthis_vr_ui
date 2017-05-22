@@ -8,10 +8,10 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: outline
   m_Shader: {fileID: 4800000, guid: a70ebc0d070ab104d85fb56247042f87, type: 3}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3020
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -71,9 +71,7 @@ Material:
     - _Thickness: 0.1
     - _UVSec: 0
     - _ZWrite: 1
-    - g_flOutlineWidth: 0.009
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 1, g: 0.5336714, b: 0.1102941, a: 1}
-    - g_vOutlineColor: {r: 0, g: 1, b: 0.45490196, a: 0.69803923}
+    - _OutlineColor: {r: 1, g: 0.53333336, b: 0.10980392, a: 1}
