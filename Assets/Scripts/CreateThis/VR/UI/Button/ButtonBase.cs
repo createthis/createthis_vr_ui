@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using CreateThis.VR.UI.UnityEvent;
+using CreateThis.VR.UI.Interact;
 
 namespace CreateThis.VR.UI.Button {
-    public abstract class ButtonBase : MonoBehaviour {
+    public abstract class ButtonBase : MonoBehaviour, ITouchable {
         public AudioSource buttonClickDown;
         public AudioSource buttonClickUp;
         public GameObject buttonBody;
@@ -19,16 +20,16 @@ namespace CreateThis.VR.UI.Button {
         private float firstUpdateIgnoreThreshold;
         private bool hasInitialized = false;
 
-        public void OnSelectedEnter(Transform controller, int controllerIndex) {
+        public void OnTouchEnter(Transform controller, int controllerIndex) {
             pushing = true;
             UpdatePosition(controller, controllerIndex, true);
         }
 
-        public void OnSelectedUpdate(Transform controller, int controllerIndex) {
+        public void OnTouchStay(Transform controller, int controllerIndex) {
             UpdatePosition(controller, controllerIndex);
         }
 
-        public void OnSelectedExit(Transform controller, int controllerIndex) {
+        public void OnTouchExit(Transform controller, int controllerIndex) {
             if (!pushing) return;
             pushing = false;
             bool tmpHitTravelLimit = hitTravelLimit; // hitTravelLimit is set to false in ResetPosition.
