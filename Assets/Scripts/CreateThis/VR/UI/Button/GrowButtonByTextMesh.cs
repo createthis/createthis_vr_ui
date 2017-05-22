@@ -62,7 +62,7 @@ namespace CreateThis.VR.UI.Button {
             Undo.CollapseUndoOperations(group);
 #endif
 
-            ExecuteEvents.Execute<IChild3dWidgetResized>(transform.parent.gameObject, null, (x, y) => x.Child3dWidgetResized());
+            if (transform.parent) ExecuteEvents.Execute<IChild3dWidgetResized>(transform.parent.gameObject, null, (x, y) => x.Child3dWidgetResized());
         }
 
         private float RowWidth() {
