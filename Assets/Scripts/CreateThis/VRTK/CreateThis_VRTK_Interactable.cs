@@ -14,12 +14,12 @@ namespace CreateThis.VRTK {
             VRTK_ControllerReference controllerReference = VRTK_ControllerReference.GetControllerReference(touchingObject);
             controllerIndex = (int)VRTK_ControllerReference.GetRealIndex(controllerReference);
             this.touchingObject = touchingObject;
-            GetComponent<ITouchable>().OnTouchEnter(touchingObject.transform, controllerIndex);
+            GetComponent<ITouchable>().OnTouchStart(touchingObject.transform, controllerIndex);
         }
 
         public override void StopTouching(GameObject touchingObject) {
             base.StopTouching(touchingObject);
-            GetComponent<ITouchable>().OnTouchExit(touchingObject.transform, controllerIndex);
+            GetComponent<ITouchable>().OnTouchStop(touchingObject.transform, controllerIndex);
             touchingObject = null;
             controllerIndex = -1;
         }
@@ -27,7 +27,7 @@ namespace CreateThis.VRTK {
         protected override void Update() {
             base.Update();
             if (touchingObject) {
-                GetComponent<ITouchable>().OnTouchStay(touchingObject.transform, controllerIndex);
+                GetComponent<ITouchable>().OnTouchUpdate(touchingObject.transform, controllerIndex);
             }
         }
     }

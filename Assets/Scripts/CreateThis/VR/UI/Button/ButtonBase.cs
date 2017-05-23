@@ -20,16 +20,16 @@ namespace CreateThis.VR.UI.Button {
         private float firstUpdateIgnoreThreshold;
         private bool hasInitialized = false;
 
-        public void OnTouchEnter(Transform controller, int controllerIndex) {
+        public void OnTouchStart(Transform controller, int controllerIndex) {
             pushing = true;
             UpdatePosition(controller, controllerIndex, true);
         }
 
-        public void OnTouchStay(Transform controller, int controllerIndex) {
+        public void OnTouchUpdate(Transform controller, int controllerIndex) {
             UpdatePosition(controller, controllerIndex);
         }
 
-        public void OnTouchExit(Transform controller, int controllerIndex) {
+        public void OnTouchStop(Transform controller, int controllerIndex) {
             if (!pushing) return;
             pushing = false;
             bool tmpHitTravelLimit = hitTravelLimit; // hitTravelLimit is set to false in ResetPosition.

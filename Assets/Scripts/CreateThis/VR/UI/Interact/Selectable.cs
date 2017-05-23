@@ -33,14 +33,14 @@ namespace CreateThis.VR.UI.Interact {
         private TextMesh textMesh;
         private bool hasInitialized;
 
-        public void OnTouchEnter(Transform controller, int controllerIndex) {
+        public void OnTouchStart(Transform controller, int controllerIndex) {
             SetSelected(true);
         }
 
-        public void OnTouchStay(Transform controller, int controllerIndex) {
+        public void OnTouchUpdate(Transform controller, int controllerIndex) {
         }
 
-        public void OnTouchExit(Transform controller, int controllerIndex) {
+        public void OnTouchStop(Transform controller, int controllerIndex) {
             SetSelected(false);
         }
 
