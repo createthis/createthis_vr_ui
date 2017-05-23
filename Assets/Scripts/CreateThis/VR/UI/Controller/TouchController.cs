@@ -158,7 +158,10 @@ namespace CreateThis.VR.UI.Controller {
 
         private void OnTriggerEnter(Collider collider) {
             if (collider.GetComponent<Touchable>()) {
-                collider.GetComponent<Touchable>().OnTouchStart(spawnPoint.transform, (int)trackedObj.index);
+                Touchable[] touchables = collider.GetComponents<Touchable>();
+                foreach (Touchable touchable in touchables) {
+                    touchable.OnTouchStart(spawnPoint.transform, (int)trackedObj.index);
+                }
             }
             if (!dragging && !triggerDown) {
                 pickup = collider.gameObject;
@@ -167,13 +170,19 @@ namespace CreateThis.VR.UI.Controller {
 
         private void OnTriggerStay(Collider collider) {
             if (collider.GetComponent<Touchable>()) {
-                collider.GetComponent<Touchable>().OnTouchUpdate(spawnPoint.transform, (int)trackedObj.index);
+                Touchable[] touchables = collider.GetComponents<Touchable>();
+                foreach (Touchable touchable in touchables) {
+                    touchable.OnTouchUpdate(spawnPoint.transform, (int)trackedObj.index);
+                }
             }
         }
 
         private void OnTriggerExit(Collider collider) {
-            if (collider.GetComponent<Touchable>() != null) {
-                collider.GetComponent<Touchable>().OnTouchStop(spawnPoint.transform, (int)trackedObj.index);
+            if (collider.GetComponent<Touchable>()) {
+                Touchable[] touchables = collider.GetComponents<Touchable>();
+                foreach (Touchable touchable in touchables) {
+                    touchable.OnTouchStop(spawnPoint.transform, (int)trackedObj.index);
+                }
             }
             if (!dragging && !triggerDown) {
                 if (pickup != null && collider != null && pickup != collider.gameObject) {
