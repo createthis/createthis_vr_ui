@@ -4,7 +4,7 @@ using UnityEngine;
 using CreateThis.Unity;
 
 namespace CreateThis.VR.UI.Interact {
-    public class Selectable : MonoBehaviour {
+    public class Selectable : MonoBehaviour, ITouchable {
         public Material highlightMaterial;
         public Material outlineMaterial;
         public Mesh outlineMesh;
@@ -32,6 +32,17 @@ namespace CreateThis.VR.UI.Interact {
         private LineRenderer lineRenderer;
         private TextMesh textMesh;
         private bool hasInitialized;
+
+        public void OnTouchEnter(Transform controller, int controllerIndex) {
+            SetSelected(true);
+        }
+
+        public void OnTouchStay(Transform controller, int controllerIndex) {
+        }
+
+        public void OnTouchExit(Transform controller, int controllerIndex) {
+            SetSelected(false);
+        }
 
         private void UpdateMaterialMeshRenderer(GameObject target, Selectable selectable, bool selected) {
             if (!selectable.meshRenderer) return;
