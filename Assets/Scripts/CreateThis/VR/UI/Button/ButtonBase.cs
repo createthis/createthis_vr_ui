@@ -3,7 +3,7 @@ using CreateThis.VR.UI.UnityEvent;
 using CreateThis.VR.UI.Interact;
 
 namespace CreateThis.VR.UI.Button {
-    public abstract class ButtonBase : MonoBehaviour, ITouchable {
+    public abstract class ButtonBase : Touchable {
         public AudioSource buttonClickDown;
         public AudioSource buttonClickUp;
         public GameObject buttonBody;
@@ -20,16 +20,16 @@ namespace CreateThis.VR.UI.Button {
         private float firstUpdateIgnoreThreshold;
         private bool hasInitialized = false;
 
-        public void OnTouchStart(Transform controller, int controllerIndex) {
+        public override void OnTouchStart(Transform controller, int controllerIndex) {
             pushing = true;
             UpdatePosition(controller, controllerIndex, true);
         }
 
-        public void OnTouchUpdate(Transform controller, int controllerIndex) {
+        public override void OnTouchUpdate(Transform controller, int controllerIndex) {
             UpdatePosition(controller, controllerIndex);
         }
 
-        public void OnTouchStop(Transform controller, int controllerIndex) {
+        public override void OnTouchStop(Transform controller, int controllerIndex) {
             if (!pushing) return;
             pushing = false;
             bool tmpHitTravelLimit = hitTravelLimit; // hitTravelLimit is set to false in ResetPosition.

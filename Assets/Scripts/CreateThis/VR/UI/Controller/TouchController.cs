@@ -103,8 +103,8 @@ namespace CreateThis.VR.UI.Controller {
             // Handle Trigger Down
             if (!dragging && controller.GetPressDown(triggerButton) && !controller.GetPress(touchPadButton)) {
                 //Debug.Log("[" + trackedObj.index + "] trigger pressed at " + this.transform.position.ToString());
-                if (pickup != null && pickup.GetComponent<ITriggerable>() != null) {
-                    pickup.GetComponent<ITriggerable>().OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
+                if (pickup != null && pickup.GetComponent<Triggerable>()) {
+                    pickup.GetComponent<Triggerable>().OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
                     if (noTriggerDownNext) {
                         noTriggerDownNext = false;
                     } else {
@@ -114,8 +114,8 @@ namespace CreateThis.VR.UI.Controller {
             }
 
             if (controller.GetPressUp(triggerButton)) {
-                if (pickup != null && pickup.GetComponent<ITriggerable>() != null) {
-                    pickup.GetComponent<ITriggerable>().OnTriggerUp(spawnPoint.transform, (int)trackedObj.index);
+                if (pickup != null && pickup.GetComponent<Triggerable>()) {
+                    pickup.GetComponent<Triggerable>().OnTriggerUp(spawnPoint.transform, (int)trackedObj.index);
                     triggerDown = false;
                     if (deferredTriggerExit) {
                         pickup = null; // this happens when holding the trigger while moving away from a collider, then releasing outside the collider.
@@ -129,26 +129,26 @@ namespace CreateThis.VR.UI.Controller {
 
             if (controller.GetPressDown(gripButton) && pickup != null) {
                 Debug.Log("[" + trackedObj.index + "] grip pressed");
-                if (pickup.GetComponent<IGrabbable>() != null) {
-                    pickup.GetComponent<IGrabbable>().OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
+                if (pickup.GetComponent<Grabbable>()) {
+                    pickup.GetComponent<Grabbable>().OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
                     dragging = true;
                     pickup.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 Debug.Log("[" + trackedObj.index + "] Dragging true");
             }
 
-            if (dragging && pickup.GetComponent<IGrabbable>() != null) {
-                pickup.GetComponent<IGrabbable>().OnGrabUpdate(spawnPoint.transform, (int)trackedObj.index);
+            if (dragging && pickup.GetComponent<Grabbable>()) {
+                pickup.GetComponent<Grabbable>().OnGrabUpdate(spawnPoint.transform, (int)trackedObj.index);
             }
 
-            if (triggerDown && pickup && pickup.GetComponent<ITriggerable>() != null) {
-                pickup.GetComponent<ITriggerable>().OnTriggerUpdate(spawnPoint.transform, (int)trackedObj.index);
+            if (triggerDown && pickup && pickup.GetComponent<Triggerable>()) {
+                pickup.GetComponent<Triggerable>().OnTriggerUpdate(spawnPoint.transform, (int)trackedObj.index);
             }
 
             if (controller.GetPressUp(gripButton) && pickup != null && dragging == true) {
                 Debug.Log("[" + trackedObj.index + "] Grip release, pickup.tag=" + pickup.tag);
-                if (pickup.GetComponent<IGrabbable>() != null) {
-                    pickup.GetComponent<IGrabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
+                if (pickup.GetComponent<Grabbable>()) {
+                    pickup.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
                     dragging = false;
                     if (pickup) pickup = null;
                 }
@@ -157,8 +157,8 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private void OnTriggerEnter(Collider collider) {
-            if (collider.GetComponent<ITouchable>() != null) {
-                collider.GetComponent<ITouchable>().OnTouchStart(spawnPoint.transform, (int)trackedObj.index);
+            if (collider.GetComponent<Touchable>()) {
+                collider.GetComponent<Touchable>().OnTouchStart(spawnPoint.transform, (int)trackedObj.index);
             }
             if (!dragging && !triggerDown) {
                 pickup = collider.gameObject;
@@ -166,14 +166,14 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private void OnTriggerStay(Collider collider) {
-            if (collider.GetComponent<ITouchable>() != null) {
-                collider.GetComponent<ITouchable>().OnTouchUpdate(spawnPoint.transform, (int)trackedObj.index);
+            if (collider.GetComponent<Touchable>()) {
+                collider.GetComponent<Touchable>().OnTouchUpdate(spawnPoint.transform, (int)trackedObj.index);
             }
         }
 
         private void OnTriggerExit(Collider collider) {
-            if (collider.GetComponent<ITouchable>() != null) {
-                collider.GetComponent<ITouchable>().OnTouchStop(spawnPoint.transform, (int)trackedObj.index);
+            if (collider.GetComponent<Touchable>() != null) {
+                collider.GetComponent<Touchable>().OnTouchStop(spawnPoint.transform, (int)trackedObj.index);
             }
             if (!dragging && !triggerDown) {
                 if (pickup != null && collider != null && pickup != collider.gameObject) {
