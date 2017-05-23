@@ -10,7 +10,7 @@ The intent is to save time when designing complex VR application UIs.
 
 # NOTES
 
-* The current version of VRTK adds "None" to the Supported VR SDK manager in Settings -> Player, so you will need to remove "None" anytime you switch from the VRTK scene to the non VRTK scene.
+* The current version of VRTK adds "None" to the Supported VR SDK manager in Settings -> Player, so I've added a UseOpenVR gameobject with a UseOpenVR script to automatically switch back to OpenVR.
 * The TranslucentController.cs script only works with SteamVR at the moment (because VRTK provides no way to change the default controller model material), so the VRTK examples only work with SteamVR. This is the only VRTK limitation and could be solved with custom controller models.
 
 # Naming
