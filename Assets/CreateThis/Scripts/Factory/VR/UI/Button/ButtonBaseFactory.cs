@@ -25,14 +25,6 @@ namespace CreateThis.Factory.VR.UI.Button {
         protected GameObject buttonBodyInstance;
         protected GameObject buttonTextLabelInstance;
 
-        protected T SafeAddComponent<T>(GameObject target) where T : Component {
-#if UNITY_EDITOR
-            return Undo.AddComponent<T>(target);
-#else
-            return target.AddComponent<T>();
-#endif
-        }
-
         private AudioSource AddAudioSource(GameObject target, AudioClip audioClip) {
             if (!audioClip) return null;
             AudioSource audioSource = SafeAddComponent<AudioSource>(target);
