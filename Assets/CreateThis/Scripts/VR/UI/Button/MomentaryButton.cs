@@ -9,13 +9,13 @@ namespace CreateThis.VR.UI.Button {
         private float repeatDelayInSeconds = 0.1f;
         private IEnumerator repeatCoroutine;
 
-        protected new void SelectedExitAfterHitTravelLimitHandler(Transform controller, int controllerIndex) {
+        protected override void SelectedExitAfterHitTravelLimitHandler(Transform controller, int controllerIndex) {
             if (repeat) {
                 StopCoroutine(repeatCoroutine);
             }
         }
 
-        protected new void HitTravelLimitHandler(Transform controller, int controllerIndex) {
+        protected override void HitTravelLimitHandler(Transform controller, int controllerIndex) {
             if (!clickOnTriggerExit) {
                 ClickHandler(controller, controllerIndex);
             }

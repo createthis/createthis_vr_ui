@@ -43,27 +43,27 @@ namespace CreateThis.VR.UI.Button {
             }
         }
 
-        protected void ResetPosition() {
+        protected virtual void ResetPosition() {
             buttonBody.transform.position = transform.TransformPoint(startingBodyButtonLocalPosition);
             buttonText.transform.position = transform.TransformPoint(startingTextButtonLocalPosition);
             hitTravelLimit = false;
         }
 
-        protected void SelectedExitAfterHitTravelLimitHandler(Transform controller, int controllerIndex) {
+        protected virtual void SelectedExitAfterHitTravelLimitHandler(Transform controller, int controllerIndex) {
 
         }
 
-        protected void ClickHandler(Transform controller, int controllerIndex) {
+        protected virtual void ClickHandler(Transform controller, int controllerIndex) {
             onClick.Invoke(controller, controllerIndex);
         }
 
-        protected void HitTravelLimitHandler(Transform controller, int controllerIndex) {
+        protected virtual void HitTravelLimitHandler(Transform controller, int controllerIndex) {
             if (!clickOnTriggerExit) {
                 ClickHandler(controller, controllerIndex);
             }
         }
 
-        protected float UpdateZHandler(float newZ) {
+        protected virtual float UpdateZHandler(float newZ) {
             return newZ;
         }
 
@@ -96,7 +96,7 @@ namespace CreateThis.VR.UI.Button {
             buttonText.transform.position = transform.TransformPoint(startingTextButtonLocalPosition + Vector3.forward * newZ);
         }
 
-        protected void StartingLocalPositionHandler(float buttonBodyDepth) {
+        protected virtual void StartingLocalPositionHandler(float buttonBodyDepth) {
             startingBodyButtonLocalPosition = transform.InverseTransformPoint(buttonBody.transform.position);
             startingTextButtonLocalPosition = transform.InverseTransformPoint(buttonText.transform.position);
         }
