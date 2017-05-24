@@ -1,0 +1,48 @@
+[
+  {
+    "type": "PanelContainer",
+    "name": "Panel",
+    "minWidth": 0,
+    "minHeight":0,
+    "children": [
+      {
+        "type": "ColumnContainer",
+        "name": "Column",
+        "padding": 0.02,
+        "spacing":0.01,
+        "children": [
+          {
+            "type": "RowContainer",
+            "name": "Row",
+            "padding": 0.02,
+            "spacing": 0.01,
+            "alignment": "left",
+            "children": [
+              {
+                "type": "ToggleButton",
+                "name": "Button",
+                "text": "Test Toggle",
+                "alignment": "left",
+                "fontSize": 60,
+                "fontColor": "#FFFFFFFF",
+                "labelZ": -0.01370001,
+                "bodyScale": {"x":1,"y":0.025,"z":0.025},
+                "labelScale": {"x":0.004,"y":0.004,"z":0.004},
+                "on": false
+              },
+              {
+                "type": "MomentaryButton",
+                "name": "Button",
+                "text": "Test Momentary",
+                "alignment": "left",
+                "fontSize": 60,
+                "fontColor": "#FFFFFFFF",
+                "labelZ": -0.01370001,
+                "bodyScale": {"x":1,"y":0.025,"z":0.025},
+                "labelScale": {"x":0.004,"y":0.004,"z":0.004},
+                "on": false
+              }
+            ]}
+        ]}
+    ]}
+]

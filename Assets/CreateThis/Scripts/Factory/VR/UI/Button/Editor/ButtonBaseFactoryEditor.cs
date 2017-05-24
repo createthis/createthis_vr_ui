@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace CreateThis.Scaffold.VR.UI.Button {
-    [CustomEditor(typeof(ScaffoldButtonBase))]
+namespace CreateThis.Factory.VR.UI.Button {
+    [CustomEditor(typeof(ButtonBaseFactory))]
     [CanEditMultipleObjects]
 
-    public abstract class ScaffoldButtonBaseEditor : Editor {
+    public abstract class ButtonBaseFactoryEditor : Editor {
         SerializedProperty thisTarget;
         SerializedProperty buttonText;
         SerializedProperty buttonBody;
@@ -43,9 +43,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             // But then it gets called a couple of times when ever inspector updates
             // By having a button, you can control when the value goes through the setter and getter, your self.
             if (GUILayout.Button("Generate")) {
-                if (target.GetType() == typeof(ScaffoldButtonBase)) {
-                    ScaffoldButtonBase scaffoldButton = (ScaffoldButtonBase)target;
-                    scaffoldButton.Generate();
+                if (target.GetType() == typeof(ButtonBaseFactory)) {
+                    ButtonBaseFactory buttonFactory = (ButtonBaseFactory)target;
+                    buttonFactory.Generate();
                 }
             }
         }

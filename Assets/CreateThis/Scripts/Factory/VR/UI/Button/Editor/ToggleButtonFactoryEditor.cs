@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace CreateThis.Scaffold.VR.UI.Button {
-    [CustomEditor(typeof(ScaffoldToggleButton))]
+namespace CreateThis.Factory.VR.UI.Button {
+    [CustomEditor(typeof(ToggleButtonFactory))]
     [CanEditMultipleObjects]
-    public class ScaffoldToggleButtonEditor : ScaffoldButtonBaseEditor {
+    public class ToggleButtonFactoryEditor : ButtonBaseFactoryEditor {
         SerializedProperty on;
 
         protected override void OnEnable() {
@@ -15,9 +15,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
 
         protected override void BuildGenerateButton() {
             if (GUILayout.Button("Generate")) {
-                if (target.GetType() == typeof(ScaffoldToggleButton)) {
-                    ScaffoldToggleButton scaffoldButton = (ScaffoldToggleButton)target;
-                    scaffoldButton.Generate();
+                if (target.GetType() == typeof(ToggleButtonFactory)) {
+                    ToggleButtonFactory buttonFactory = (ToggleButtonFactory)target;
+                    buttonFactory.Generate();
                 }
             }
         }

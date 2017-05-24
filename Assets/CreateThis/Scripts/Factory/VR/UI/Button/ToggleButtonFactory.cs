@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using CreateThis.VR.UI.Button;
 
-namespace CreateThis.Scaffold.VR.UI.Button {
-    public class ScaffoldToggleButton : ScaffoldButtonBase {
+namespace CreateThis.Factory.VR.UI.Button {
+    public class ToggleButtonFactory : ButtonBaseFactory {
         public bool on;
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {

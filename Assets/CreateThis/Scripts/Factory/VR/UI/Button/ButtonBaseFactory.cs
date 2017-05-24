@@ -5,8 +5,8 @@ using CreateThis.VR.UI.Interact;
 using UnityEditor;
 #endif
 
-namespace CreateThis.Scaffold.VR.UI.Button {
-    public abstract class ScaffoldButtonBase : ScaffoldBase {
+namespace CreateThis.Factory.VR.UI.Button {
+    public abstract class ButtonBaseFactory : BaseFactory {
         public GameObject target;
         public string buttonText;
         public GameObject buttonBody;
@@ -138,10 +138,10 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             base.Generate();
             
 #if UNITY_EDITOR
-            Undo.SetCurrentGroupName("ScaffoldMomentaryButton Generate");
+            Undo.SetCurrentGroupName("ButtonFactory Generate");
             int group = Undo.GetCurrentGroup();
 
-            Undo.RegisterCompleteObjectUndo(this, "ScaffoldMomentaryButton state");
+            Undo.RegisterCompleteObjectUndo(this, "ButtonFactory state");
 #endif
             CreateButtonBody();
             CreateTextLabel();
