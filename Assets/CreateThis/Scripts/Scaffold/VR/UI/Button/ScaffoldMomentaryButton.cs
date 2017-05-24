@@ -18,6 +18,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
         public TextAlignment alignment;
         public int fontSize;
         public Color fontColor;
+        public float labelZ;
+        public Vector3 bodyScale;
+        public Vector3 labelScale;
 
         private GameObject buttonBodyInstance;
         private GameObject buttonTextLabelInstance;
@@ -61,8 +64,11 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             growButton.textMesh = buttonTextLabelInstance.GetComponent<TextMesh>();
             growButton.alignment = alignment;
 
-            SafeAddComponent<BoxCollider>(target);
-            SafeAddComponent<Rigidbody>(target);
+            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(target);
+            boxCollider.size = bodyScale;
+
+            Rigidbody rigidBody = SafeAddComponent<Rigidbody>(target);
+            rigidBody.isKinematic = true;
 
             Selectable selectable = SafeAddComponent<Selectable>(target);
             selectable.highlightMaterial = highlight;
@@ -70,6 +76,8 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             selectable.textColor = fontColor;
             selectable.unselectedMaterials = new Material[] { material };
             selectable.recursive = true;
+
+            growButton.Resize();
         }
 
         private void CreateButtonBody() {
@@ -79,9 +87,15 @@ namespace CreateThis.Scaffold.VR.UI.Button {
 #if UNITY_EDITOR
             Undo.RegisterCreatedObjectUndo(buttonBodyInstance, "Created ButtonBody");
 #endif
-
+            buttonBodyInstance.SetActive(true);
+            buttonBodyInstance.transform.localScale = bodyScale;
             buttonBodyInstance.transform.parent = target.transform;
+            buttonBodyInstance.transform.localPosition = Vector3.zero;
+            buttonBodyInstance.transform.localRotation = Quaternion.identity;
             buttonBodyInstance.name = "ButtonBody";
+
+            MeshRenderer meshRenderer = buttonBodyInstance.GetComponent<MeshRenderer>();
+            meshRenderer.materials = new Material[1] { material };
 
             Selectable selectable = buttonBodyInstance.AddComponent<Selectable>();
             selectable.highlightMaterial = highlight;
@@ -100,13 +114,18 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             Undo.RegisterCreatedObjectUndo(buttonTextLabelInstance, "Created ButtonTextLabel");
 #endif
 
+            buttonTextLabelInstance.transform.localScale = labelScale;
             buttonTextLabelInstance.transform.parent = target.transform;
+            buttonTextLabelInstance.transform.localPosition = new Vector3(0, 0, labelZ);
+            buttonTextLabelInstance.transform.localRotation = Quaternion.identity;
             buttonTextLabelInstance.name = "ButtonTextLabel";
 
             TextMesh textMesh = buttonTextLabelInstance.AddComponent<TextMesh>();
             textMesh.text = buttonText;
             textMesh.fontSize = fontSize;
             textMesh.color = fontColor;
+            textMesh.anchor = TextAnchor.MiddleCenter;
+            textMesh.alignment = TextAlignment.Left;
         }
 
         public override void Generate() {

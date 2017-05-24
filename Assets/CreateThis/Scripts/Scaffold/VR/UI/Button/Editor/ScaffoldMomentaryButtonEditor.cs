@@ -17,6 +17,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
         SerializedProperty alignment;
         SerializedProperty fontSize;
         SerializedProperty fontColor;
+        SerializedProperty labelZ;
+        SerializedProperty bodyScale;
+        SerializedProperty labelScale;
 
         void OnEnable() {
             thisTarget = serializedObject.FindProperty("target");
@@ -30,6 +33,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             alignment = serializedObject.FindProperty("alignment");
             fontSize = serializedObject.FindProperty("fontSize");
             fontColor = serializedObject.FindProperty("fontColor");
+            labelZ = serializedObject.FindProperty("labelZ");
+            bodyScale = serializedObject.FindProperty("bodyScale");
+            labelScale = serializedObject.FindProperty("labelScale");
         }
 
         public override void OnInspectorGUI() {
@@ -46,6 +52,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             EditorGUILayout.PropertyField(alignment);
             EditorGUILayout.PropertyField(fontSize);
             EditorGUILayout.PropertyField(fontColor);
+            EditorGUILayout.PropertyField(labelZ);
+            EditorGUILayout.PropertyField(bodyScale);
+            EditorGUILayout.PropertyField(labelScale);
 
             serializedObject.ApplyModifiedProperties();
 
