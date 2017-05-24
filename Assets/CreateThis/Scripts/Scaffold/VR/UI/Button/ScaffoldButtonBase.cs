@@ -22,10 +22,10 @@ namespace CreateThis.Scaffold.VR.UI.Button {
         public Vector3 bodyScale;
         public Vector3 labelScale;
 
-        private GameObject buttonBodyInstance;
-        private GameObject buttonTextLabelInstance;
+        protected GameObject buttonBodyInstance;
+        protected GameObject buttonTextLabelInstance;
 
-        private T SafeAddComponent<T>(GameObject target) where T : Component {
+        protected T SafeAddComponent<T>(GameObject target) where T : Component {
 #if UNITY_EDITOR
             return Undo.AddComponent<T>(target);
 #else
@@ -41,6 +41,14 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             return audioSource;
         }
 
+        protected virtual void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+            MomentaryButton button = SafeAddComponent<MomentaryButton>(target);
+            if (audioSourceDown) button.buttonClickDown = audioSourceDown;
+            if (audioSourceUp) button.buttonClickUp = audioSourceUp;
+            button.buttonBody = buttonBodyInstance;
+            button.buttonText = buttonTextLabelInstance;
+        }
+
         private void PopulateTarget() {
             if (!buttonBodyInstance) return;
 
@@ -53,19 +61,15 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             AudioSource audioSourceDown = AddAudioSource(target, buttonClickDown);
             AudioSource audioSourceUp = AddAudioSource(target, buttonClickUp);
 
-            MomentaryButton button = SafeAddComponent<MomentaryButton>(target);
-            if (audioSourceDown) button.buttonClickDown = audioSourceDown;
-            if (audioSourceUp) button.buttonClickUp = audioSourceUp ;
-            button.buttonBody = buttonBodyInstance;
-            button.buttonText = buttonTextLabelInstance;
+            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(target);
+            boxCollider.size = bodyScale;
+
+            AddButton(target, audioSourceDown, audioSourceUp);
 
             GrowButtonByTextMesh growButton = SafeAddComponent<GrowButtonByTextMesh>(target);
             growButton.buttonBody = buttonBodyInstance;
             growButton.textMesh = buttonTextLabelInstance.GetComponent<TextMesh>();
             growButton.alignment = alignment;
-
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(target);
-            boxCollider.size = bodyScale;
 
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(target);
             rigidBody.isKinematic = true;
@@ -103,7 +107,9 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             selectable.textColor = fontColor;
             selectable.unselectedMaterials = new Material[] { material };
 
-            buttonBodyInstance.AddComponent<BoxCollider>();
+            if (!buttonBodyInstance.GetComponent<BoxCollider>()) {
+                buttonBodyInstance.AddComponent<BoxCollider>();
+            }
         }
 
         private void CreateTextLabel() {

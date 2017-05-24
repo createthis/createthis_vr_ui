@@ -21,7 +21,7 @@ namespace CreateThis.Scaffold.VR.UI.Button {
         SerializedProperty bodyScale;
         SerializedProperty labelScale;
 
-        void OnEnable() {
+        protected virtual void OnEnable() {
             thisTarget = serializedObject.FindProperty("target");
             buttonText = serializedObject.FindProperty("buttonText");
             buttonBody = serializedObject.FindProperty("buttonBody");
@@ -50,6 +50,10 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             }
         }
 
+        protected virtual void AdditionalProperties() {
+            // put your properties here in the override
+        }
+
         public override void OnInspectorGUI() {
             serializedObject.Update();
 
@@ -67,6 +71,7 @@ namespace CreateThis.Scaffold.VR.UI.Button {
             EditorGUILayout.PropertyField(labelZ);
             EditorGUILayout.PropertyField(bodyScale);
             EditorGUILayout.PropertyField(labelScale);
+            AdditionalProperties();
 
             serializedObject.ApplyModifiedProperties();
 
