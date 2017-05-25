@@ -7,6 +7,7 @@ using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
+using CreateThis.VR.UI.Container;
 
 namespace CreateThis.Factory.VR.UI {
     public class KeyboardFactory : BaseFactory {
@@ -105,6 +106,12 @@ namespace CreateThis.Factory.VR.UI {
             KeyboardLabel keyboardLabel = SafeAddComponent<KeyboardLabel>(label);
             keyboardLabel.keyboard = keyboard;
             keyboardLabel.textMesh = textMesh;
+
+            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(label);
+
+            UpdateBoxColliderFromTextMesh updateBoxCollider = SafeAddComponent<UpdateBoxColliderFromTextMesh>(label);
+            updateBoxCollider.textMesh = textMesh;
+            updateBoxCollider.boxCollider = boxCollider;
 
             return row;
         }
