@@ -43,19 +43,28 @@ namespace CreateThis.Factory.VR.UI {
         protected struct Key {
             public KeyType type;
             public string value;
+            public bool on;
+
+            public Key(KeyType type, string value, bool on) {
+                this.type = type;
+                this.value = value;
+                this.on = on;
+            }
 
             public Key(KeyType type, string value) {
                 this.type = type;
                 this.value = value;
+                on = false;
             }
 
             public Key(string value) {
                 type = KeyType.Key;
                 this.value = value;
+                on = false;
             }
 
-            public static Key ShiftLock(string value) {
-                return new Key(KeyType.ShiftLock, value);
+            public static Key ShiftLock(string value, bool on) {
+                return new Key(KeyType.ShiftLock, value, on);
             }
 
             public static Key NumLock(string value) {
@@ -126,10 +135,11 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardShiftLockButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardShiftLockButton(GameObject parent, string buttonText, bool on) {
             KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
+            factory.on = on;
             return GenerateKeyboardButtonAndSetPosition(factory);
 
         }
@@ -195,7 +205,7 @@ namespace CreateThis.Factory.VR.UI {
                     KeyboardButton(parent, key.value);
                     break;
                 case KeyType.ShiftLock:
-                    KeyboardShiftLockButton(parent, key.value);
+                    KeyboardShiftLockButton(parent, key.value, key.on);
                     break;
                 default:
                     Debug.Log("unhandled key type=" + key.type);
@@ -227,7 +237,7 @@ namespace CreateThis.Factory.VR.UI {
             if (panelLowerCase) return;
 
             GameObject panel = Panel(parent);
-            StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
+            SafeAddComponent<StandardPanel>(panel);
 
             GameObject column = Column(panel);
 
@@ -240,7 +250,7 @@ namespace CreateThis.Factory.VR.UI {
                 K("a"), K("s"), K("d"), K("f"), K("g"), K("h"), K("j"), K("k"), K("l")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("⇧"), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Backspace("⌫")
+                Key.ShiftLock("⇧", false), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Backspace("⌫")
             });
             ButtonRow(column, new List<Key> {
                 Key.NumLock("123"), Key.Spacer(), K("space"), Key.Return("return")
@@ -248,6 +258,87 @@ namespace CreateThis.Factory.VR.UI {
 
             panelLowerCase = panel;
             keyboard.panelLowerCase = panelLowerCase.GetComponent<StandardPanel>();
+        }
+
+        protected void PanelUpperCase(GameObject parent) {
+            if (panelUpperCase) return;
+
+            GameObject panel = Panel(parent);
+            SafeAddComponent<StandardPanel>(panel);
+
+            GameObject column = Column(panel);
+
+            DisplayRow(column);
+
+            ButtonRow(column, new List<Key> {
+                K("Q"), K("W"), K("E"), K("R"), K("T"), K("Y"), K("U"), K("I"), K("O"), K("P")
+            });
+            ButtonRow(column, new List<Key> {
+                K("A"), K("S"), K("D"), K("F"), K("G"), K("H"), K("J"), K("K"), K("L")
+            });
+            ButtonRow(column, new List<Key> {
+                Key.ShiftLock("⇧", true), K("Z"), K("X"), K("C"), K("V"), K("B"), K("N"), K("M"), Key.Backspace("⌫")
+            });
+            ButtonRow(column, new List<Key> {
+                Key.NumLock("123"), Key.Spacer(), K("space"), Key.Return("return")
+            });
+
+            panelUpperCase = panel;
+            keyboard.panelUpperCase = panelUpperCase.GetComponent<StandardPanel>();
+        }
+
+        protected void PanelNumber(GameObject parent) {
+            if (panelNumber) return;
+
+            GameObject panel = Panel(parent);
+            SafeAddComponent<StandardPanel>(panel);
+
+            GameObject column = Column(panel);
+
+            DisplayRow(column);
+
+            ButtonRow(column, new List<Key> {
+                K("1"), K("2"), K("3"), K("4"), K("5"), K("6"), K("7"), K("8"), K("9"), K("0")
+            });
+            ButtonRow(column, new List<Key> {
+                K("-"), K("/"), K(":"), K(";"), K("("), K(")"), K("$"), K("&"), K("@"), K("\"")
+            });
+            ButtonRow(column, new List<Key> {
+                Key.Symbol("#+="), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⌫")
+            });
+            ButtonRow(column, new List<Key> {
+                Key.ShiftLock("ABC",true), Key.Spacer(), K("space"), Key.Return("return")
+            });
+
+            panelNumber = panel;
+            keyboard.panelNumber = panelNumber.GetComponent<StandardPanel>();
+        }
+
+        protected void PanelSymbol(GameObject parent) {
+            if (panelSymbol) return;
+
+            GameObject panel = Panel(parent);
+            SafeAddComponent<StandardPanel>(panel);
+
+            GameObject column = Column(panel);
+
+            DisplayRow(column);
+
+            ButtonRow(column, new List<Key> {
+                K("["), K("]"), K("{"), K("}"), K("#"), K("%"), K("^"), K("*"), K("+"), K("=")
+            });
+            ButtonRow(column, new List<Key> {
+                K("_"), K("\\"), K("|"), K("~"), K("<"), K(">"), K("€"), K("£"), K("¥"), K("•")
+            });
+            ButtonRow(column, new List<Key> {
+                Key.NumLock("123"), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⌫")
+            });
+            ButtonRow(column, new List<Key> {
+                Key.ShiftLock("ABC",true), Key.Spacer(), K("space"), Key.Return("return")
+            });
+
+            panelSymbol = panel;
+            keyboard.panelSymbol = panelSymbol.GetComponent<StandardPanel>();
         }
 
         public override GameObject Generate() {
@@ -262,9 +353,9 @@ namespace CreateThis.Factory.VR.UI {
             CreateDisposable(parent);
             CreateKeyboard(parent);
             PanelLowerCase(keyboardInstance);
-            //panelUpperCase = Panel(keyboard);
-            //panelNumber = Panel(keyboard);
-            //panelSymbol = Panel(keyboard);
+            PanelUpperCase(keyboardInstance);
+            PanelNumber(keyboardInstance);
+            PanelSymbol(keyboardInstance);
 
 #if UNITY_EDITOR
             Undo.DestroyObjectImmediate(disposable);
