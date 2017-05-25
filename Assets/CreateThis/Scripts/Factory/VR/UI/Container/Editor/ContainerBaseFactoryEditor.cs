@@ -8,11 +8,13 @@ namespace CreateThis.Factory.VR.UI.Container {
     public abstract class ContainerBaseFactoryEditor : Editor {
         SerializedProperty padding;
         SerializedProperty spacing;
+        SerializedProperty containerName;
         SerializedProperty parent;
 
         protected virtual void OnEnable() {
             padding = serializedObject.FindProperty("padding");
             spacing = serializedObject.FindProperty("spacing");
+            containerName = serializedObject.FindProperty("containerName");
             parent = serializedObject.FindProperty("parent");
         }
 
@@ -37,6 +39,7 @@ namespace CreateThis.Factory.VR.UI.Container {
 
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(spacing);
+            EditorGUILayout.PropertyField(containerName);
             EditorGUILayout.PropertyField(parent);
             AdditionalProperties();
 

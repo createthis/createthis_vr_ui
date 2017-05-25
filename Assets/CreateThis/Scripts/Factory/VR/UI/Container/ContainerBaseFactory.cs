@@ -7,6 +7,7 @@ namespace CreateThis.Factory.VR.UI.Container {
     public abstract class ContainerBaseFactory : BaseFactory {
         public float padding = 0.02f;
         public float spacing = 0.01f;
+        public string containerName;
         public GameObject parent;
 
         protected GameObject containerInstance;
@@ -17,16 +18,8 @@ namespace CreateThis.Factory.VR.UI.Container {
 
         protected virtual void CreateContainer() {
             if (containerInstance) return;
-            containerInstance = new GameObject();
-
-#if UNITY_EDITOR
-            Undo.RegisterCreatedObjectUndo(containerInstance, "Created Container");
-#endif
-            containerInstance.transform.localScale = Vector3.one;
-            containerInstance.transform.parent = parent.transform;
-            containerInstance.transform.localPosition = Vector3.zero;
-            containerInstance.transform.localRotation = Quaternion.identity;
-            containerInstance.name = "Container";
+            string childName = containerName != null ? containerName : "Container";
+            containerInstance = EmptyChild(parent, childName);
 
             AddContainer(containerInstance);
         }

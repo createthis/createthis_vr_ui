@@ -79,13 +79,7 @@ namespace CreateThis.Factory.VR.UI.Button {
 
         private void CreateButton() {
             if (buttonInstance) return;
-            buttonInstance = new GameObject();
-#if UNITY_EDITOR
-            Undo.RegisterCreatedObjectUndo(buttonInstance, "Created Button");
-#endif
-            buttonInstance.transform.parent = parent.transform;
-            buttonInstance.transform.localPosition = Vector3.zero;
-            buttonInstance.transform.localRotation = Quaternion.identity;
+            buttonInstance = EmptyChild(parent, "Button");
         }
 
         private void CreateButtonBody() {
@@ -118,17 +112,8 @@ namespace CreateThis.Factory.VR.UI.Button {
 
         private void CreateTextLabel() {
             if (buttonTextLabelInstance) return;
-            buttonTextLabelInstance = new GameObject();
-
-#if UNITY_EDITOR
-            Undo.RegisterCreatedObjectUndo(buttonTextLabelInstance, "Created ButtonTextLabel");
-#endif
-
-            buttonTextLabelInstance.transform.localScale = labelScale;
-            buttonTextLabelInstance.transform.parent = buttonInstance.transform;
+            buttonTextLabelInstance = EmptyChild(buttonInstance, "ButtonTextLabel", labelScale);
             buttonTextLabelInstance.transform.localPosition = new Vector3(0, 0, labelZ);
-            buttonTextLabelInstance.transform.localRotation = Quaternion.identity;
-            buttonTextLabelInstance.name = "ButtonTextLabel";
 
             TextMesh textMesh = buttonTextLabelInstance.AddComponent<TextMesh>();
             textMesh.text = buttonText;

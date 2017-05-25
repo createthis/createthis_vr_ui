@@ -7,7 +7,7 @@ namespace CreateThis.Factory.VR.UI.Container {
 
         protected override void AddContainer(GameObject target) {
             RowContainer container = SafeAddComponent<RowContainer>(target);
-            target.name = "Row";
+            if (containerName == null) target.name = "Row";
             container.padding = padding;
             container.spacing = spacing;
             container.alignment = alignment;

@@ -58,12 +58,13 @@ namespace CreateThis.Factory.VR.UI {
             return button;
         }
 
-        protected GameObject Row(GameObject parent) {
+        protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
             RowContainerFactory factory = SafeAddComponent<RowContainerFactory>(disposable);
+            factory.containerName = name;
             factory.parent = parent;
             factory.padding = padding;
             factory.spacing = spacing;
-            factory.alignment = TextAlignment.Center;
+            factory.alignment = alignment;
             return factory.Generate();
         }
 
@@ -87,6 +88,23 @@ namespace CreateThis.Factory.VR.UI {
             return factory.Generate();
         }
 
+        protected GameObject DisplayRow(GameObject parent) {
+            GameObject row = Row(parent, "DisplayRow", TextAlignment.Left);
+            GameObject label = EmptyChild(row, "Display");
+            label.transform.localScale = labelScale;
+            TextMesh textMesh = SafeAddComponent<TextMesh>(label);
+            textMesh.text = "keyboard display";
+            textMesh.fontSize = fontSize;
+            textMesh.color = fontColor;
+            textMesh.anchor = TextAnchor.MiddleCenter;
+
+            KeyboardLabel keyboardLabel = SafeAddComponent<KeyboardLabel>(label);
+            keyboardLabel.keyboard = keyboard;
+            keyboardLabel.textMesh = textMesh;
+
+            return row;
+        }
+
         protected GameObject ButtonRow(GameObject parent, List<string> buttonLabels) {
             GameObject row = Row(parent);
             foreach (string buttonLabel in buttonLabels) {
@@ -97,44 +115,34 @@ namespace CreateThis.Factory.VR.UI {
 
         private void CreateDisposable(GameObject parent) {
             if (disposable) return;
-            disposable = new GameObject();
-#if UNITY_EDITOR
-            Undo.RegisterCreatedObjectUndo(disposable, "Created Disposable");
-#endif
-            disposable.name = "disposable";
-            disposable.transform.parent = parent.transform;
+            disposable = EmptyChild(parent, "disposable");
         }
 
         protected void CreateKeyboard(GameObject parent) {
             if (keyboardInstance) return;
-            keyboardInstance = new GameObject();
-#if UNITY_EDITOR
-            Undo.RegisterCreatedObjectUndo(keyboardInstance, "Created Button");
-#endif
-            keyboardInstance.name = "keyboard";
-            keyboardInstance.transform.parent = parent.transform;
-            keyboardInstance.transform.localPosition = Vector3.zero;
-            keyboardInstance.transform.localRotation = Quaternion.identity;
+            keyboardInstance = EmptyChild(parent, "keyboard");
 
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
         }
 
         protected void PanelLowerCase(GameObject parent) {
             if (panelLowerCase) return;
-            Debug.Log("parent=" + parent);
 
             GameObject panel = Panel(parent);
             GameObject column = Column(panel);
-            GameObject row1 = ButtonRow(column, new List<string> {
+
+            DisplayRow(column);
+
+            ButtonRow(column, new List<string> {
                 "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"
             });
-            GameObject row2 = ButtonRow(column, new List<string> {
+            ButtonRow(column, new List<string> {
                 "a", "s", "d", "f", "g", "h", "j", "k", "l"
             });
-            GameObject row3 = ButtonRow(column, new List<string> {
+            ButtonRow(column, new List<string> {
                 "⇧", "z", "x", "c", "v", "b", "n", "m", "⌫"
             });
-            GameObject row4 = ButtonRow(column, new List<string> {
+            ButtonRow(column, new List<string> {
                 "123", "", "space", "return"
             });
 
@@ -153,7 +161,6 @@ namespace CreateThis.Factory.VR.UI {
 #endif
             CreateDisposable(parent);
             CreateKeyboard(parent);
-            Debug.Log("keyboardInstance=" + keyboardInstance);
             PanelLowerCase(keyboardInstance);
             //panelUpperCase = Panel(keyboard);
             //panelNumber = Panel(keyboard);

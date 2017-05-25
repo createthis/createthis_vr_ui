@@ -35,7 +35,7 @@ namespace CreateThis.Factory.VR.UI.Container {
             containerInstance.transform.parent = parent.transform;
             containerInstance.transform.localPosition = Vector3.zero;
             containerInstance.transform.localRotation = Quaternion.identity;
-            containerInstance.name = "Container";
+            if (containerName == null) containerInstance.name = "Container";
 
             MeshRenderer meshRenderer = containerInstance.GetComponent<MeshRenderer>();
             meshRenderer.materials = new Material[1] { material };
