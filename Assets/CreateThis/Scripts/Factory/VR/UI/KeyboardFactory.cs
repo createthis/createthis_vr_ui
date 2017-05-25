@@ -45,7 +45,7 @@ namespace CreateThis.Factory.VR.UI {
             factory.outline = outline;
             factory.buttonClickDown = buttonClickDown;
             factory.buttonClickUp = buttonClickUp;
-            factory.alignment = TextAlignment.Left;
+            factory.alignment = TextAlignment.Center;
             factory.fontSize = fontSize;
             factory.fontColor = fontColor;
             factory.labelZ = labelZ;
@@ -92,6 +92,8 @@ namespace CreateThis.Factory.VR.UI {
             GameObject row = Row(parent, "DisplayRow", TextAlignment.Left);
             GameObject label = EmptyChild(row, "Display");
             label.transform.localScale = labelScale;
+            Vector3 localPosition = new Vector3(0, 0, labelZ);
+            label.transform.localPosition = localPosition;
             TextMesh textMesh = SafeAddComponent<TextMesh>(label);
             textMesh.text = "keyboard display";
             textMesh.fontSize = fontSize;
@@ -129,6 +131,8 @@ namespace CreateThis.Factory.VR.UI {
             if (panelLowerCase) return;
 
             GameObject panel = Panel(parent);
+            StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
+
             GameObject column = Column(panel);
 
             DisplayRow(column);
@@ -146,8 +150,8 @@ namespace CreateThis.Factory.VR.UI {
                 "123", "", "space", "return"
             });
 
-            keyboard.panelLowerCase = panel.GetComponent<StandardPanel>();
             panelLowerCase = panel;
+            keyboard.panelLowerCase = panelLowerCase.GetComponent<StandardPanel>();
         }
 
         public override GameObject Generate() {

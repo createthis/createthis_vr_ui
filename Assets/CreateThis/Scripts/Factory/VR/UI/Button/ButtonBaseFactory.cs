@@ -31,6 +31,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             AudioSource audioSource = SafeAddComponent<AudioSource>(target);
             audioSource.clip = buttonClickDown;
             audioSource.spatialBlend = 1f;
+            audioSource.playOnAwake = false;
             return audioSource;
         }
 
