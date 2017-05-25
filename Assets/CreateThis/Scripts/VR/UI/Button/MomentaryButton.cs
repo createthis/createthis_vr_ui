@@ -29,7 +29,7 @@ namespace CreateThis.VR.UI.Button {
             yield return new WaitForSeconds(initialRepeatDelayInSeconds);
             while (true) {
                 StartCoroutine(Haptic.LongVibration(controllerIndex, 0.1f, 1f));
-                onClick.Invoke(controller, controllerIndex);
+                ClickHandler(controller, controllerIndex);
                 yield return new WaitForSeconds(repeatDelayInSeconds);
             }
         }

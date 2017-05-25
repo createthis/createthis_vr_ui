@@ -35,8 +35,8 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject panelSymbol;
         private GameObject disposable;
 
-        protected GameObject Button(GameObject parent, string buttonText) {
-            MomentaryButtonFactory factory = SafeAddComponent<MomentaryButtonFactory>(disposable);
+        protected GameObject KeyboardButton(GameObject parent, string buttonText) {
+            KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.buttonText = buttonText;
@@ -51,6 +51,8 @@ namespace CreateThis.Factory.VR.UI {
             factory.labelZ = labelZ;
             factory.bodyScale = bodyScale;
             factory.labelScale = labelScale;
+            factory.keyboard = keyboard;
+            factory.value = buttonText;
             GameObject button = factory.Generate();
             Vector3 localPosition = button.transform.localPosition;
             localPosition.z = buttonZ;
@@ -110,7 +112,7 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject ButtonRow(GameObject parent, List<string> buttonLabels) {
             GameObject row = Row(parent);
             foreach (string buttonLabel in buttonLabels) {
-                Button(row, buttonLabel);
+                KeyboardButton(row, buttonLabel);
             }
             return row;
         }
