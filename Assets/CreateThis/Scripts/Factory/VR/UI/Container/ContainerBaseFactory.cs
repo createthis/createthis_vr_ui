@@ -31,7 +31,7 @@ namespace CreateThis.Factory.VR.UI.Container {
             AddContainer(containerInstance);
         }
 
-        public override void Generate() {
+        public override GameObject Generate() {
             base.Generate();
             
 #if UNITY_EDITOR
@@ -44,6 +44,7 @@ namespace CreateThis.Factory.VR.UI.Container {
 #if UNITY_EDITOR
             Undo.CollapseUndoOperations(group);
 #endif
+            return containerInstance;
         }
     }
 }

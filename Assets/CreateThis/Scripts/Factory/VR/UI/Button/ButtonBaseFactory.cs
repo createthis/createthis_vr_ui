@@ -7,7 +7,7 @@ using UnityEditor;
 
 namespace CreateThis.Factory.VR.UI.Button {
     public abstract class ButtonBaseFactory : BaseFactory {
-        public GameObject target;
+        public GameObject parent;
         public string buttonText;
         public GameObject buttonBody;
         public Material material;
@@ -22,6 +22,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         public Vector3 bodyScale;
         public Vector3 labelScale;
 
+        protected GameObject buttonInstance;
         protected GameObject buttonBodyInstance;
         protected GameObject buttonTextLabelInstance;
 
@@ -41,32 +42,32 @@ namespace CreateThis.Factory.VR.UI.Button {
             button.buttonText = buttonTextLabelInstance;
         }
 
-        private void PopulateTarget() {
+        private void PopulateButton() {
             if (!buttonBodyInstance) return;
 
 #if UNITY_EDITOR
-            Undo.RegisterCompleteObjectUndo(target, "Change name before");
+            Undo.RegisterCompleteObjectUndo(buttonInstance, "Change name before");
 #endif
 
-            target.name = "Button_" + buttonText;
+            buttonInstance.name = "Button_" + buttonText;
 
-            AudioSource audioSourceDown = AddAudioSource(target, buttonClickDown);
-            AudioSource audioSourceUp = AddAudioSource(target, buttonClickUp);
+            AudioSource audioSourceDown = AddAudioSource(buttonInstance, buttonClickDown);
+            AudioSource audioSourceUp = AddAudioSource(buttonInstance, buttonClickUp);
 
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(target);
+            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(buttonInstance);
             boxCollider.size = bodyScale;
 
-            AddButton(target, audioSourceDown, audioSourceUp);
+            AddButton(buttonInstance, audioSourceDown, audioSourceUp);
 
-            GrowButtonByTextMesh growButton = SafeAddComponent<GrowButtonByTextMesh>(target);
+            GrowButtonByTextMesh growButton = SafeAddComponent<GrowButtonByTextMesh>(buttonInstance);
             growButton.buttonBody = buttonBodyInstance;
             growButton.textMesh = buttonTextLabelInstance.GetComponent<TextMesh>();
             growButton.alignment = alignment;
 
-            Rigidbody rigidBody = SafeAddComponent<Rigidbody>(target);
+            Rigidbody rigidBody = SafeAddComponent<Rigidbody>(buttonInstance);
             rigidBody.isKinematic = true;
 
-            Selectable selectable = SafeAddComponent<Selectable>(target);
+            Selectable selectable = SafeAddComponent<Selectable>(buttonInstance);
             selectable.highlightMaterial = highlight;
             selectable.outlineMaterial = outline;
             selectable.textColor = fontColor;
@@ -74,6 +75,17 @@ namespace CreateThis.Factory.VR.UI.Button {
             selectable.recursive = true;
 
             growButton.Resize();
+        }
+
+        private void CreateButton() {
+            if (buttonInstance) return;
+            buttonInstance = new GameObject();
+#if UNITY_EDITOR
+            Undo.RegisterCreatedObjectUndo(buttonInstance, "Created Button");
+#endif
+            buttonInstance.transform.parent = parent.transform;
+            buttonInstance.transform.localPosition = Vector3.zero;
+            buttonInstance.transform.localRotation = Quaternion.identity;
         }
 
         private void CreateButtonBody() {
@@ -85,7 +97,7 @@ namespace CreateThis.Factory.VR.UI.Button {
 #endif
             buttonBodyInstance.SetActive(true);
             buttonBodyInstance.transform.localScale = bodyScale;
-            buttonBodyInstance.transform.parent = target.transform;
+            buttonBodyInstance.transform.parent = buttonInstance.transform;
             buttonBodyInstance.transform.localPosition = Vector3.zero;
             buttonBodyInstance.transform.localRotation = Quaternion.identity;
             buttonBodyInstance.name = "ButtonBody";
@@ -113,7 +125,7 @@ namespace CreateThis.Factory.VR.UI.Button {
 #endif
 
             buttonTextLabelInstance.transform.localScale = labelScale;
-            buttonTextLabelInstance.transform.parent = target.transform;
+            buttonTextLabelInstance.transform.parent = buttonInstance.transform;
             buttonTextLabelInstance.transform.localPosition = new Vector3(0, 0, labelZ);
             buttonTextLabelInstance.transform.localRotation = Quaternion.identity;
             buttonTextLabelInstance.name = "ButtonTextLabel";
@@ -126,7 +138,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             textMesh.alignment = TextAlignment.Left;
         }
 
-        public override void Generate() {
+        public override GameObject Generate() {
             base.Generate();
             
 #if UNITY_EDITOR
@@ -135,12 +147,14 @@ namespace CreateThis.Factory.VR.UI.Button {
 
             Undo.RegisterCompleteObjectUndo(this, "ButtonFactory state");
 #endif
+            CreateButton();
             CreateButtonBody();
             CreateTextLabel();
-            PopulateTarget();
+            PopulateButton();
 #if UNITY_EDITOR
             Undo.CollapseUndoOperations(group);
 #endif
+            return buttonInstance;
         }
     }
 }

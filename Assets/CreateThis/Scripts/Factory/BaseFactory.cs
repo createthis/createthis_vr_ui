@@ -15,8 +15,8 @@ namespace CreateThis.Factory {
 #endif
         }
 
-        public virtual void Generate() {
-
+        public virtual GameObject Generate() {
+            return null;
         }
     }
 }
