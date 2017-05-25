@@ -17,8 +17,12 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty fontSize;
         SerializedProperty fontColor;
         SerializedProperty labelZ;
+        SerializedProperty buttonZ;
         SerializedProperty bodyScale;
         SerializedProperty labelScale;
+        SerializedProperty padding;
+        SerializedProperty spacing;
+
 
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -32,8 +36,11 @@ namespace CreateThis.Factory.VR.UI {
             fontSize = serializedObject.FindProperty("fontSize");
             fontColor = serializedObject.FindProperty("fontColor");
             labelZ = serializedObject.FindProperty("labelZ");
+            buttonZ = serializedObject.FindProperty("buttonZ");
             bodyScale = serializedObject.FindProperty("bodyScale");
             labelScale = serializedObject.FindProperty("labelScale");
+            padding = serializedObject.FindProperty("padding");
+            spacing = serializedObject.FindProperty("spacing");
         }
 
         protected void BuildGenerateButton() {
@@ -66,8 +73,12 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(fontSize);
             EditorGUILayout.PropertyField(fontColor);
             EditorGUILayout.PropertyField(labelZ);
+            EditorGUILayout.PropertyField(buttonZ);
             EditorGUILayout.PropertyField(bodyScale);
             EditorGUILayout.PropertyField(labelScale);
+            EditorGUILayout.PropertyField(padding);
+            EditorGUILayout.PropertyField(spacing);
+
             AdditionalProperties();
 
             serializedObject.ApplyModifiedProperties();

@@ -21,6 +21,7 @@ namespace CreateThis.Factory.VR.UI {
         public int fontSize;
         public Color fontColor;
         public float labelZ;
+        public float buttonZ;
         public Vector3 bodyScale;
         public Vector3 labelScale;
         public float padding;
@@ -50,7 +51,11 @@ namespace CreateThis.Factory.VR.UI {
             factory.labelZ = labelZ;
             factory.bodyScale = bodyScale;
             factory.labelScale = labelScale;
-            return factory.Generate();
+            GameObject button = factory.Generate();
+            Vector3 localPosition = button.transform.localPosition;
+            localPosition.z = buttonZ;
+            button.transform.localPosition = localPosition;
+            return button;
         }
 
         protected GameObject Row(GameObject parent) {
