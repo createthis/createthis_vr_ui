@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CreateThis.VR.UI.Button {
     public class KeyboardButton : MomentaryButton {

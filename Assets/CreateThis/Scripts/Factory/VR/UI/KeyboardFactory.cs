@@ -36,11 +36,57 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject panelSymbol;
         private GameObject disposable;
 
-        protected GameObject KeyboardButton(GameObject parent, string buttonText) {
-            KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
+        protected static Key K(string value) {
+            return new Key(KeyType.Key, value);
+        }
+
+        protected struct Key {
+            public KeyType type;
+            public string value;
+
+            public Key(KeyType type, string value) {
+                this.type = type;
+                this.value = value;
+            }
+
+            public Key(string value) {
+                type = KeyType.Key;
+                this.value = value;
+            }
+
+            public static Key ShiftLock(string value) {
+                return new Key(KeyType.ShiftLock, value);
+            }
+
+            public static Key NumLock(string value) {
+                return new Key(KeyType.NumLock, value);
+            }
+
+            public static Key Return(string value) {
+                return new Key(KeyType.Return, value);
+            }
+
+            public static Key Symbol(string value) {
+                return new Key(KeyType.Symbol, value);
+            }
+
+            public static Key Spacer() {
+                return new Key(KeyType.Spacer, null);
+            }
+        }
+
+        protected enum KeyType {
+            Key,
+            ShiftLock,
+            NumLock,
+            Return,
+            Symbol,
+            Spacer
+        }
+
+        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory) {
             factory.parent = parent;
             factory.buttonBody = buttonBody;
-            factory.buttonText = buttonText;
             factory.material = buttonMaterial;
             factory.highlight = highlight;
             factory.outline = outline;
@@ -53,12 +99,34 @@ namespace CreateThis.Factory.VR.UI {
             factory.bodyScale = bodyScale;
             factory.labelScale = labelScale;
             factory.keyboard = keyboard;
-            factory.value = buttonText;
-            GameObject button = factory.Generate();
+        }
+
+        protected void SetKeyboardButtonPosition(GameObject button) {
             Vector3 localPosition = button.transform.localPosition;
             localPosition.z = buttonZ;
             button.transform.localPosition = localPosition;
+        }
+
+        protected GameObject GenerateKeyboardButtonAndSetPosition(KeyboardButtonFactory factory) {
+            GameObject button = factory.Generate();
+            SetKeyboardButtonPosition(button);
             return button;
+        }
+
+        protected GameObject KeyboardButton(GameObject parent, string buttonText) {
+            KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory);
+            factory.buttonText = buttonText;
+            factory.value = buttonText;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
+        protected GameObject KeyboardShiftLockButton(GameObject parent, string buttonText) {
+            KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory);
+            factory.buttonText = buttonText;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
@@ -116,10 +184,10 @@ namespace CreateThis.Factory.VR.UI {
             return row;
         }
 
-        protected GameObject ButtonRow(GameObject parent, List<string> buttonLabels) {
+        protected GameObject ButtonRow(GameObject parent, List<Key> keys) {
             GameObject row = Row(parent);
-            foreach (string buttonLabel in buttonLabels) {
-                KeyboardButton(row, buttonLabel);
+            foreach (Key key in keys) {
+                KeyboardButton(row, key.value);
             }
             return row;
         }
@@ -146,17 +214,17 @@ namespace CreateThis.Factory.VR.UI {
 
             DisplayRow(column);
 
-            ButtonRow(column, new List<string> {
-                "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"
+            ButtonRow(column, new List<Key> {
+                K("q"), K("w"), K("e"), K("r"), K("t"), K("y"), K("u"), K("i"), K("o"), K("p")
             });
-            ButtonRow(column, new List<string> {
-                "a", "s", "d", "f", "g", "h", "j", "k", "l"
+            ButtonRow(column, new List<Key> {
+                K("a"), K("s"), K("d"), K("f"), K("g"), K("h"), K("j"), K("k"), K("l")
             });
-            ButtonRow(column, new List<string> {
-                "⇧", "z", "x", "c", "v", "b", "n", "m", "⌫"
+            ButtonRow(column, new List<Key> {
+                Key.ShiftLock("⇧"), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), K("⌫")
             });
-            ButtonRow(column, new List<string> {
-                "123", "", "space", "return"
+            ButtonRow(column, new List<Key> {
+                Key.NumLock("123"), Key.Spacer(), K("space"), Key.Return("return")
             });
 
             panelLowerCase = panel;
