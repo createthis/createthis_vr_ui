@@ -73,6 +73,10 @@ namespace CreateThis.Factory.VR.UI {
             public static Key Spacer() {
                 return new Key(KeyType.Spacer, null);
             }
+
+            public static Key Backspace(string value) {
+                return new Key(KeyType.Backspace, value);
+            }
         }
 
         protected enum KeyType {
@@ -81,10 +85,11 @@ namespace CreateThis.Factory.VR.UI {
             NumLock,
             Return,
             Symbol,
-            Spacer
+            Spacer,
+            Backspace
         }
 
-        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory) {
+        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, GameObject parent) {
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.material = buttonMaterial;
@@ -115,7 +120,7 @@ namespace CreateThis.Factory.VR.UI {
 
         protected GameObject KeyboardButton(GameObject parent, string buttonText) {
             KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory);
+            SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             factory.value = buttonText;
             return GenerateKeyboardButtonAndSetPosition(factory);
@@ -123,7 +128,7 @@ namespace CreateThis.Factory.VR.UI {
 
         protected GameObject KeyboardShiftLockButton(GameObject parent, string buttonText) {
             KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory);
+            SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             return GenerateKeyboardButtonAndSetPosition(factory);
 
@@ -184,10 +189,24 @@ namespace CreateThis.Factory.VR.UI {
             return row;
         }
 
+        protected void ButtonByKey(GameObject parent, Key key) {
+            switch (key.type) {
+                case KeyType.Key:
+                    KeyboardButton(parent, key.value);
+                    break;
+                case KeyType.ShiftLock:
+                    KeyboardShiftLockButton(parent, key.value);
+                    break;
+                default:
+                    Debug.Log("unhandled key type=" + key.type);
+                    break;
+            }
+        }
+
         protected GameObject ButtonRow(GameObject parent, List<Key> keys) {
             GameObject row = Row(parent);
             foreach (Key key in keys) {
-                KeyboardButton(row, key.value);
+                ButtonByKey(row, key);
             }
             return row;
         }
@@ -221,7 +240,7 @@ namespace CreateThis.Factory.VR.UI {
                 K("a"), K("s"), K("d"), K("f"), K("g"), K("h"), K("j"), K("k"), K("l")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("⇧"), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), K("⌫")
+                Key.ShiftLock("⇧"), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Backspace("⌫")
             });
             ButtonRow(column, new List<Key> {
                 Key.NumLock("123"), Key.Spacer(), K("space"), Key.Return("return")
