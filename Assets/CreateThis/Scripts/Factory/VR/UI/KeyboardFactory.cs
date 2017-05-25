@@ -12,7 +12,8 @@ namespace CreateThis.Factory.VR.UI {
     public class KeyboardFactory : BaseFactory {
         public GameObject parent;
         public GameObject buttonBody;
-        public Material material;
+        public Material buttonMaterial;
+        public Material panelMaterial;
         public Material highlight;
         public Material outline;
         public AudioClip buttonClickDown;
@@ -38,7 +39,7 @@ namespace CreateThis.Factory.VR.UI {
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.buttonText = buttonText;
-            factory.material = material;
+            factory.material = buttonMaterial;
             factory.highlight = highlight;
             factory.outline = outline;
             factory.buttonClickDown = buttonClickDown;
@@ -72,6 +73,12 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject Panel(GameObject parent) {
             PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
+            factory.panelBody = buttonBody;
+            factory.material = panelMaterial;
+            factory.highlight = highlight;
+            factory.outline = outline;
+            factory.fontColor = fontColor;
+            factory.bodyScale = bodyScale;
             return factory.Generate();
         }
 
@@ -86,6 +93,10 @@ namespace CreateThis.Factory.VR.UI {
         private void CreateDisposable(GameObject parent) {
             if (disposable) return;
             disposable = new GameObject();
+#if UNITY_EDITOR
+            Undo.RegisterCreatedObjectUndo(disposable, "Created Disposable");
+#endif
+            disposable.name = "disposable";
             disposable.transform.parent = parent.transform;
         }
 
@@ -95,6 +106,7 @@ namespace CreateThis.Factory.VR.UI {
 #if UNITY_EDITOR
             Undo.RegisterCreatedObjectUndo(keyboardInstance, "Created Button");
 #endif
+            keyboardInstance.name = "keyboard";
             keyboardInstance.transform.parent = parent.transform;
             keyboardInstance.transform.localPosition = Vector3.zero;
             keyboardInstance.transform.localRotation = Quaternion.identity;

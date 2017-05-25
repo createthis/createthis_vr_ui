@@ -15,7 +15,7 @@ namespace CreateThis.Factory.VR.UI.Container {
             // override
         }
 
-        private void CreateContainer() {
+        protected virtual void CreateContainer() {
             if (containerInstance) return;
             containerInstance = new GameObject();
 

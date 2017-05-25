@@ -40,7 +40,9 @@ namespace CreateThis.VR.UI.Container {
 
             PanelUtils.PanelResizeWidth panelResizeWidth = PanelUtils.ResizeWidth(gameObject, maxWidth, 0);
             PanelUtils.PanelResizeHeight panelResizeHeight = PanelUtils.ResizeHeight(gameObject, maxHeight, 0);
-            transform.localScale = new Vector3(panelResizeWidth.xScale, panelResizeHeight.yScale, transform.localScale.z);
+            if (panelResizeWidth.xScale > 0 && panelResizeHeight.yScale > 0) {
+                transform.localScale = new Vector3(panelResizeWidth.xScale, panelResizeHeight.yScale, transform.localScale.z);
+            }
 
             DetachReattach.ReattachChildren(children, gameObject);
 
