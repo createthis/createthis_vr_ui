@@ -137,7 +137,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardButton(GameObject parent, string buttonText) {
-            KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
+            KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             factory.value = buttonText;
@@ -153,10 +153,9 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardNumLockButton(GameObject parent, string buttonText) {
-            KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
+            KeyboardNumLockButtonFactory factory = SafeAddComponent<KeyboardNumLockButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
-            factory.value = buttonText;
             factory.characterSize = numLockCharacterSize;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
@@ -328,7 +327,7 @@ namespace CreateThis.Factory.VR.UI {
                 Key.Symbol("#+="), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⌫")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("ABC",true), Key.Spacer(), K("space"), Key.Return("return")
+                Key.ShiftLock("ABC",false), Key.Spacer(), K("space"), Key.Return("return")
             });
 
             panelNumber = panel;
@@ -355,7 +354,7 @@ namespace CreateThis.Factory.VR.UI {
                 Key.NumLock("123"), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⌫")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("ABC",true), Key.Spacer(), K("space"), Key.Return("return")
+                Key.ShiftLock("ABC",false), Key.Spacer(), K("space"), Key.Return("return")
             });
 
             panelSymbol = panel;
