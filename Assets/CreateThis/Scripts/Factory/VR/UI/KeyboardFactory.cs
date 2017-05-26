@@ -77,6 +77,10 @@ namespace CreateThis.Factory.VR.UI {
                 return new Key(KeyType.NumLock, value);
             }
 
+            public static Key ABC(string value) {
+                return new Key(KeyType.ABC, value);
+            }
+
             public static Key Return(string value) {
                 return new Key(KeyType.Return, value);
             }
@@ -87,6 +91,10 @@ namespace CreateThis.Factory.VR.UI {
 
             public static Key Spacer() {
                 return new Key(KeyType.Spacer, null);
+            }
+
+            public static Key Space(string value) {
+                return new Key(KeyType.Space, value);
             }
 
             public static Key Backspace(string value) {
@@ -101,6 +109,8 @@ namespace CreateThis.Factory.VR.UI {
             Return,
             Symbol,
             Spacer,
+            Space,
+            ABC,
             Backspace
         }
 
@@ -136,11 +146,21 @@ namespace CreateThis.Factory.VR.UI {
             return button;
         }
 
-        protected GameObject KeyboardButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardButton(GameObject parent, string buttonText, string buttonValue = null) {
             KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
-            factory.value = buttonText;
+            if (buttonValue == null) factory.value = buttonText;
+            else factory.value = buttonValue;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
+        protected GameObject KeyboardSpaceButton(GameObject parent, string buttonText) {
+            KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
+            factory.value = " ";
+            factory.minWidth = spaceMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -152,11 +172,44 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
+        protected GameObject KeyboardABCButton(GameObject parent, string buttonText) {
+            KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
+            factory.on = false;
+            factory.characterSize = numLockCharacterSize;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
         protected GameObject KeyboardNumLockButton(GameObject parent, string buttonText) {
             KeyboardNumLockButtonFactory factory = SafeAddComponent<KeyboardNumLockButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             factory.characterSize = numLockCharacterSize;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
+        protected GameObject KeyboardReturnButton(GameObject parent, string buttonText) {
+            KeyboardReturnButtonFactory factory = SafeAddComponent<KeyboardReturnButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
+            factory.characterSize = keyCharacterSize;
+            factory.minWidth = returnMinWidth;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
+        protected GameObject KeyboardSymbolButton(GameObject parent, string buttonText) {
+            KeyboardSymbolButtonFactory factory = SafeAddComponent<KeyboardSymbolButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
+            factory.characterSize = numLockCharacterSize;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
+        protected GameObject KeyboardBackspaceButton(GameObject parent, string buttonText) {
+            KeyboardBackspaceButtonFactory factory = SafeAddComponent<KeyboardBackspaceButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -221,11 +274,26 @@ namespace CreateThis.Factory.VR.UI {
                 case KeyType.Key:
                     KeyboardButton(parent, key.value);
                     break;
+                case KeyType.Space:
+                    KeyboardSpaceButton(parent, key.value);
+                    break;
                 case KeyType.ShiftLock:
                     KeyboardShiftLockButton(parent, key.value, key.on);
                     break;
+                case KeyType.ABC:
+                    KeyboardABCButton(parent, key.value);
+                    break;
                 case KeyType.NumLock:
                     KeyboardNumLockButton(parent, key.value);
+                    break;
+                case KeyType.Symbol:
+                    KeyboardSymbolButton(parent, key.value);
+                    break;
+                case KeyType.Return:
+                    KeyboardReturnButton(parent, key.value);
+                    break;
+                case KeyType.Backspace:
+                    KeyboardBackspaceButton(parent, key.value);
                     break;
                 default:
                     Debug.Log("unhandled key type=" + key.type);
@@ -270,10 +338,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("a"), K("s"), K("d"), K("f"), K("g"), K("h"), K("j"), K("k"), K("l")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("⇧", false), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Backspace("⌫")
+                Key.ShiftLock("⇧", false), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), Key.Spacer(), K("space"), Key.Return("return")
+                Key.NumLock("123"), Key.Spacer(), Key.Space("space"), Key.Return("return")
             });
 
             panelLowerCase = panel;
@@ -297,10 +365,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("A"), K("S"), K("D"), K("F"), K("G"), K("H"), K("J"), K("K"), K("L")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("⇧", true), K("Z"), K("X"), K("C"), K("V"), K("B"), K("N"), K("M"), Key.Backspace("⌫")
+                Key.ShiftLock("⇧", true), K("Z"), K("X"), K("C"), K("V"), K("B"), K("N"), K("M"), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), Key.Spacer(), K("space"), Key.Return("return")
+                Key.NumLock("123"), Key.Spacer(), Key.Space("space"), Key.Return("return")
             });
 
             panelUpperCase = panel;
@@ -324,10 +392,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("-"), K("/"), K(":"), K(";"), K("("), K(")"), K("$"), K("&"), K("@"), K("\"")
             });
             ButtonRow(column, new List<Key> {
-                Key.Symbol("#+="), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⌫")
+                Key.Symbol("#+="), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("ABC",false), Key.Spacer(), K("space"), Key.Return("return")
+                Key.ABC("ABC"), Key.Spacer(), Key.Space("space"), Key.Return("return")
             });
 
             panelNumber = panel;
@@ -351,10 +419,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("_"), K("\\"), K("|"), K("~"), K("<"), K(">"), K("€"), K("£"), K("¥"), K("•")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⌫")
+                Key.NumLock("123"), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("ABC",false), Key.Spacer(), K("space"), Key.Return("return")
+                Key.ABC("ABC"), Key.Spacer(), Key.Space("space"), Key.Return("return")
             });
 
             panelSymbol = panel;

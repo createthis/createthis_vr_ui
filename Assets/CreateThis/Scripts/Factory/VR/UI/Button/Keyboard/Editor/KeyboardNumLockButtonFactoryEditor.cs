@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace CreateThis.Factory.VR.UI.Button {
     [CustomEditor(typeof(KeyboardNumLockButtonFactory))]
