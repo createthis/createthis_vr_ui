@@ -33,6 +33,7 @@ namespace CreateThis.Factory.VR.UI {
         public float numLockCharacterSize;
         public float spaceMinWidth;
         public float returnMinWidth;
+        public float spacerWidth;
 
         protected Keyboard keyboard;
         protected GameObject keyboardInstance;
@@ -50,23 +51,34 @@ namespace CreateThis.Factory.VR.UI {
             public KeyType type;
             public string value;
             public bool on;
+            public float width;
 
             public Key(KeyType type, string value, bool on) {
                 this.type = type;
                 this.value = value;
                 this.on = on;
+                width = -1;
             }
 
             public Key(KeyType type, string value) {
                 this.type = type;
                 this.value = value;
                 on = false;
+                width = -1;
+            }
+
+            public Key(KeyType type, float value) {
+                this.type = type;
+                this.value = null;
+                on = false;
+                width = value;
             }
 
             public Key(string value) {
                 type = KeyType.Key;
                 this.value = value;
                 on = false;
+                width = -1;
             }
 
             public static Key ShiftLock(string value, bool on) {
@@ -89,8 +101,8 @@ namespace CreateThis.Factory.VR.UI {
                 return new Key(KeyType.Symbol, value);
             }
 
-            public static Key Spacer() {
-                return new Key(KeyType.Spacer, null);
+            public static Key Spacer(float width) {
+                return new Key(KeyType.Spacer, width);
             }
 
             public static Key Space(string value) {
@@ -213,6 +225,17 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
+        protected GameObject ButtonSpacer(GameObject parent, float width) {
+            ButtonSpacerFactory factory = SafeAddComponent<ButtonSpacerFactory>(disposable);
+            factory.parent = parent;
+            Vector3 size = bodyScale;
+            size.x = width;
+            factory.size = size;
+            GameObject button = factory.Generate();
+            SetKeyboardButtonPosition(button);
+            return button;
+        }
+
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
             RowContainerFactory factory = SafeAddComponent<RowContainerFactory>(disposable);
             factory.containerName = name;
@@ -295,6 +318,9 @@ namespace CreateThis.Factory.VR.UI {
                 case KeyType.Backspace:
                     KeyboardBackspaceButton(parent, key.value);
                     break;
+                case KeyType.Spacer:
+                    ButtonSpacer(parent, key.width);
+                    break;
                 default:
                     Debug.Log("unhandled key type=" + key.type);
                     break;
@@ -338,10 +364,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("a"), K("s"), K("d"), K("f"), K("g"), K("h"), K("j"), K("k"), K("l")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("⇧", false), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Backspace("⇦")
+                Key.ShiftLock("⇧", false), Key.Spacer(spacerWidth), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), Key.Spacer(), Key.Space("space"), Key.Return("return")
+                Key.NumLock("123"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelLowerCase = panel;
@@ -365,10 +391,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("A"), K("S"), K("D"), K("F"), K("G"), K("H"), K("J"), K("K"), K("L")
             });
             ButtonRow(column, new List<Key> {
-                Key.ShiftLock("⇧", true), K("Z"), K("X"), K("C"), K("V"), K("B"), K("N"), K("M"), Key.Backspace("⇦")
+                Key.ShiftLock("⇧", true), Key.Spacer(spacerWidth), K("Z"), K("X"), K("C"), K("V"), K("B"), K("N"), K("M"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), Key.Spacer(), Key.Space("space"), Key.Return("return")
+                Key.NumLock("123"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelUpperCase = panel;
@@ -392,10 +418,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("-"), K("/"), K(":"), K(";"), K("("), K(")"), K("$"), K("&"), K("@"), K("\"")
             });
             ButtonRow(column, new List<Key> {
-                Key.Symbol("#+="), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⇦")
+                Key.Symbol("#+="), Key.Spacer(spacerWidth), K("."), K(","), K("?"), K("!"), K("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.ABC("ABC"), Key.Spacer(), Key.Space("space"), Key.Return("return")
+                Key.ABC("ABC"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelNumber = panel;
@@ -419,10 +445,10 @@ namespace CreateThis.Factory.VR.UI {
                 K("_"), K("\\"), K("|"), K("~"), K("<"), K(">"), K("€"), K("£"), K("¥"), K("•")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), K("."), K(","), K("?"), K("!"), K("'"), Key.Backspace("⇦")
+                Key.NumLock("123"), Key.Spacer(spacerWidth), K("."), K(","), K("?"), K("!"), K("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
-                Key.ABC("ABC"), Key.Spacer(), Key.Space("space"), Key.Return("return")
+                Key.ABC("ABC"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelSymbol = panel;

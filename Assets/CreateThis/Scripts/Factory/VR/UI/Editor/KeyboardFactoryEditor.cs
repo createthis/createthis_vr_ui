@@ -28,6 +28,7 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty numLockCharacterSize;
         SerializedProperty spaceMinWidth;
         SerializedProperty returnMinWidth;
+        SerializedProperty spacerWidth;
 
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -52,6 +53,7 @@ namespace CreateThis.Factory.VR.UI {
             numLockCharacterSize = serializedObject.FindProperty("numLockCharacterSize");
             spaceMinWidth = serializedObject.FindProperty("spaceMinWidth");
             returnMinWidth = serializedObject.FindProperty("returnMinWidth");
+            spacerWidth = serializedObject.FindProperty("spacerWidth");
         }
 
         protected void BuildGenerateButton() {
@@ -95,6 +97,7 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(numLockCharacterSize);
             EditorGUILayout.PropertyField(spaceMinWidth);
             EditorGUILayout.PropertyField(returnMinWidth);
+            EditorGUILayout.PropertyField(spacerWidth);
 
             AdditionalProperties();
 
