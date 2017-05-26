@@ -196,7 +196,15 @@ namespace CreateThis.Factory.VR.UI {
             factory.outline = outline;
             factory.fontColor = fontColor;
             factory.bodyScale = bodyScale;
-            return factory.Generate();
+            GameObject panel = factory.Generate();
+
+            StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
+            standardPanel.grabTarget = keyboard.transform;
+
+            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
+            rigidbody.isKinematic = true;
+
+            return panel;
         }
 
         protected GameObject DisplayRow(GameObject parent) {
@@ -297,8 +305,6 @@ namespace CreateThis.Factory.VR.UI {
             if (panelLowerCase) return;
 
             GameObject panel = Panel(parent, "PanelLowerCase");
-            SafeAddComponent<StandardPanel>(panel);
-
             GameObject column = Column(panel);
 
             PanelHeader(column);
@@ -324,8 +330,6 @@ namespace CreateThis.Factory.VR.UI {
             if (panelUpperCase) return;
 
             GameObject panel = Panel(parent, "PanelUpperCase");
-            SafeAddComponent<StandardPanel>(panel);
-
             GameObject column = Column(panel);
 
             PanelHeader(column);
@@ -351,8 +355,6 @@ namespace CreateThis.Factory.VR.UI {
             if (panelNumber) return;
 
             GameObject panel = Panel(parent, "PanelNumber");
-            SafeAddComponent<StandardPanel>(panel);
-
             GameObject column = Column(panel);
 
             PanelHeader(column);
@@ -378,8 +380,6 @@ namespace CreateThis.Factory.VR.UI {
             if (panelSymbol) return;
 
             GameObject panel = Panel(parent, "PanelSymbol");
-            SafeAddComponent<StandardPanel>(panel);
-
             GameObject column = Column(panel);
 
             PanelHeader(column);

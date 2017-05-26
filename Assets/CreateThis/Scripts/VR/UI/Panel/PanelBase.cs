@@ -10,17 +10,30 @@ namespace CreateThis.VR.UI.Panel {
         void ToggleVisible();
     }
 
-    public abstract class PanelBase : MonoBehaviour, IPanel {
+    public abstract class PanelBase : Grabbable, IPanel {
         public bool visible;
         public Camera sceneCamera;
         public Transform controller;
         public Vector3 offset;
         public float minDistance;
+        public bool hideOnAwake;
+        public Transform grabTarget;
 
         private int notSelectableCount;
         private BoxCollider boxCollider;
         private Selectable selectable;
         private bool hasInitialized = false;
+
+        public override void OnGrabStart(Transform controller, int controllerIndex) {
+            grabTarget.parent = controller;
+        }
+
+        public override void OnGrabUpdate(Transform controller, int controllerIndex) {
+        }
+
+        public override void OnGrabStop(Transform controller, int controllerIndex) {
+            grabTarget.parent = null;
+        }
 
         public void ZeroNotSelectableCount() {
             Initialize();
@@ -47,8 +60,10 @@ namespace CreateThis.VR.UI.Panel {
         }
 
         private void Awake() {
-            visible = false;
-            gameObject.SetActive(false);
+            if (hideOnAwake) {
+                visible = false;
+                gameObject.SetActive(false);
+            }
         }
 
         public void SetVisible(bool value) {
