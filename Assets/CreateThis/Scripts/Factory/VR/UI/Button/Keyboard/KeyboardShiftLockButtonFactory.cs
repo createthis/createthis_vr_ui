@@ -14,6 +14,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             button.buttonText = buttonTextLabelInstance;
             button.keyboard = keyboard;
             button.On = on;
+            button.clickOnTriggerExit = true;
         }
     }
 }

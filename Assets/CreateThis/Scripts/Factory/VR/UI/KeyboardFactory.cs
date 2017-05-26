@@ -162,9 +162,10 @@ namespace CreateThis.Factory.VR.UI {
             return factory.Generate();
         }
 
-        protected GameObject Panel(GameObject parent) {
+        protected GameObject Panel(GameObject parent, string name) {
             PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
+            factory.containerName = name;
             factory.panelBody = buttonBody;
             factory.material = panelMaterial;
             factory.highlight = highlight;
@@ -236,7 +237,7 @@ namespace CreateThis.Factory.VR.UI {
         protected void PanelLowerCase(GameObject parent) {
             if (panelLowerCase) return;
 
-            GameObject panel = Panel(parent);
+            GameObject panel = Panel(parent, "PanelLowerCase");
             SafeAddComponent<StandardPanel>(panel);
 
             GameObject column = Column(panel);
@@ -263,7 +264,7 @@ namespace CreateThis.Factory.VR.UI {
         protected void PanelUpperCase(GameObject parent) {
             if (panelUpperCase) return;
 
-            GameObject panel = Panel(parent);
+            GameObject panel = Panel(parent, "PanelUpperCase");
             SafeAddComponent<StandardPanel>(panel);
 
             GameObject column = Column(panel);
@@ -290,7 +291,7 @@ namespace CreateThis.Factory.VR.UI {
         protected void PanelNumber(GameObject parent) {
             if (panelNumber) return;
 
-            GameObject panel = Panel(parent);
+            GameObject panel = Panel(parent, "PanelNumber");
             SafeAddComponent<StandardPanel>(panel);
 
             GameObject column = Column(panel);
@@ -317,7 +318,7 @@ namespace CreateThis.Factory.VR.UI {
         protected void PanelSymbol(GameObject parent) {
             if (panelSymbol) return;
 
-            GameObject panel = Panel(parent);
+            GameObject panel = Panel(parent, "PanelSymbol");
             SafeAddComponent<StandardPanel>(panel);
 
             GameObject column = Column(panel);

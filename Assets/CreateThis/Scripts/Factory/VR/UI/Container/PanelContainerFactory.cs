@@ -18,7 +18,8 @@ namespace CreateThis.Factory.VR.UI.Container {
 
         protected override void AddContainer(GameObject target) {
             PanelContainer container = SafeAddComponent<PanelContainer>(target);
-            target.name = "Panel";
+            if (containerName == null) target.name = "Panel";
+            else target.name = containerName;
             container.minWidth = minWidth;
             container.minHeight = minHeight;
         }
