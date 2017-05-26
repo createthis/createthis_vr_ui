@@ -22,7 +22,12 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty labelScale;
         SerializedProperty padding;
         SerializedProperty spacing;
-
+        SerializedProperty buttonPadding;
+        SerializedProperty keyMinWidth;
+        SerializedProperty keyCharacterSize;
+        SerializedProperty numLockCharacterSize;
+        SerializedProperty spaceMinWidth;
+        SerializedProperty returnMinWidth;
 
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -41,6 +46,12 @@ namespace CreateThis.Factory.VR.UI {
             labelScale = serializedObject.FindProperty("labelScale");
             padding = serializedObject.FindProperty("padding");
             spacing = serializedObject.FindProperty("spacing");
+            buttonPadding = serializedObject.FindProperty("buttonPadding");
+            keyMinWidth = serializedObject.FindProperty("keyMinWidth");
+            keyCharacterSize = serializedObject.FindProperty("keyCharacterSize");
+            numLockCharacterSize = serializedObject.FindProperty("numLockCharacterSize");
+            spaceMinWidth = serializedObject.FindProperty("spaceMinWidth");
+            returnMinWidth = serializedObject.FindProperty("returnMinWidth");
         }
 
         protected void BuildGenerateButton() {
@@ -78,6 +89,12 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(labelScale);
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(spacing);
+            EditorGUILayout.PropertyField(buttonPadding);
+            EditorGUILayout.PropertyField(keyMinWidth);
+            EditorGUILayout.PropertyField(keyCharacterSize);
+            EditorGUILayout.PropertyField(numLockCharacterSize);
+            EditorGUILayout.PropertyField(spaceMinWidth);
+            EditorGUILayout.PropertyField(returnMinWidth);
 
             AdditionalProperties();
 

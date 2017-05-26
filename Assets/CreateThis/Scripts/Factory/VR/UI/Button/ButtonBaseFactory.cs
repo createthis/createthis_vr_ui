@@ -21,6 +21,9 @@ namespace CreateThis.Factory.VR.UI.Button {
         public float labelZ;
         public Vector3 bodyScale;
         public Vector3 labelScale;
+        public float minWidth;
+        public float padding;
+        public float characterSize;
 
         protected GameObject buttonInstance;
         protected GameObject buttonBodyInstance;
@@ -64,6 +67,8 @@ namespace CreateThis.Factory.VR.UI.Button {
             growButton.buttonBody = buttonBodyInstance;
             growButton.textMesh = buttonTextLabelInstance.GetComponent<TextMesh>();
             growButton.alignment = alignment;
+            growButton.minWidth = minWidth;
+            growButton.padding = padding;
 
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(buttonInstance);
             rigidBody.isKinematic = true;
@@ -122,6 +127,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             textMesh.color = fontColor;
             textMesh.anchor = TextAnchor.MiddleCenter;
             textMesh.alignment = TextAlignment.Left;
+            textMesh.characterSize = characterSize;
         }
 
         public override GameObject Generate() {

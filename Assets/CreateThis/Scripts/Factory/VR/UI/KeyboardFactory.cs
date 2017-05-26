@@ -27,6 +27,12 @@ namespace CreateThis.Factory.VR.UI {
         public Vector3 labelScale;
         public float padding;
         public float spacing;
+        public float buttonPadding;
+        public float keyMinWidth;
+        public float keyCharacterSize;
+        public float numLockCharacterSize;
+        public float spaceMinWidth;
+        public float returnMinWidth;
 
         protected Keyboard keyboard;
         protected GameObject keyboardInstance;
@@ -113,6 +119,9 @@ namespace CreateThis.Factory.VR.UI {
             factory.bodyScale = bodyScale;
             factory.labelScale = labelScale;
             factory.keyboard = keyboard;
+            factory.minWidth = keyMinWidth;
+            factory.padding = buttonPadding;
+            factory.characterSize = keyCharacterSize;
         }
 
         protected void SetKeyboardButtonPosition(GameObject button) {
@@ -141,7 +150,15 @@ namespace CreateThis.Factory.VR.UI {
             factory.buttonText = buttonText;
             factory.on = on;
             return GenerateKeyboardButtonAndSetPosition(factory);
+        }
 
+        protected GameObject KeyboardNumLockButton(GameObject parent, string buttonText) {
+            KeyboardButtonFactory factory = SafeAddComponent<KeyboardButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
+            factory.value = buttonText;
+            factory.characterSize = numLockCharacterSize;
+            return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
@@ -207,6 +224,9 @@ namespace CreateThis.Factory.VR.UI {
                     break;
                 case KeyType.ShiftLock:
                     KeyboardShiftLockButton(parent, key.value, key.on);
+                    break;
+                case KeyType.NumLock:
+                    KeyboardNumLockButton(parent, key.value);
                     break;
                 default:
                     Debug.Log("unhandled key type=" + key.type);

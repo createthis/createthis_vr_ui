@@ -20,6 +20,9 @@ namespace CreateThis.Factory.VR.UI.Button {
         SerializedProperty labelZ;
         SerializedProperty bodyScale;
         SerializedProperty labelScale;
+        SerializedProperty minWidth;
+        SerializedProperty padding;
+        SerializedProperty characterSize;
 
         protected virtual void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -36,6 +39,9 @@ namespace CreateThis.Factory.VR.UI.Button {
             labelZ = serializedObject.FindProperty("labelZ");
             bodyScale = serializedObject.FindProperty("bodyScale");
             labelScale = serializedObject.FindProperty("labelScale");
+            minWidth = serializedObject.FindProperty("minWidth");
+            padding = serializedObject.FindProperty("padding");
+            characterSize = serializedObject.FindProperty("characterSize");
         }
 
         protected virtual void BuildGenerateButton() {
@@ -71,6 +77,10 @@ namespace CreateThis.Factory.VR.UI.Button {
             EditorGUILayout.PropertyField(labelZ);
             EditorGUILayout.PropertyField(bodyScale);
             EditorGUILayout.PropertyField(labelScale);
+            EditorGUILayout.PropertyField(minWidth);
+            EditorGUILayout.PropertyField(padding);
+            EditorGUILayout.PropertyField(characterSize);
+
             AdditionalProperties();
 
             serializedObject.ApplyModifiedProperties();
