@@ -29,6 +29,8 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty spaceMinWidth;
         SerializedProperty returnMinWidth;
         SerializedProperty spacerWidth;
+        SerializedProperty modeKeyMinWidth;
+        SerializedProperty wideKeyMinWidth;
 
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -54,6 +56,8 @@ namespace CreateThis.Factory.VR.UI {
             spaceMinWidth = serializedObject.FindProperty("spaceMinWidth");
             returnMinWidth = serializedObject.FindProperty("returnMinWidth");
             spacerWidth = serializedObject.FindProperty("spacerWidth");
+            modeKeyMinWidth = serializedObject.FindProperty("modeKeyMinWidth");
+            wideKeyMinWidth = serializedObject.FindProperty("wideKeyMinWidth");
         }
 
         protected void BuildGenerateButton() {
@@ -98,6 +102,8 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(spaceMinWidth);
             EditorGUILayout.PropertyField(returnMinWidth);
             EditorGUILayout.PropertyField(spacerWidth);
+            EditorGUILayout.PropertyField(modeKeyMinWidth);
+            EditorGUILayout.PropertyField(wideKeyMinWidth);
 
             AdditionalProperties();
 

@@ -10,7 +10,7 @@ using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Container;
 
 namespace CreateThis.Factory.VR.UI {
-    public class KeyboardFactory : BaseFactory {
+    public class KeyboardFactory : KeyboardKey {
         public GameObject parent;
         public GameObject buttonBody;
         public Material buttonMaterial;
@@ -34,6 +34,8 @@ namespace CreateThis.Factory.VR.UI {
         public float spaceMinWidth;
         public float returnMinWidth;
         public float spacerWidth;
+        public float modeKeyMinWidth;
+        public float wideKeyMinWidth;
 
         protected Keyboard keyboard;
         protected GameObject keyboardInstance;
@@ -42,89 +44,6 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject panelNumber;
         protected GameObject panelSymbol;
         private GameObject disposable;
-
-        protected static Key K(string value) {
-            return new Key(KeyType.Key, value);
-        }
-
-        protected struct Key {
-            public KeyType type;
-            public string value;
-            public bool on;
-            public float width;
-
-            public Key(KeyType type, string value, bool on) {
-                this.type = type;
-                this.value = value;
-                this.on = on;
-                width = -1;
-            }
-
-            public Key(KeyType type, string value) {
-                this.type = type;
-                this.value = value;
-                on = false;
-                width = -1;
-            }
-
-            public Key(KeyType type, float value) {
-                this.type = type;
-                this.value = null;
-                on = false;
-                width = value;
-            }
-
-            public Key(string value) {
-                type = KeyType.Key;
-                this.value = value;
-                on = false;
-                width = -1;
-            }
-
-            public static Key ShiftLock(string value, bool on) {
-                return new Key(KeyType.ShiftLock, value, on);
-            }
-
-            public static Key NumLock(string value) {
-                return new Key(KeyType.NumLock, value);
-            }
-
-            public static Key ABC(string value) {
-                return new Key(KeyType.ABC, value);
-            }
-
-            public static Key Return(string value) {
-                return new Key(KeyType.Return, value);
-            }
-
-            public static Key Symbol(string value) {
-                return new Key(KeyType.Symbol, value);
-            }
-
-            public static Key Spacer(float width) {
-                return new Key(KeyType.Spacer, width);
-            }
-
-            public static Key Space(string value) {
-                return new Key(KeyType.Space, value);
-            }
-
-            public static Key Backspace(string value) {
-                return new Key(KeyType.Backspace, value);
-            }
-        }
-
-        protected enum KeyType {
-            Key,
-            ShiftLock,
-            NumLock,
-            Return,
-            Symbol,
-            Spacer,
-            Space,
-            ABC,
-            Backspace
-        }
 
         protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, GameObject parent) {
             factory.parent = parent;
@@ -158,12 +77,12 @@ namespace CreateThis.Factory.VR.UI {
             return button;
         }
 
-        protected GameObject KeyboardButton(GameObject parent, string buttonText, string buttonValue = null) {
+        protected GameObject KeyboardButton(GameObject parent, string buttonText, float minWidth = -1) {
             KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
-            if (buttonValue == null) factory.value = buttonText;
-            else factory.value = buttonValue;
+            factory.value = buttonText;
+            if (minWidth != -1) factory.minWidth = minWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -181,6 +100,7 @@ namespace CreateThis.Factory.VR.UI {
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             factory.on = on;
+            factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -190,6 +110,7 @@ namespace CreateThis.Factory.VR.UI {
             factory.buttonText = buttonText;
             factory.on = false;
             factory.characterSize = numLockCharacterSize;
+            factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -198,6 +119,7 @@ namespace CreateThis.Factory.VR.UI {
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             factory.characterSize = numLockCharacterSize;
+            factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -215,6 +137,7 @@ namespace CreateThis.Factory.VR.UI {
             SetKeyboardButtonValues(factory, parent);
             factory.buttonText = buttonText;
             factory.characterSize = numLockCharacterSize;
+            factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -296,6 +219,9 @@ namespace CreateThis.Factory.VR.UI {
             switch (key.type) {
                 case KeyType.Key:
                     KeyboardButton(parent, key.value);
+                    break;
+                case KeyType.Wide:
+                    KeyboardButton(parent, key.value, wideKeyMinWidth);
                     break;
                 case KeyType.Space:
                     KeyboardSpaceButton(parent, key.value);
@@ -418,7 +344,7 @@ namespace CreateThis.Factory.VR.UI {
                 K("-"), K("/"), K(":"), K(";"), K("("), K(")"), K("$"), K("&"), K("@"), K("\"")
             });
             ButtonRow(column, new List<Key> {
-                Key.Symbol("#+="), Key.Spacer(spacerWidth), K("."), K(","), K("?"), K("!"), K("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
+                Key.Symbol("#+="), Key.Spacer(spacerWidth), W("."), W(","), W("?"), W("!"), W("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
                 Key.ABC("ABC"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
@@ -445,7 +371,7 @@ namespace CreateThis.Factory.VR.UI {
                 K("_"), K("\\"), K("|"), K("~"), K("<"), K(">"), K("€"), K("£"), K("¥"), K("•")
             });
             ButtonRow(column, new List<Key> {
-                Key.NumLock("123"), Key.Spacer(spacerWidth), K("."), K(","), K("?"), K("!"), K("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
+                Key.NumLock("123"), Key.Spacer(spacerWidth), W("."), W(","), W("?"), W("!"), W("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
             ButtonRow(column, new List<Key> {
                 Key.ABC("ABC"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
