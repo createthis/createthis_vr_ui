@@ -84,6 +84,10 @@
             public static Key Backspace(string value) {
                 return new Key(KeyType.Backspace, value);
             }
+
+            public static Key Done(string value) {
+                return new Key(KeyType.Done, value);
+            }
         }
 
         protected enum KeyType {
@@ -96,6 +100,7 @@
             Spacer,
             Space,
             ABC,
+            Done,
             Backspace
         }
     }

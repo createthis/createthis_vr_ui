@@ -40,7 +40,6 @@ namespace CreateThis.VR.UI.Button {
 
         protected override void ResetPosition() {
             if (on) {
-                Debug.Log("onStartingZ=" + onStartingZ);
                 buttonBody.transform.position = transform.TransformPoint(startingBodyButtonLocalPosition + Vector3.forward * onStartingZ);
                 buttonText.transform.position = transform.TransformPoint(startingTextButtonLocalPosition + Vector3.forward * onStartingZ);
             } else {

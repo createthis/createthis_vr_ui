@@ -132,6 +132,15 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
+        protected GameObject KeyboardDoneButton(GameObject parent, string buttonText) {
+            KeyboardDoneButtonFactory factory = SafeAddComponent<KeyboardDoneButtonFactory>(disposable);
+            SetKeyboardButtonValues(factory, parent);
+            factory.buttonText = buttonText;
+            factory.characterSize = keyCharacterSize;
+            factory.minWidth = returnMinWidth;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
         protected GameObject KeyboardSymbolButton(GameObject parent, string buttonText) {
             KeyboardSymbolButtonFactory factory = SafeAddComponent<KeyboardSymbolButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, parent);
@@ -244,6 +253,9 @@ namespace CreateThis.Factory.VR.UI {
                 case KeyType.Backspace:
                     KeyboardBackspaceButton(parent, key.value);
                     break;
+                case KeyType.Done:
+                    KeyboardDoneButton(parent, key.value);
+                    break;
                 case KeyType.Spacer:
                     ButtonSpacer(parent, key.width);
                     break;
@@ -253,8 +265,8 @@ namespace CreateThis.Factory.VR.UI {
             }
         }
 
-        protected GameObject ButtonRow(GameObject parent, List<Key> keys) {
-            GameObject row = Row(parent);
+        protected GameObject ButtonRow(GameObject parent, List<Key> keys, TextAlignment alignment = TextAlignment.Center) {
+            GameObject row = Row(parent, null, alignment);
             foreach (Key key in keys) {
                 ButtonByKey(row, key);
             }
@@ -273,6 +285,14 @@ namespace CreateThis.Factory.VR.UI {
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
         }
 
+        protected void PanelHeader(GameObject parent) {
+            ButtonRow(parent, new List<Key> {
+                Key.Done("done")
+            }, TextAlignment.Right);
+
+            DisplayRow(parent);
+        }
+
         protected void PanelLowerCase(GameObject parent) {
             if (panelLowerCase) return;
 
@@ -281,7 +301,7 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject column = Column(panel);
 
-            DisplayRow(column);
+            PanelHeader(column);
 
             ButtonRow(column, new List<Key> {
                 K("q"), K("w"), K("e"), K("r"), K("t"), K("y"), K("u"), K("i"), K("o"), K("p")
@@ -308,7 +328,7 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject column = Column(panel);
 
-            DisplayRow(column);
+            PanelHeader(column);
 
             ButtonRow(column, new List<Key> {
                 K("Q"), K("W"), K("E"), K("R"), K("T"), K("Y"), K("U"), K("I"), K("O"), K("P")
@@ -335,7 +355,7 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject column = Column(panel);
 
-            DisplayRow(column);
+            PanelHeader(column);
 
             ButtonRow(column, new List<Key> {
                 K("1"), K("2"), K("3"), K("4"), K("5"), K("6"), K("7"), K("8"), K("9"), K("0")
@@ -362,7 +382,7 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject column = Column(panel);
 
-            DisplayRow(column);
+            PanelHeader(column);
 
             ButtonRow(column, new List<Key> {
                 K("["), K("]"), K("{"), K("}"), K("#"), K("%"), K("^"), K("*"), K("+"), K("=")
