@@ -50,7 +50,6 @@ namespace CreateThis.VR.UI.Panel {
             } else {
                 notSelectableCount++;
             }
-
             if (notSelectableCount == 0) {
                 boxCollider.enabled = true;
             } else {

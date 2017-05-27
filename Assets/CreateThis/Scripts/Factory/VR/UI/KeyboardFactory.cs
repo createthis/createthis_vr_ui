@@ -45,7 +45,7 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject panelSymbol;
         private GameObject disposable;
 
-        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, GameObject parent) {
+        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, StandardPanel panel, GameObject parent) {
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.material = buttonMaterial;
@@ -63,6 +63,7 @@ namespace CreateThis.Factory.VR.UI {
             factory.minWidth = keyMinWidth;
             factory.padding = buttonPadding;
             factory.characterSize = keyCharacterSize;
+            factory.panel = panel;
         }
 
         protected void SetKeyboardButtonPosition(GameObject button) {
@@ -77,36 +78,36 @@ namespace CreateThis.Factory.VR.UI {
             return button;
         }
 
-        protected GameObject KeyboardButton(GameObject parent, string buttonText, float minWidth = -1) {
+        protected GameObject KeyboardButton(StandardPanel panel, GameObject parent, string buttonText, float minWidth = -1) {
             KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.value = buttonText;
             if (minWidth != -1) factory.minWidth = minWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardSpaceButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardSpaceButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.value = " ";
             factory.minWidth = spaceMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardShiftLockButton(GameObject parent, string buttonText, bool on) {
+        protected GameObject KeyboardShiftLockButton(StandardPanel panel, GameObject parent, string buttonText, bool on) {
             KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.on = on;
             factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardABCButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardABCButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.on = false;
             factory.characterSize = numLockCharacterSize;
@@ -114,45 +115,45 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardNumLockButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardNumLockButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardNumLockButtonFactory factory = SafeAddComponent<KeyboardNumLockButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.characterSize = numLockCharacterSize;
             factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardReturnButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardReturnButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardReturnButtonFactory factory = SafeAddComponent<KeyboardReturnButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.characterSize = keyCharacterSize;
             factory.minWidth = returnMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardDoneButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardDoneButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardDoneButtonFactory factory = SafeAddComponent<KeyboardDoneButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.characterSize = keyCharacterSize;
             factory.minWidth = returnMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardSymbolButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardSymbolButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardSymbolButtonFactory factory = SafeAddComponent<KeyboardSymbolButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.characterSize = numLockCharacterSize;
             factory.minWidth = modeKeyMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KeyboardBackspaceButton(GameObject parent, string buttonText) {
+        protected GameObject KeyboardBackspaceButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardBackspaceButtonFactory factory = SafeAddComponent<KeyboardBackspaceButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, parent);
+            SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
@@ -232,37 +233,37 @@ namespace CreateThis.Factory.VR.UI {
             return row;
         }
 
-        protected void ButtonByKey(GameObject parent, Key key) {
+        protected void ButtonByKey(StandardPanel panel, GameObject parent, Key key) {
             switch (key.type) {
                 case KeyType.Key:
-                    KeyboardButton(parent, key.value);
+                    KeyboardButton(panel, parent, key.value);
                     break;
                 case KeyType.Wide:
-                    KeyboardButton(parent, key.value, wideKeyMinWidth);
+                    KeyboardButton(panel, parent, key.value, wideKeyMinWidth);
                     break;
                 case KeyType.Space:
-                    KeyboardSpaceButton(parent, key.value);
+                    KeyboardSpaceButton(panel, parent, key.value);
                     break;
                 case KeyType.ShiftLock:
-                    KeyboardShiftLockButton(parent, key.value, key.on);
+                    KeyboardShiftLockButton(panel, parent, key.value, key.on);
                     break;
                 case KeyType.ABC:
-                    KeyboardABCButton(parent, key.value);
+                    KeyboardABCButton(panel, parent, key.value);
                     break;
                 case KeyType.NumLock:
-                    KeyboardNumLockButton(parent, key.value);
+                    KeyboardNumLockButton(panel, parent, key.value);
                     break;
                 case KeyType.Symbol:
-                    KeyboardSymbolButton(parent, key.value);
+                    KeyboardSymbolButton(panel, parent, key.value);
                     break;
                 case KeyType.Return:
-                    KeyboardReturnButton(parent, key.value);
+                    KeyboardReturnButton(panel, parent, key.value);
                     break;
                 case KeyType.Backspace:
-                    KeyboardBackspaceButton(parent, key.value);
+                    KeyboardBackspaceButton(panel, parent, key.value);
                     break;
                 case KeyType.Done:
-                    KeyboardDoneButton(parent, key.value);
+                    KeyboardDoneButton(panel, parent, key.value);
                     break;
                 case KeyType.Spacer:
                     ButtonSpacer(parent, key.width);
@@ -273,10 +274,10 @@ namespace CreateThis.Factory.VR.UI {
             }
         }
 
-        protected GameObject ButtonRow(GameObject parent, List<Key> keys, TextAlignment alignment = TextAlignment.Center) {
+        protected GameObject ButtonRow(StandardPanel panel, GameObject parent, List<Key> keys, TextAlignment alignment = TextAlignment.Center) {
             GameObject row = Row(parent, null, alignment);
             foreach (Key key in keys) {
-                ButtonByKey(row, key);
+                ButtonByKey(panel, row, key);
             }
             return row;
         }
@@ -293,8 +294,8 @@ namespace CreateThis.Factory.VR.UI {
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
         }
 
-        protected void PanelHeader(GameObject parent) {
-            ButtonRow(parent, new List<Key> {
+        protected void PanelHeader(StandardPanel panel, GameObject parent) {
+            ButtonRow(panel, parent, new List<Key> {
                 Key.Done("done")
             }, TextAlignment.Right);
 
@@ -306,24 +307,25 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject panel = Panel(parent, "PanelLowerCase");
             GameObject column = Column(panel);
+            StandardPanel standardPanel = panel.GetComponent<StandardPanel>();
 
-            PanelHeader(column);
+            PanelHeader(standardPanel, column);
 
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("q"), K("w"), K("e"), K("r"), K("t"), K("y"), K("u"), K("i"), K("o"), K("p")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("a"), K("s"), K("d"), K("f"), K("g"), K("h"), K("j"), K("k"), K("l")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.ShiftLock("⇧", false), Key.Spacer(spacerWidth), K("z"), K("x"), K("c"), K("v"), K("b"), K("n"), K("m"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.NumLock("123"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelLowerCase = panel;
-            keyboard.panelLowerCase = panelLowerCase.GetComponent<StandardPanel>();
+            keyboard.panelLowerCase = standardPanel;
         }
 
         protected void PanelUpperCase(GameObject parent) {
@@ -331,24 +333,25 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject panel = Panel(parent, "PanelUpperCase");
             GameObject column = Column(panel);
+            StandardPanel standardPanel = panel.GetComponent<StandardPanel>();
 
-            PanelHeader(column);
+            PanelHeader(standardPanel, column);
 
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("Q"), K("W"), K("E"), K("R"), K("T"), K("Y"), K("U"), K("I"), K("O"), K("P")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("A"), K("S"), K("D"), K("F"), K("G"), K("H"), K("J"), K("K"), K("L")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.ShiftLock("⇧", true), Key.Spacer(spacerWidth), K("Z"), K("X"), K("C"), K("V"), K("B"), K("N"), K("M"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.NumLock("123"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelUpperCase = panel;
-            keyboard.panelUpperCase = panelUpperCase.GetComponent<StandardPanel>();
+            keyboard.panelUpperCase = standardPanel;
         }
 
         protected void PanelNumber(GameObject parent) {
@@ -356,24 +359,25 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject panel = Panel(parent, "PanelNumber");
             GameObject column = Column(panel);
+            StandardPanel standardPanel = panel.GetComponent<StandardPanel>();
 
-            PanelHeader(column);
+            PanelHeader(standardPanel, column);
 
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("1"), K("2"), K("3"), K("4"), K("5"), K("6"), K("7"), K("8"), K("9"), K("0")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("-"), K("/"), K(":"), K(";"), K("("), K(")"), K("$"), K("&"), K("@"), K("\"")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.Symbol("#+="), Key.Spacer(spacerWidth), W("."), W(","), W("?"), W("!"), W("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.ABC("ABC"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelNumber = panel;
-            keyboard.panelNumber = panelNumber.GetComponent<StandardPanel>();
+            keyboard.panelNumber = standardPanel;
         }
 
         protected void PanelSymbol(GameObject parent) {
@@ -381,24 +385,25 @@ namespace CreateThis.Factory.VR.UI {
 
             GameObject panel = Panel(parent, "PanelSymbol");
             GameObject column = Column(panel);
+            StandardPanel standardPanel = panel.GetComponent<StandardPanel>();
 
-            PanelHeader(column);
+            PanelHeader(standardPanel, column);
 
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("["), K("]"), K("{"), K("}"), K("#"), K("%"), K("^"), K("*"), K("+"), K("=")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 K("_"), K("\\"), K("|"), K("~"), K("<"), K(">"), K("€"), K("£"), K("¥"), K("•")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.NumLock("123"), Key.Spacer(spacerWidth), W("."), W(","), W("?"), W("!"), W("'"), Key.Spacer(spacerWidth), Key.Backspace("⇦")
             });
-            ButtonRow(column, new List<Key> {
+            ButtonRow(standardPanel, column, new List<Key> {
                 Key.ABC("ABC"), Key.Spacer(spacerWidth), Key.Space("space"), Key.Return("return")
             });
 
             panelSymbol = panel;
-            keyboard.panelSymbol = panelSymbol.GetComponent<StandardPanel>();
+            keyboard.panelSymbol = standardPanel;
         }
 
         public override GameObject Generate() {

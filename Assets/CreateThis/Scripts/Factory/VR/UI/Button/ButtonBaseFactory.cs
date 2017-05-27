@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using CreateThis.VR.UI.Button;
+using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Interact;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -24,6 +25,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         public float minWidth;
         public float padding;
         public float characterSize;
+        public PanelBase panel;
 
         protected GameObject buttonInstance;
         protected GameObject buttonBodyInstance;
@@ -44,6 +46,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             if (audioSourceUp) button.buttonClickUp = audioSourceUp;
             button.buttonBody = buttonBodyInstance;
             button.buttonText = buttonTextLabelInstance;
+            if (panel) button.panel = panel;
         }
 
         private void PopulateButton() {

@@ -23,8 +23,10 @@ namespace CreateThis.VR.UI.Button {
         private bool hasInitialized = false;
 
         public override void OnTouchStart(Transform controller, int controllerIndex) {
+            if (panel && !pushing) {
+                panel.SetSelectable(false);
+            }
             pushing = true;
-            if (panel) panel.SetSelectable(false);
             UpdatePosition(controller, controllerIndex, true);
         }
 
@@ -44,7 +46,9 @@ namespace CreateThis.VR.UI.Button {
                     ClickHandler(controller, controllerIndex);
                 }
             }
-            if (panel) panel.SetSelectable(true);
+            if (panel) {
+                panel.SetSelectable(true);
+            }
         }
 
         protected virtual void ResetPosition() {
@@ -78,6 +82,9 @@ namespace CreateThis.VR.UI.Button {
 
             if (firstUpdate && newZ > firstUpdateIgnoreThreshold) {
                 pushing = false;
+                if (panel) {
+                    panel.SetSelectable(true);
+                }
                 return;
             }
 

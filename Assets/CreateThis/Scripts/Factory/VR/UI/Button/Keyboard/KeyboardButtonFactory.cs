@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using CreateThis.VR.UI;
-using CreateThis.VR.UI.Button;
+﻿using CreateThis.VR.UI;
 
 namespace CreateThis.Factory.VR.UI.Button {
     public abstract class KeyboardButtonFactory : MomentaryButtonFactory {

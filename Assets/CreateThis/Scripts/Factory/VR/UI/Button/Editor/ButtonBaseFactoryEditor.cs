@@ -23,6 +23,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         SerializedProperty minWidth;
         SerializedProperty padding;
         SerializedProperty characterSize;
+        SerializedProperty panel;
 
         protected virtual void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -42,6 +43,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             minWidth = serializedObject.FindProperty("minWidth");
             padding = serializedObject.FindProperty("padding");
             characterSize = serializedObject.FindProperty("characterSize");
+            panel = serializedObject.FindProperty("panel");
         }
 
         protected virtual void BuildGenerateButton() {
@@ -80,6 +82,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             EditorGUILayout.PropertyField(minWidth);
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(characterSize);
+            EditorGUILayout.PropertyField(panel);
 
             AdditionalProperties();
 

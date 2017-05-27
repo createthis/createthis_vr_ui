@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using CreateThis.VR.UI;
 using CreateThis.VR.UI.Button;
 
 namespace CreateThis.Factory.VR.UI.Button {
@@ -14,6 +13,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             button.buttonText = buttonTextLabelInstance;
             button.keyboard = keyboard;
             button.value = value;
+            if (panel) button.panel = panel;
         }
     }
 }
