@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using CreateThis.VR.UI.UnityEvent;
 using CreateThis.VR.UI.Interact;
+using CreateThis.VR.UI.Panel;
 
 namespace CreateThis.VR.UI.Button {
     public abstract class ButtonBase : Touchable {
@@ -10,6 +11,7 @@ namespace CreateThis.VR.UI.Button {
         public GameObject buttonText;
         public GrabEvent onClick;
         public bool clickOnTriggerExit;
+        public PanelBase panel;
 
         private bool pushing;
         protected bool hitTravelLimit;
@@ -22,6 +24,7 @@ namespace CreateThis.VR.UI.Button {
 
         public override void OnTouchStart(Transform controller, int controllerIndex) {
             pushing = true;
+            if (panel) panel.SetSelectable(false);
             UpdatePosition(controller, controllerIndex, true);
         }
 
@@ -41,6 +44,7 @@ namespace CreateThis.VR.UI.Button {
                     ClickHandler(controller, controllerIndex);
                 }
             }
+            if (panel) panel.SetSelectable(true);
         }
 
         protected virtual void ResetPosition() {
