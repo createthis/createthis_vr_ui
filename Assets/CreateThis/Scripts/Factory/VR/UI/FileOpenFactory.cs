@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
-using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Container;
 
 namespace CreateThis.Factory.VR.UI {
-    public class FileOpenFactory : KeyboardKey {
+    public class FileOpenFactory : BaseFactory {
         public GameObject parent;
         public GameObject buttonBody;
         public Material buttonMaterial;
@@ -28,8 +26,9 @@ namespace CreateThis.Factory.VR.UI {
         public float padding;
         public float spacing;
         public float buttonPadding;
-        public float keyMinWidth;
-        public float keyCharacterSize;
+        public float buttonMinWidth;
+        public float buttonCharacterSize;
+        public float labelCharacterSize;
 
         protected GameObject fileOpenPanel;
         private GameObject disposable;
@@ -48,9 +47,9 @@ namespace CreateThis.Factory.VR.UI {
             factory.labelZ = labelZ;
             factory.bodyScale = bodyScale;
             factory.labelScale = labelScale;
-            factory.minWidth = keyMinWidth;
+            factory.minWidth = buttonMinWidth;
             factory.padding = buttonPadding;
-            factory.characterSize = keyCharacterSize;
+            factory.characterSize = buttonCharacterSize;
             factory.panel = panel;
         }
 
@@ -114,47 +113,42 @@ namespace CreateThis.Factory.VR.UI {
             return panel;
         }
 
-        protected GameObject DisplayRow(GameObject parent) {
-            GameObject row = Row(parent, "DisplayRow", TextAlignment.Left);
-            GameObject label = EmptyChild(row, "Display");
+        protected GameObject Label(GameObject parent, string name, string text) {
+            GameObject label = EmptyChild(parent, name);
             label.transform.localScale = labelScale;
             Vector3 localPosition = new Vector3(0, 0, labelZ);
             label.transform.localPosition = localPosition;
             TextMesh textMesh = SafeAddComponent<TextMesh>(label);
-            textMesh.text = "keyboard display";
+            textMesh.text = "                 Path";
             textMesh.fontSize = fontSize;
             textMesh.color = fontColor;
+            textMesh.characterSize = labelCharacterSize;
             textMesh.anchor = TextAnchor.MiddleCenter;
-
-            //FIXME: file open path
-            KeyboardLabel keyboardLabel = SafeAddComponent<KeyboardLabel>(label);
-            keyboardLabel.textMesh = textMesh;
 
             BoxCollider boxCollider = SafeAddComponent<BoxCollider>(label);
 
             UpdateBoxColliderFromTextMesh updateBoxCollider = SafeAddComponent<UpdateBoxColliderFromTextMesh>(label);
             updateBoxCollider.textMesh = textMesh;
             updateBoxCollider.boxCollider = boxCollider;
+            return label;
+        }
 
+        protected GameObject CurrentPathRow(GameObject parent) {
+            GameObject row = Row(parent, "CurrentPathRow", TextAlignment.Left);
+            Label(row, "PathLabel", "                 Path");
+            Label(row, "CurrentPathLabel", "C:/Foo/Blah/Stuff");
             return row;
         }
 
-        protected void ButtonByKey(StandardPanel panel, GameObject parent, Key key) {
-            switch (key.type) {
-                case KeyType.Key:
-                    KeyboardButton(panel, parent, key.value);
-                    break;
-                default:
-                    Debug.Log("unhandled key type=" + key.type);
-                    break;
-            }
+        protected GameObject DriveButtonRow(GameObject parent) {
+            GameObject row = Row(parent, "DriveButtonRow", TextAlignment.Left);
+            Label(row, "DrivesLabel", "              Drives");
+            return row;
         }
 
-        protected GameObject ButtonRow(StandardPanel panel, GameObject parent, List<Key> keys, TextAlignment alignment = TextAlignment.Center) {
-            GameObject row = Row(parent, null, alignment);
-            foreach (Key key in keys) {
-                ButtonByKey(panel, row, key);
-            }
+        protected GameObject SpecialFoldersRow(GameObject parent) {
+            GameObject row = Row(parent, "SpecialFoldersRow", TextAlignment.Left);
+            Label(row, "SpecialFoldersLabel", "Special Folders");
             return row;
         }
 
@@ -164,28 +158,27 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {
-            ButtonRow(panel, parent, new List<Key> {
-                Key.Done("done")
-            }, TextAlignment.Right);
-
-            DisplayRow(parent);
+            CurrentPathRow(parent);
         }
 
         protected void FileOpenPanel(GameObject parent) {
             if (fileOpenPanel) return;
 
-            GameObject panel = Panel(parent, "FileOpenPanel");
+            fileOpenPanel = EmptyChild(parent, "FileOpenPanel");
+
+            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileOpenPanel);
+            rigidbody.isKinematic = true;
+
+            GameObject panel = Panel(fileOpenPanel, "DrivesPanel");
             GameObject column = Column(panel);
             StandardPanel standardPanel = panel.GetComponent<StandardPanel>();
+            standardPanel.grabTarget = fileOpenPanel.transform;
 
             PanelHeader(standardPanel, column);
+            DriveButtonRow(column);
 
-            // FIXME: Add label
             // FIXME: Add drive buttons
             // FIXME: Add special buttons
-            ButtonRow(standardPanel, column, new List<Key> {
-                K("q"), K("w"), K("e"), K("r"), K("t"), K("y"), K("u"), K("i"), K("o"), K("p")
-            });
 
             fileOpenPanel = panel;
         }
