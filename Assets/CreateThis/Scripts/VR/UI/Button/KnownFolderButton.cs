@@ -7,7 +7,7 @@ namespace CreateThis.VR.UI.Button {
         public FileBase filePanel;
         public KnownFolder knownFolder;
 
-        protected new void ClickHandler(Transform controller, int controllerIndex) {
+        protected override void ClickHandler(Transform controller, int controllerIndex) {
             base.ClickHandler(controller, controllerIndex);
             filePanel.ChangeDirectoryToKnownFolder(knownFolder);
         }

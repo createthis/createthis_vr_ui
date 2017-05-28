@@ -13,6 +13,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             button.buttonText = buttonTextLabelInstance;
             button.keyboard = keyboard;
             button.value = value;
+            button.repeat = true;
             if (panel) button.panel = panel;
         }
     }
