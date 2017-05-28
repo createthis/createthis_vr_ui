@@ -4,7 +4,9 @@ using UnityEditor;
 #endif
 using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
+using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
+using CreateThis.VR.UI.File;
 using CreateThis.VR.UI.Container;
 
 namespace CreateThis.Factory.VR.UI {
@@ -30,8 +32,11 @@ namespace CreateThis.Factory.VR.UI {
         public float buttonCharacterSize;
         public float labelCharacterSize;
 
-        protected GameObject fileOpenPanel;
+        protected GameObject fileOpenInstance;
+        protected FileOpen fileOpenPanel;
+        private Drives drives;
         private GameObject disposable;
+        private GameObject currentPathLabel;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
             factory.parent = parent;
@@ -59,18 +64,18 @@ namespace CreateThis.Factory.VR.UI {
             button.transform.localPosition = localPosition;
         }
 
-        protected GameObject GenerateKeyboardButtonAndSetPosition(KeyboardButtonFactory factory) {
+        protected GameObject GenerateKeyboardButtonAndSetPosition(MomentaryButtonFactory factory) {
             GameObject button = factory.Generate();
             SetKeyboardButtonPosition(button);
             return button;
         }
 
-        protected GameObject DriveButton(StandardPanel panel, GameObject parent, string buttonText, float minWidth = -1) {
-            KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
+        protected GameObject DriveButton(FileOpen panel, GameObject parent, string buttonText) {
+            DriveButtonFactory factory = SafeAddComponent<DriveButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
-            factory.value = buttonText;
-            if (minWidth != -1) factory.minWidth = minWidth;
+            factory.filePanel = panel;
+            factory.minWidth = buttonMinWidth;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -104,8 +109,10 @@ namespace CreateThis.Factory.VR.UI {
             factory.bodyScale = bodyScale;
             GameObject panel = factory.Generate();
 
-            StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
-            standardPanel.grabTarget = standardPanel.transform;
+            fileOpenPanel = SafeAddComponent<FileOpen>(panel);
+            fileOpenPanel.grabTarget = fileOpenInstance.transform;
+
+            drives = SafeAddComponent<Drives>(panel);
 
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
             rigidbody.isKinematic = true;
@@ -119,7 +126,7 @@ namespace CreateThis.Factory.VR.UI {
             Vector3 localPosition = new Vector3(0, 0, labelZ);
             label.transform.localPosition = localPosition;
             TextMesh textMesh = SafeAddComponent<TextMesh>(label);
-            textMesh.text = "                 Path";
+            textMesh.text = text;
             textMesh.fontSize = fontSize;
             textMesh.color = fontColor;
             textMesh.characterSize = labelCharacterSize;
@@ -136,13 +143,16 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject CurrentPathRow(GameObject parent) {
             GameObject row = Row(parent, "CurrentPathRow", TextAlignment.Left);
             Label(row, "PathLabel", "                 Path");
-            Label(row, "CurrentPathLabel", "C:/Foo/Blah/Stuff");
+            currentPathLabel = Label(row, "CurrentPathLabel", "C:/Foo/Blah/Stuff");
+            fileOpenPanel.currentPathLabel = currentPathLabel;
             return row;
         }
 
         protected GameObject DriveButtonRow(GameObject parent) {
             GameObject row = Row(parent, "DriveButtonRow", TextAlignment.Left);
             Label(row, "DrivesLabel", "              Drives");
+            GameObject driveButtonPrefab = DriveButton(fileOpenPanel, row, "C");
+            drives.driveButtonPrefab = driveButtonPrefab;
             return row;
         }
 
@@ -162,25 +172,21 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected void FileOpenPanel(GameObject parent) {
-            if (fileOpenPanel) return;
+            if (fileOpenInstance) return;
 
-            fileOpenPanel = EmptyChild(parent, "FileOpenPanel");
+            fileOpenInstance = EmptyChild(parent, "FileOpenPanel");
 
-            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileOpenPanel);
+            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileOpenInstance);
             rigidbody.isKinematic = true;
 
-            GameObject panel = Panel(fileOpenPanel, "DrivesPanel");
+            GameObject panel = Panel(fileOpenInstance, "DrivesPanel");
             GameObject column = Column(panel);
-            StandardPanel standardPanel = panel.GetComponent<StandardPanel>();
-            standardPanel.grabTarget = fileOpenPanel.transform;
 
-            PanelHeader(standardPanel, column);
+            PanelHeader(fileOpenPanel, column);
             DriveButtonRow(column);
+            SpecialFoldersRow(column);
 
-            // FIXME: Add drive buttons
-            // FIXME: Add special buttons
-
-            fileOpenPanel = panel;
+            panel.transform.localPosition = Vector3.zero;
         }
 
         public override GameObject Generate() {
@@ -202,7 +208,7 @@ namespace CreateThis.Factory.VR.UI {
 #else
             Destroy(disposable);
 #endif
-            return fileOpenPanel;
+            return fileOpenInstance;
         }
     }
 }
