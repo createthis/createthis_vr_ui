@@ -23,8 +23,9 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty padding;
         SerializedProperty spacing;
         SerializedProperty buttonPadding;
-        SerializedProperty keyMinWidth;
-        SerializedProperty keyCharacterSize;
+        SerializedProperty buttonMinWidth;
+        SerializedProperty buttonCharacterSize;
+        SerializedProperty labelCharacterSize;
 
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -44,8 +45,9 @@ namespace CreateThis.Factory.VR.UI {
             padding = serializedObject.FindProperty("padding");
             spacing = serializedObject.FindProperty("spacing");
             buttonPadding = serializedObject.FindProperty("buttonPadding");
-            keyMinWidth = serializedObject.FindProperty("keyMinWidth");
-            keyCharacterSize = serializedObject.FindProperty("keyCharacterSize");
+            buttonMinWidth = serializedObject.FindProperty("buttonMinWidth");
+            buttonCharacterSize = serializedObject.FindProperty("buttonCharacterSize");
+            labelCharacterSize = serializedObject.FindProperty("labelCharacterSize");
         }
 
         protected void BuildGenerateButton() {
@@ -53,8 +55,8 @@ namespace CreateThis.Factory.VR.UI {
             // But then it gets called a couple of times when ever inspector updates
             // By having a button, you can control when the value goes through the setter and getter, your self.
             if (GUILayout.Button("Generate")) {
-                if (target.GetType() == typeof(KeyboardFactory)) {
-                    KeyboardFactory factory = (KeyboardFactory)target;
+                if (target.GetType() == typeof(FileOpenFactory)) {
+                    FileOpenFactory factory = (FileOpenFactory)target;
                     factory.Generate();
                 }
             }
@@ -84,8 +86,9 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(spacing);
             EditorGUILayout.PropertyField(buttonPadding);
-            EditorGUILayout.PropertyField(keyMinWidth);
-            EditorGUILayout.PropertyField(keyCharacterSize);
+            EditorGUILayout.PropertyField(buttonMinWidth);
+            EditorGUILayout.PropertyField(buttonCharacterSize);
+            EditorGUILayout.PropertyField(labelCharacterSize);
 
             AdditionalProperties();
 

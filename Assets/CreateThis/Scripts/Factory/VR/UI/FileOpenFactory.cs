@@ -33,7 +33,7 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject fileOpenPanel;
         private GameObject disposable;
 
-        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, StandardPanel panel, GameObject parent) {
+        protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.material = buttonMaterial;
@@ -65,9 +65,9 @@ namespace CreateThis.Factory.VR.UI {
             return button;
         }
 
-        protected GameObject KeyboardButton(StandardPanel panel, GameObject parent, string buttonText, float minWidth = -1) {
+        protected GameObject DriveButton(StandardPanel panel, GameObject parent, string buttonText, float minWidth = -1) {
             KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, panel, parent);
+            SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.value = buttonText;
             if (minWidth != -1) factory.minWidth = minWidth;
