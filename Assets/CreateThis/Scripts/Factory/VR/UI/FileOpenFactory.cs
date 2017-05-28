@@ -9,6 +9,8 @@ using CreateThis.System;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
+using CreateThis.VR.UI.Interact;
+using CreateThis.VR.UI.Scroller;
 using CreateThis.VR.UI.Container;
 
 namespace CreateThis.Factory.VR.UI {
@@ -34,13 +36,19 @@ namespace CreateThis.Factory.VR.UI {
         public float buttonMinWidth;
         public float buttonCharacterSize;
         public float labelCharacterSize;
+        public float kineticScrollerSpacing;
+        public float scrollerHeight;
 
+        protected GameObject fileOpenContainerInstance;
+        protected Rigidbody fileOpenContainerRigidbody;
         protected GameObject fileOpenInstance;
         protected FileOpen fileOpenPanel;
         private Drives drives;
         private GameObject disposable;
         private GameObject currentPathLabel;
+        private KineticScroller kineticScroller;
         private GameObject kineticScrollerItem;
+        private GameObject kineticScrollerInstance;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
             factory.parent = parent;
@@ -124,9 +132,10 @@ namespace CreateThis.Factory.VR.UI {
             GameObject panel = factory.Generate();
 
             fileOpenPanel = SafeAddComponent<FileOpen>(panel);
-            fileOpenPanel.grabTarget = fileOpenInstance.transform;
+            fileOpenPanel.grabTarget = fileOpenContainerInstance.transform;
             fileOpenPanel.folderPrefab = folderPrefab;
             fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
+            fileOpenPanel.height = scrollerHeight;
 
             drives = SafeAddComponent<Drives>(panel);
 
@@ -198,6 +207,38 @@ namespace CreateThis.Factory.VR.UI {
             return kineticScrollerItemFactory.Generate();
         }
 
+
+        private GameObject CreateKineticScroller(GameObject parent) {
+            kineticScrollerInstance = EmptyChild(parent, "KineticScroller");
+            kineticScroller = SafeAddComponent<KineticScroller>(kineticScrollerInstance);
+            kineticScroller.space = kineticScrollerSpacing;
+            fileOpenPanel.kineticScroller = kineticScroller;
+
+            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(kineticScrollerInstance);
+            rigidbody.useGravity = false;
+
+            Selectable selectable = SafeAddComponent<Selectable>(kineticScrollerInstance);
+            selectable.highlightMaterial = highlight;
+            selectable.outlineMaterial = outline;
+            selectable.textColor = fontColor;
+            selectable.unselectedMaterials = new Material[] { buttonMaterial };
+            selectable.recursive = true;
+
+            ConfigurableJoint configurableJoint = SafeAddComponent<ConfigurableJoint>(kineticScrollerInstance);
+            configurableJoint.connectedBody = fileOpenContainerRigidbody;
+            configurableJoint.anchor = Vector3.zero;
+            configurableJoint.xMotion = ConfigurableJointMotion.Limited;
+            configurableJoint.yMotion = ConfigurableJointMotion.Locked;
+            configurableJoint.zMotion = ConfigurableJointMotion.Locked;
+            configurableJoint.angularXMotion = ConfigurableJointMotion.Locked;
+            configurableJoint.angularYMotion = ConfigurableJointMotion.Locked;
+            configurableJoint.angularZMotion = ConfigurableJointMotion.Locked;
+            configurableJoint.breakForce = float.PositiveInfinity;
+            configurableJoint.breakTorque = float.PositiveInfinity;
+
+            return kineticScrollerInstance;
+        }
+
         protected void PanelHeader(StandardPanel panel, GameObject parent) {
             CurrentPathRow(parent);
         }
@@ -206,6 +247,9 @@ namespace CreateThis.Factory.VR.UI {
             if (fileOpenInstance) return;
 
             fileOpenInstance = EmptyChild(parent, "FileOpenPanel");
+            Vector3 localPosition = fileOpenInstance.transform.localPosition;
+            localPosition.y = -scrollerHeight * 1.50f;
+            fileOpenInstance.transform.localPosition = localPosition;
 
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileOpenInstance);
             rigidbody.isKinematic = true;
@@ -231,9 +275,16 @@ namespace CreateThis.Factory.VR.UI {
 #endif
             CreateDisposable(parent);
 
-            kineticScrollerItem = CreateKineticScrollerItem(parent);
+            fileOpenContainerInstance = EmptyChild(parent, "FileOpenContainer");
+            fileOpenContainerRigidbody = SafeAddComponent<Rigidbody>(fileOpenContainerInstance);
+            fileOpenContainerRigidbody.useGravity = false;
+            fileOpenContainerRigidbody.isKinematic = true;
 
-            FileOpenPanel(parent);
+            kineticScrollerItem = CreateKineticScrollerItem(fileOpenContainerInstance);
+
+            FileOpenPanel(fileOpenContainerInstance);
+
+            CreateKineticScroller(fileOpenContainerInstance);
 
 #if UNITY_EDITOR
             Undo.DestroyObjectImmediate(disposable);

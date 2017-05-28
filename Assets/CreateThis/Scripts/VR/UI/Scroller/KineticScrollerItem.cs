@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using CreateThis.VR.UI.Interact;
 
 namespace CreateThis.VR.UI.Scroller {
-    public class KineticScrollerItem : MonoBehaviour {
+    public class KineticScrollerItem : Grabbable {
         public KineticScroller kineticScroller;
 
-        public void OnTriggerDown(Transform controller, int controllerIndex) {
+        public override void OnGrabStart(Transform controller, int controllerIndex) {
             kineticScroller.fileObjectGrabbed = gameObject;
-            kineticScroller.OnTriggerDown(controller, controllerIndex);
+            kineticScroller.OnGrabStart(controller, controllerIndex);
         }
 
-        public void OnTriggerUpdate(Transform controller, int controllerIndex) {
-            kineticScroller.OnTriggerUpdate(controller, controllerIndex);
+        public override void OnGrabUpdate(Transform controller, int controllerIndex) {
+            kineticScroller.OnGrabUpdate(controller, controllerIndex);
         }
 
-        public void OnTriggerUp(Transform controller, int controllerIndex) {
-            kineticScroller.OnTriggerUp(controller, controllerIndex);
+        public override void OnGrabStop(Transform controller, int controllerIndex) {
+            kineticScroller.OnGrabStop(controller, controllerIndex);
         }
 
         // Use this for initialization

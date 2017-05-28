@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.Math;
 using CreateThis.Unity;
+using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Controller;
 
 namespace CreateThis.VR.UI.Scroller {
-    public class KineticScroller : MonoBehaviour {
+    public class KineticScroller : Grabbable {
         public FixedJoint fixedJoint;
         public float space = 0.1f;
         public delegate void ClickAction(GameObject fileObject);
@@ -21,7 +22,7 @@ namespace CreateThis.VR.UI.Scroller {
         private Vector3 dragStartPosition;
         private bool hasInitialized = false;
 
-        public void OnTriggerDown(Transform controller, int controllerIndex) {
+        public override void OnGrabStart(Transform controller, int controllerIndex) {
             Rigidbody controllerRigidbody = controller.gameObject.GetComponent<Rigidbody>();
             if (!controllerRigidbody) {
                 controllerRigidbody = controller.gameObject.AddComponent<Rigidbody>();
@@ -38,11 +39,11 @@ namespace CreateThis.VR.UI.Scroller {
             rigidbody.angularVelocity = Vector3.zero;
         }
 
-        public void OnTriggerUpdate(Transform controller, int controllerIndex) {
+        public override void OnGrabUpdate(Transform controller, int controllerIndex) {
 
         }
 
-        public void OnTriggerUp(Transform controller, int controllerIndex) {
+        public override void OnGrabStop(Transform controller, int controllerIndex) {
             if (!fixedJoint) return;
             fixedJoint.connectedBody = null;
             Destroy(fixedJoint);

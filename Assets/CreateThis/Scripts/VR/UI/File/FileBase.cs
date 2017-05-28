@@ -106,6 +106,7 @@ namespace CreateThis.VR.UI.File {
             for (int i = 0; i < dirPaths.Length; i++) {
                 list.Add(BuildFileObject(dirPaths[i], true));
             }
+            Debug.Log("kineticScroller=" + kineticScroller + ",height=" + height);
             kineticScroller.SetHeight(height);
             kineticScroller.SetList(list);
         }
