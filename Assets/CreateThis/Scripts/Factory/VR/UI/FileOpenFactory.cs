@@ -3,6 +3,7 @@
 using UnityEditor;
 #endif
 using CreateThis.Factory.VR.UI.Button;
+using CreateThis.Factory.VR.UI.Scroller;
 using CreateThis.Factory.VR.UI.Container;
 using CreateThis.System;
 using CreateThis.VR.UI;
@@ -183,6 +184,10 @@ namespace CreateThis.Factory.VR.UI {
         private void CreateDisposable(GameObject parent) {
             if (disposable) return;
             disposable = EmptyChild(parent, "disposable");
+        }
+
+        private void CreateKineticScrollerItem(GameObject parent) {
+            KineticScrollerItemFactory kineticScrollerItemFactory = SafeAddComponent<KineticScrollerItemFactory>(disposable);
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {
