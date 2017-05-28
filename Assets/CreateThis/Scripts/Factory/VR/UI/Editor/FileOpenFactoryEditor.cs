@@ -8,6 +8,7 @@ namespace CreateThis.Factory.VR.UI {
     public class FileOpenFactoryEditor : Editor {
         SerializedProperty parent;
         SerializedProperty buttonBody;
+        SerializedProperty folderPrefab;
         SerializedProperty buttonMaterial;
         SerializedProperty panelMaterial;
         SerializedProperty highlight;
@@ -30,6 +31,7 @@ namespace CreateThis.Factory.VR.UI {
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
             buttonBody = serializedObject.FindProperty("buttonBody");
+            folderPrefab = serializedObject.FindProperty("folderPrefab");
             buttonMaterial = serializedObject.FindProperty("buttonMaterial");
             panelMaterial = serializedObject.FindProperty("panelMaterial");
             highlight = serializedObject.FindProperty("highlight");
@@ -71,6 +73,7 @@ namespace CreateThis.Factory.VR.UI {
 
             EditorGUILayout.PropertyField(parent);
             EditorGUILayout.PropertyField(buttonBody);
+            EditorGUILayout.PropertyField(folderPrefab);
             EditorGUILayout.PropertyField(buttonMaterial);
             EditorGUILayout.PropertyField(panelMaterial);
             EditorGUILayout.PropertyField(highlight);

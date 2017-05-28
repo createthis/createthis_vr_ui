@@ -14,6 +14,7 @@ namespace CreateThis.Factory.VR.UI {
     public class FileOpenFactory : BaseFactory {
         public GameObject parent;
         public GameObject buttonBody;
+        public GameObject folderPrefab;
         public Material buttonMaterial;
         public Material panelMaterial;
         public Material highlight;
@@ -122,6 +123,7 @@ namespace CreateThis.Factory.VR.UI {
 
             fileOpenPanel = SafeAddComponent<FileOpen>(panel);
             fileOpenPanel.grabTarget = fileOpenInstance.transform;
+            fileOpenPanel.folderPrefab = folderPrefab;
 
             drives = SafeAddComponent<Drives>(panel);
 
