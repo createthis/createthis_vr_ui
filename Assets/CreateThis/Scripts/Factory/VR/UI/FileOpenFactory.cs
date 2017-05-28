@@ -4,6 +4,7 @@ using UnityEditor;
 #endif
 using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
+using CreateThis.System;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
@@ -76,6 +77,16 @@ namespace CreateThis.Factory.VR.UI {
             factory.buttonText = buttonText;
             factory.filePanel = panel;
             factory.minWidth = buttonMinWidth;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
+        protected GameObject KnownFolderButton(FileOpen panel, GameObject parent, string buttonText, KnownFolder knownFolder) {
+            KnownFolderButtonFactory factory = SafeAddComponent<KnownFolderButtonFactory>(disposable);
+            SetButtonValues(factory, panel, parent);
+            factory.buttonText = buttonText;
+            factory.filePanel = panel;
+            factory.minWidth = buttonMinWidth;
+            factory.knownFolder = knownFolder;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
@@ -159,6 +170,11 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject SpecialFoldersRow(GameObject parent) {
             GameObject row = Row(parent, "SpecialFoldersRow", TextAlignment.Left);
             Label(row, "SpecialFoldersLabel", "Special Folders");
+
+            KnownFolderButton(fileOpenPanel, row, "Documents", KnownFolder.Documents);
+            KnownFolderButton(fileOpenPanel, row, "Downloads", KnownFolder.Downloads);
+            KnownFolderButton(fileOpenPanel, row, "Desktop", KnownFolder.Desktop);
+
             return row;
         }
 

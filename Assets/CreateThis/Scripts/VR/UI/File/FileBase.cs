@@ -110,21 +110,8 @@ namespace CreateThis.VR.UI.File {
             kineticScroller.SetList(list);
         }
 
-        private string SpecialDirectoryNameToPath(string path) {
-            switch (path) {
-                case "documents":
-                    return KnownFolders.GetPath(KnownFolder.Documents);
-                case "downloads":
-                    return KnownFolders.GetPath(KnownFolder.Downloads);
-                case "desktop":
-                    return KnownFolders.GetPath(KnownFolder.Desktop);
-                default:
-                    return null;
-            }
-        }
-
-        public void ChangeToSpecialDirectory(string specialDirectoryName) {
-            string path = SpecialDirectoryNameToPath(specialDirectoryName);
+        public void ChangeDirectoryToKnownFolder(KnownFolder knownFolder) {
+            string path = KnownFolders.GetPath(knownFolder);
             ChangeDirectory(path);
         }
 
