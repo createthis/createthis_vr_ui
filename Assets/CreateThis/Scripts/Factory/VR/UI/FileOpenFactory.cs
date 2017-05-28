@@ -40,6 +40,7 @@ namespace CreateThis.Factory.VR.UI {
         private Drives drives;
         private GameObject disposable;
         private GameObject currentPathLabel;
+        private GameObject kineticScrollerItem;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
             factory.parent = parent;
@@ -125,6 +126,7 @@ namespace CreateThis.Factory.VR.UI {
             fileOpenPanel = SafeAddComponent<FileOpen>(panel);
             fileOpenPanel.grabTarget = fileOpenInstance.transform;
             fileOpenPanel.folderPrefab = folderPrefab;
+            fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
 
             drives = SafeAddComponent<Drives>(panel);
 
@@ -186,8 +188,14 @@ namespace CreateThis.Factory.VR.UI {
             disposable = EmptyChild(parent, "disposable");
         }
 
-        private void CreateKineticScrollerItem(GameObject parent) {
+        private GameObject CreateKineticScrollerItem(GameObject parent) {
             KineticScrollerItemFactory kineticScrollerItemFactory = SafeAddComponent<KineticScrollerItemFactory>(disposable);
+            kineticScrollerItemFactory.parent = parent;
+            kineticScrollerItemFactory.material = buttonMaterial;
+            kineticScrollerItemFactory.highlight = highlight;
+            kineticScrollerItemFactory.outline = outline;
+            kineticScrollerItemFactory.fontColor = fontColor;
+            return kineticScrollerItemFactory.Generate();
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {
@@ -222,7 +230,9 @@ namespace CreateThis.Factory.VR.UI {
             Undo.RegisterCompleteObjectUndo(this, "FileOpenFactory state");
 #endif
             CreateDisposable(parent);
-            
+
+            kineticScrollerItem = CreateKineticScrollerItem(parent);
+
             FileOpenPanel(parent);
 
 #if UNITY_EDITOR

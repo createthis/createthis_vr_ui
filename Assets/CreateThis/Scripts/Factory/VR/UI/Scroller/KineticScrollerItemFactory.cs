@@ -30,6 +30,7 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             KineticScrollerItem kineticScrollerItem = SafeAddComponent<KineticScrollerItem>(kineticScrollerItemInstance);
             kineticScrollerItem.kineticScroller = kineticScroller;
 
+            SafeAddComponent<MeshFilter>(kineticScrollerItemInstance);
             SafeAddComponent<MeshRenderer>(kineticScrollerItemInstance);
             SafeAddComponent<BoxCollider>(kineticScrollerItemInstance);
 
