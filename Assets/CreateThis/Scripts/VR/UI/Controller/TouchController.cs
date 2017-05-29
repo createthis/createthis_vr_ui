@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using CreateThis.VR.UI.Interact;
 
@@ -8,6 +9,7 @@ namespace CreateThis.VR.UI.Controller {
         public GameObject pointerConePrefab;
         public string hardware;
         public float pointerConeZOffset;
+        public List<Collider> touching; // public for debugging
 
         private Valve.VR.EVRButtonId touchPadButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
         private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
@@ -15,19 +17,11 @@ namespace CreateThis.VR.UI.Controller {
 
         private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
         private SteamVR_TrackedObject trackedObj;
-        public GameObject pickup;
-        public bool dragging;
-        public bool triggerDown;
-        public bool deferredTriggerExit;
-        public bool noTriggerDownNext;
         private GameObject pointerConeInstance;
         private GameObject spawnPoint;
-        private Vector3 validationPoint;
-
 
         // Use this for initialization
         void Start() {
-            deferredTriggerExit = false;
             trackedObj = GetComponent<SteamVR_TrackedObject>();
             Debug.Log("TouchController[" + trackedObj.index + "] start");
             DetectVRHardware();
@@ -86,9 +80,40 @@ namespace CreateThis.VR.UI.Controller {
             }
         }
 
-        public void ClearPickup() { // null pickup when user clicks a button on the menu
-            pickup = null;
-            noTriggerDownNext = true;
+        public void ClearTouching() {
+            touching.Clear();
+        }
+
+        protected void HandleTriggerDown() {
+            foreach (Collider touched in touching) {
+                if (touched.GetComponent<Triggerable>()) {
+                    touched.GetComponent<Triggerable>().OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
+                }
+            }
+        }
+
+        protected void HandleTriggerUp() {
+            foreach (Collider touched in touching) {
+                if (touched.GetComponent<Triggerable>()) {
+                    touched.GetComponent<Triggerable>().OnTriggerUp(spawnPoint.transform, (int)trackedObj.index);
+                }
+            }
+        }
+
+        protected void HandleGripDown() {
+            foreach (Collider touched in touching) {
+                if (touched.GetComponent<Grabbable>()) {
+                    touched.GetComponent<Grabbable>().OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
+                }
+            }
+        }
+
+        protected void HandleGripUp() {
+            foreach (Collider touched in touching) {
+                if (touched.GetComponent<Grabbable>()) {
+                    touched.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
+                }
+            }
         }
 
         // Update is called once per frame
@@ -98,127 +123,50 @@ namespace CreateThis.VR.UI.Controller {
                 Debug.Log("[" + trackedObj.index + "] Controller not initialized");
                 return;
             }
-            BoxCollider collider = GetComponent<BoxCollider>();
-            validationPoint = transform.TransformPoint(collider.center) + transform.up * 10.0f; // some point outside the mesh
 
-            // Handle Trigger Down
-            if (!dragging && controller.GetPressDown(triggerButton) && !controller.GetPress(touchPadButton)) {
-                //Debug.Log("[" + trackedObj.index + "] trigger pressed at " + this.transform.position.ToString());
-                if (pickup != null && pickup.GetComponent<Triggerable>()) {
-                    pickup.GetComponent<Triggerable>().OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
-                    if (noTriggerDownNext) {
-                        noTriggerDownNext = false;
-                    } else {
-                        triggerDown = true;
-                    }
-                }
+            if (controller.GetPressDown(triggerButton) && !controller.GetPress(touchPadButton)) {
+                HandleTriggerDown();
             }
 
             if (controller.GetPressUp(triggerButton)) {
-                if (pickup != null && pickup.GetComponent<Triggerable>()) {
-                    pickup.GetComponent<Triggerable>().OnTriggerUp(spawnPoint.transform, (int)trackedObj.index);
-                    triggerDown = false;
-                    if (deferredTriggerExit) {
-                        pickup = null; // this happens when holding the trigger while moving away from a collider, then releasing outside the collider.
-                        deferredTriggerExit = false;
-                    }
-                }
-                if (pickup == null) {
-                    triggerDown = false;
-                }
+                HandleTriggerUp();
             }
 
-            if (controller.GetPressDown(gripButton) && pickup != null) {
-                Debug.Log("[" + trackedObj.index + "] grip pressed");
-                if (pickup.GetComponent<Grabbable>()) {
-                    pickup.GetComponent<Grabbable>().OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
-                    dragging = true;
-                    pickup.GetComponent<Rigidbody>().isKinematic = true;
-                }
-                Debug.Log("[" + trackedObj.index + "] Dragging true");
+            if (controller.GetPressDown(gripButton)) {
+                Debug.Log("[" + trackedObj.index + "] Grip down");
+                HandleGripDown();
             }
 
-            if (dragging && pickup.GetComponent<Grabbable>()) {
-                pickup.GetComponent<Grabbable>().OnGrabUpdate(spawnPoint.transform, (int)trackedObj.index);
-            }
-
-            if (triggerDown && pickup && pickup.GetComponent<Triggerable>()) {
-                pickup.GetComponent<Triggerable>().OnTriggerUpdate(spawnPoint.transform, (int)trackedObj.index);
-            }
-
-            if (controller.GetPressUp(gripButton) && pickup != null && dragging == true) {
-                Debug.Log("[" + trackedObj.index + "] Grip release, pickup.tag=" + pickup.tag);
-                if (pickup.GetComponent<Grabbable>()) {
-                    pickup.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
-                    dragging = false;
-                    if (pickup) pickup = null;
-                }
-                Debug.Log("[" + trackedObj.index + "] Dragging false");
+            if (controller.GetPressUp(gripButton)) {
+                Debug.Log("[" + trackedObj.index + "] Grip up");
+                HandleGripUp();
             }
         }
 
         private void OnTriggerEnter(Collider collider) {
+            Debug.Log("OnTriggerEnter collider.name=" + collider.name);
+            if (!touching.Contains(collider)) {
+                touching.Add(collider);
+            }
             if (collider.GetComponent<Touchable>()) {
                 Touchable[] touchables = collider.GetComponents<Touchable>();
                 foreach (Touchable touchable in touchables) {
                     touchable.OnTouchStart(spawnPoint.transform, (int)trackedObj.index);
                 }
             }
-            if (!dragging && !triggerDown) {
-                pickup = collider.gameObject;
-            }
-        }
-
-        private void OnTriggerStay(Collider collider) {
-            if (collider.GetComponent<Touchable>()) {
-                Touchable[] touchables = collider.GetComponents<Touchable>();
-                foreach (Touchable touchable in touchables) {
-                    touchable.OnTouchUpdate(spawnPoint.transform, (int)trackedObj.index);
-                }
-            }
         }
 
         private void OnTriggerExit(Collider collider) {
+            Debug.Log("OnTriggerExit collider.name=" + collider.name);
+            if (touching.Contains(collider)) {
+                touching.Remove(collider);
+            }
             if (collider.GetComponent<Touchable>()) {
                 Touchable[] touchables = collider.GetComponents<Touchable>();
                 foreach (Touchable touchable in touchables) {
                     touchable.OnTouchStop(spawnPoint.transform, (int)trackedObj.index);
                 }
             }
-            if (!dragging && !triggerDown) {
-                if (pickup != null && collider != null && pickup != collider.gameObject) {
-                    // Warm hand off - do nothing.
-                } else {
-                    //Debug.Log("OnTriggerExit");
-
-                    if (pickup && !StillInside(collider.transform.position)) {
-                        pickup = null;
-                    }
-                }
-            }
-            if (triggerDown) deferredTriggerExit = true;
-        }
-
-        private bool StillInside(Vector3 target) {
-            RaycastHit[] hits;
-
-            Vector3 dir = target - validationPoint;
-            float dist = dir.magnitude;
-            //Debug.Log("Validating if the contact has really exited... Raycast with distance: " + dist);
-
-            hits = Physics.RaycastAll(validationPoint, dir.normalized, dist);
-            //Debug.DrawRay(validationPoint, dir.normalized * dist, Color.white, 40.0f);
-            foreach (RaycastHit hit in hits) {
-                //Debug.Log("hit.collider.gameobject.name=" + hit.collider.gameObject.name);
-                //Debug.Break();
-                if (hit.collider.gameObject == gameObject) {
-                    //Debug.Log("The contact seems to still be inside.");
-                    return true;
-                }
-            }
-
-            //Debug.Log("The contact seems to have left");
-            return false;
         }
     }
 }

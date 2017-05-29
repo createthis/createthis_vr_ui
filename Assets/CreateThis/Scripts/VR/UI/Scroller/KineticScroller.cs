@@ -39,10 +39,6 @@ namespace CreateThis.VR.UI.Scroller {
             rigidbody.angularVelocity = Vector3.zero;
         }
 
-        public override void OnGrabUpdate(Transform controller, int controllerIndex) {
-
-        }
-
         public override void OnGrabStop(Transform controller, int controllerIndex) {
             if (!fixedJoint) return;
             fixedJoint.connectedBody = null;
@@ -51,7 +47,7 @@ namespace CreateThis.VR.UI.Scroller {
             float distance = Vector3.Distance(dragStartPosition, controller.position);
             if (distance <= movementThresholdForClick) {
                 if (OnClicked != null) {
-                    controller.parent.GetComponent<TouchController>().ClearPickup();
+                    controller.parent.GetComponent<TouchController>().ClearTouching();
                     OnClicked(fileObjectGrabbed);
                 }
             } else {

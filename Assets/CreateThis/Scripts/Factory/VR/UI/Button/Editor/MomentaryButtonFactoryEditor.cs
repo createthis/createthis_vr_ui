@@ -13,10 +13,6 @@ namespace CreateThis.Factory.VR.UI.Button {
                     buttonFactory.Generate();
                 }
             }
-        }
-
-        public override void OnInspectorGUI() {
-            base.OnInspectorGUI();
-        }
+        }        
     }
 }

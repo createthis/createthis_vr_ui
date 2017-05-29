@@ -10,10 +10,6 @@ namespace CreateThis.VR.UI.Scroller {
             kineticScroller.OnGrabStart(controller, controllerIndex);
         }
 
-        public override void OnGrabUpdate(Transform controller, int controllerIndex) {
-            kineticScroller.OnGrabUpdate(controller, controllerIndex);
-        }
-
         public override void OnGrabStop(Transform controller, int controllerIndex) {
             kineticScroller.OnGrabStop(controller, controllerIndex);
         }

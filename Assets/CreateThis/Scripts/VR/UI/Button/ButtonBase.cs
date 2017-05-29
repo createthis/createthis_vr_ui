@@ -17,6 +17,8 @@ namespace CreateThis.VR.UI.Button {
         protected bool hitTravelLimit;
         protected Vector3 startingBodyButtonLocalPosition;
         protected Vector3 startingTextButtonLocalPosition;
+        protected Transform controller;
+        protected int controllerIndex;
         private float buttonBodyDepth;
         private float travelLimit;
         private float firstUpdateIgnoreThreshold;
@@ -28,10 +30,8 @@ namespace CreateThis.VR.UI.Button {
             }
             pushing = true;
             UpdatePosition(controller, controllerIndex, true);
-        }
-
-        public override void OnTouchUpdate(Transform controller, int controllerIndex) {
-            UpdatePosition(controller, controllerIndex);
+            this.controller = controller;
+            this.controllerIndex = controllerIndex;
         }
 
         public override void OnTouchStop(Transform controller, int controllerIndex) {
@@ -131,6 +131,7 @@ namespace CreateThis.VR.UI.Button {
 
         // Update is called once per frame
         void Update() {
+            if (pushing) UpdatePosition(controller, controllerIndex);
         }
     }
 }

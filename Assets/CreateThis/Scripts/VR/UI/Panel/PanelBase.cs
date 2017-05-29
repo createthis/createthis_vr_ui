@@ -28,9 +28,6 @@ namespace CreateThis.VR.UI.Panel {
             grabTarget.parent = controller;
         }
 
-        public override void OnGrabUpdate(Transform controller, int controllerIndex) {
-        }
-
         public override void OnGrabStop(Transform controller, int controllerIndex) {
             grabTarget.parent = null;
         }

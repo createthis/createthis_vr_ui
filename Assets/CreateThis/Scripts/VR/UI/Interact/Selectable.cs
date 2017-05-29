@@ -37,9 +37,6 @@ namespace CreateThis.VR.UI.Interact {
             SetSelected(true);
         }
 
-        public override void OnTouchUpdate(Transform controller, int controllerIndex) {
-        }
-
         public override void OnTouchStop(Transform controller, int controllerIndex) {
             SetSelected(false);
         }

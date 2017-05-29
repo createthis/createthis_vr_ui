@@ -5,12 +5,10 @@ namespace CreateThis.Factory.VR.UI.Button {
     [CustomEditor(typeof(KeyboardMomentaryKeyButtonFactory))]
     [CanEditMultipleObjects]
     public class KeyboardMomentaryKeyButtonFactoryEditor : KeyboardButtonFactoryEditor {
-        SerializedProperty keyboard;
         SerializedProperty value;
 
         protected override void OnEnable() {
             base.OnEnable();
-            keyboard = serializedObject.FindProperty("keyboard");
             value = serializedObject.FindProperty("value");
         }
 
@@ -24,12 +22,8 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AdditionalProperties() {
-            EditorGUILayout.PropertyField(keyboard);
+            base.AdditionalProperties();
             EditorGUILayout.PropertyField(value);
-        }
-
-        public override void OnInspectorGUI() {
-            base.OnInspectorGUI();
         }
     }
 }

@@ -10,7 +10,6 @@ namespace CreateThis.Factory.VR.UI.Button {
         protected override void OnEnable() {
             base.OnEnable();
             on = serializedObject.FindProperty("on");
-
         }
 
         protected override void BuildGenerateButton() {
@@ -23,11 +22,8 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AdditionalProperties() {
+            base.AdditionalProperties();
             EditorGUILayout.PropertyField(on);
-        }
-
-        public override void OnInspectorGUI() {
-            base.OnInspectorGUI();
         }
     }
 }

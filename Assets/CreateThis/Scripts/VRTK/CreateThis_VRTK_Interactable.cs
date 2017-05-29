@@ -6,29 +6,27 @@ using CreateThis.VR.UI.Interact;
 
 namespace CreateThis.VRTK {
     public class CreateThis_VRTK_Interactable : VRTK_InteractableObject {
-        private GameObject touchingObject;
         private int controllerIndex;
 
         public override void StartTouching(GameObject touchingObject) {
             base.StartTouching(touchingObject);
             VRTK_ControllerReference controllerReference = VRTK_ControllerReference.GetControllerReference(touchingObject);
             controllerIndex = (int)VRTK_ControllerReference.GetRealIndex(controllerReference);
-            this.touchingObject = touchingObject;
-            GetComponent<Touchable>().OnTouchStart(touchingObject.transform, controllerIndex);
+            if (!GetComponent<Touchable>()) return;
+            Touchable[] touchables = GetComponents<Touchable>();
+            foreach(Touchable touchable in touchables) {
+                touchable.OnTouchStart(touchingObject.transform, controllerIndex);
+            }
         }
 
         public override void StopTouching(GameObject touchingObject) {
             base.StopTouching(touchingObject);
-            GetComponent<Touchable>().OnTouchStop(touchingObject.transform, controllerIndex);
-            touchingObject = null;
-            controllerIndex = -1;
-        }
-
-        protected override void Update() {
-            base.Update();
-            if (touchingObject) {
-                GetComponent<Touchable>().OnTouchUpdate(touchingObject.transform, controllerIndex);
+            if (!GetComponent<Touchable>()) return;
+            Touchable[] touchables = GetComponents<Touchable>();
+            foreach (Touchable touchable in touchables) {
+                touchable.OnTouchStop(touchingObject.transform, controllerIndex);
             }
+            controllerIndex = -1;
         }
     }
 }

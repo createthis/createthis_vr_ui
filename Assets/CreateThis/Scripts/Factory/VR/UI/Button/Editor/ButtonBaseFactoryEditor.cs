@@ -5,7 +5,7 @@ namespace CreateThis.Factory.VR.UI.Button {
     [CustomEditor(typeof(ButtonBaseFactory))]
     [CanEditMultipleObjects]
 
-    public abstract class ButtonBaseFactoryEditor : Editor {
+    public abstract class ButtonBaseFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
         SerializedProperty buttonText;
         SerializedProperty buttonBody;
@@ -25,7 +25,8 @@ namespace CreateThis.Factory.VR.UI.Button {
         SerializedProperty characterSize;
         SerializedProperty panel;
 
-        protected virtual void OnEnable() {
+        protected override void OnEnable() {
+            base.OnEnable();
             parent = serializedObject.FindProperty("parent");
             buttonText = serializedObject.FindProperty("buttonText");
             buttonBody = serializedObject.FindProperty("buttonBody");
@@ -46,7 +47,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             panel = serializedObject.FindProperty("panel");
         }
 
-        protected virtual void BuildGenerateButton() {
+        protected override void BuildGenerateButton() {
             // Take out this if statement to set the value using setter when ever you change it in the inspector.
             // But then it gets called a couple of times when ever inspector updates
             // By having a button, you can control when the value goes through the setter and getter, your self.
@@ -58,13 +59,8 @@ namespace CreateThis.Factory.VR.UI.Button {
             }
         }
 
-        protected virtual void AdditionalProperties() {
-            // put your properties here in the override
-        }
-
-        public override void OnInspectorGUI() {
-            serializedObject.Update();
-
+        protected override void AdditionalProperties() {
+            base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
             EditorGUILayout.PropertyField(buttonText);
             EditorGUILayout.PropertyField(buttonBody);
@@ -83,12 +79,6 @@ namespace CreateThis.Factory.VR.UI.Button {
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(characterSize);
             EditorGUILayout.PropertyField(panel);
-
-            AdditionalProperties();
-
-            serializedObject.ApplyModifiedProperties();
-
-            BuildGenerateButton();
         }
     }
 }

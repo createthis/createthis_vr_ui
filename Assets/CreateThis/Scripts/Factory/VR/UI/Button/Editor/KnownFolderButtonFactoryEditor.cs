@@ -24,12 +24,9 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AdditionalProperties() {
+            base.AdditionalProperties();
             EditorGUILayout.PropertyField(filePanel);
             EditorGUILayout.PropertyField(knownFolder);
-        }
-
-        public override void OnInspectorGUI() {
-            base.OnInspectorGUI();
         }
     }
 }
