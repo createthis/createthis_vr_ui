@@ -38,6 +38,7 @@ namespace CreateThis.Factory.VR.UI {
         public float labelCharacterSize;
         public float kineticScrollerSpacing;
         public float scrollerHeight;
+        public string searchPattern;
 
         protected GameObject fileOpenContainerInstance;
         protected Rigidbody fileOpenContainerRigidbody;
@@ -136,6 +137,7 @@ namespace CreateThis.Factory.VR.UI {
             fileOpenPanel.folderPrefab = folderPrefab;
             fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
             fileOpenPanel.height = scrollerHeight;
+            fileOpenPanel.searchPattern = searchPattern;
 
             drives = SafeAddComponent<Drives>(panel);
 

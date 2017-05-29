@@ -29,6 +29,7 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty labelCharacterSize;
         SerializedProperty kineticScrollerSpacing;
         SerializedProperty scrollerHeight;
+        SerializedProperty searchPattern;
 
         protected void OnEnable() {
             parent = serializedObject.FindProperty("parent");
@@ -54,6 +55,7 @@ namespace CreateThis.Factory.VR.UI {
             labelCharacterSize = serializedObject.FindProperty("labelCharacterSize");
             kineticScrollerSpacing = serializedObject.FindProperty("kineticScrollerSpacing");
             scrollerHeight = serializedObject.FindProperty("scrollerHeight");
+            searchPattern = serializedObject.FindProperty("searchPattern");
         }
 
         protected void BuildGenerateButton() {
@@ -98,6 +100,7 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(labelCharacterSize);
             EditorGUILayout.PropertyField(kineticScrollerSpacing);
             EditorGUILayout.PropertyField(scrollerHeight);
+            EditorGUILayout.PropertyField(searchPattern);
 
             AdditionalProperties();
 
