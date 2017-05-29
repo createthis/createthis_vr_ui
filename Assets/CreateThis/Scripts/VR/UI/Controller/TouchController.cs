@@ -7,6 +7,7 @@ namespace CreateThis.VR.UI.Controller {
         public Material controllerMaterial;
         public GameObject pointerConePrefab;
         public string hardware;
+        public float pointerConeZOffset;
 
         private Valve.VR.EVRButtonId touchPadButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
         private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
@@ -63,7 +64,7 @@ namespace CreateThis.VR.UI.Controller {
             spawnPoint.transform.localPosition = SpawnLocalPosition();
 
             BoxCollider collider = GetComponent<BoxCollider>();
-            Vector3 defaultCenter = new Vector3(0, 0, -0.02f);
+            Vector3 defaultCenter = new Vector3(0, 0, pointerConeZOffset);
             
             collider.center = defaultCenter;
         }
@@ -72,7 +73,7 @@ namespace CreateThis.VR.UI.Controller {
             if (!first) return;
 
             pointerConeInstance.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            pointerConeInstance.transform.localPosition = new Vector3(0, 0, -0.020f);
+            pointerConeInstance.transform.localPosition = new Vector3(0, 0, pointerConeZOffset);
             
             UpdateSpawnPoint();
         }
