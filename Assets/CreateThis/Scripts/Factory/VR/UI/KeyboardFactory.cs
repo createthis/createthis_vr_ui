@@ -46,6 +46,7 @@ namespace CreateThis.Factory.VR.UI {
         private GameObject disposable;
 
         protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, StandardPanel panel, GameObject parent) {
+            factory.useVRTK = useVRTK;
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.material = buttonMaterial;

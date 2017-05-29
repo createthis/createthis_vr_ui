@@ -5,7 +5,7 @@ namespace CreateThis.Factory.VR.UI {
     [CustomEditor(typeof(KeyboardFactory))]
     [CanEditMultipleObjects]
 
-    public class KeyboardFactoryEditor : Editor {
+    public class KeyboardFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
         SerializedProperty buttonBody;
         SerializedProperty buttonMaterial;
@@ -32,7 +32,8 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty modeKeyMinWidth;
         SerializedProperty wideKeyMinWidth;
 
-        protected void OnEnable() {
+        protected override void OnEnable() {
+            base.OnEnable();
             parent = serializedObject.FindProperty("parent");
             buttonBody = serializedObject.FindProperty("buttonBody");
             buttonMaterial = serializedObject.FindProperty("buttonMaterial");
@@ -60,7 +61,7 @@ namespace CreateThis.Factory.VR.UI {
             wideKeyMinWidth = serializedObject.FindProperty("wideKeyMinWidth");
         }
 
-        protected void BuildGenerateButton() {
+        protected override void BuildGenerateButton() {
             // Take out this if statement to set the value using setter when ever you change it in the inspector.
             // But then it gets called a couple of times when ever inspector updates
             // By having a button, you can control when the value goes through the setter and getter, your self.
@@ -72,13 +73,8 @@ namespace CreateThis.Factory.VR.UI {
             }
         }
 
-        protected void AdditionalProperties() {
-            // put your properties here in the override
-        }
-
-        public override void OnInspectorGUI() {
-            serializedObject.Update();
-
+        protected override void AdditionalProperties() {
+            base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
             EditorGUILayout.PropertyField(buttonBody);
             EditorGUILayout.PropertyField(buttonMaterial);
@@ -104,12 +100,6 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(spacerWidth);
             EditorGUILayout.PropertyField(modeKeyMinWidth);
             EditorGUILayout.PropertyField(wideKeyMinWidth);
-
-            AdditionalProperties();
-
-            serializedObject.ApplyModifiedProperties();
-
-            BuildGenerateButton();
         }
     }
 }

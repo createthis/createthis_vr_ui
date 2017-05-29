@@ -52,6 +52,7 @@ namespace CreateThis.Factory.VR.UI {
         private GameObject kineticScrollerInstance;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
+            factory.useVRTK = useVRTK;
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.material = buttonMaterial;
@@ -208,7 +209,6 @@ namespace CreateThis.Factory.VR.UI {
             kineticScrollerItemFactory.fontColor = fontColor;
             return kineticScrollerItemFactory.Generate();
         }
-
 
         private GameObject CreateKineticScroller(GameObject parent) {
             kineticScrollerInstance = EmptyChild(parent, "KineticScroller");
