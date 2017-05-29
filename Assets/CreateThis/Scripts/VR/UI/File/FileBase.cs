@@ -21,6 +21,7 @@ namespace CreateThis.VR.UI.File {
 
         private GameObject InstantiatePrefabUsingGameObject(GameObject myGameObject) {
             GameObject instance = Instantiate(kineticScrollItemPrefab);
+            instance.SetActive(true);
             instance.transform.localRotation = Quaternion.identity;
             instance.GetComponent<KineticScrollerItem>().kineticScroller = kineticScroller;
             MeshFilter meshFilter = instance.GetComponent<MeshFilter>();

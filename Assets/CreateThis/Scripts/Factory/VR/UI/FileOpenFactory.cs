@@ -281,6 +281,7 @@ namespace CreateThis.Factory.VR.UI {
             fileOpenContainerRigidbody.isKinematic = true;
 
             kineticScrollerItem = CreateKineticScrollerItem(fileOpenContainerInstance);
+            kineticScrollerItem.SetActive(false);
 
             FileOpenPanel(fileOpenContainerInstance);
 

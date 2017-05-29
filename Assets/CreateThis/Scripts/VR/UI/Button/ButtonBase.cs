@@ -85,6 +85,7 @@ namespace CreateThis.VR.UI.Button {
                 if (panel) {
                     panel.SetSelectable(true);
                 }
+                ResetPosition();
                 return;
             }
 
