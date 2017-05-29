@@ -2,6 +2,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using CreateThis.VRTK;
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
 
@@ -32,7 +33,8 @@ namespace CreateThis.Factory.VR.UI.Scroller {
 
             SafeAddComponent<MeshFilter>(kineticScrollerItemInstance);
             SafeAddComponent<MeshRenderer>(kineticScrollerItemInstance);
-            SafeAddComponent<BoxCollider>(kineticScrollerItemInstance);
+            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(kineticScrollerItemInstance);
+            boxCollider.isTrigger = true;
 
             Selectable selectable = SafeAddComponent<Selectable>(kineticScrollerItemInstance);
             selectable.highlightMaterial = highlight;
@@ -41,7 +43,15 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             selectable.unselectedMaterials = new Material[] { material };
             selectable.recursive = true;
 
+            if (useVRTK) {
+                CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(kineticScrollerItemInstance);
+                CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(kineticScrollerItemInstance);
+                interactable.isGrabbable = true;
+                interactable.grabAttachMechanicScript = grabAttach;
+            }
+
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(kineticScrollerItemInstance);
+            rigidBody.useGravity = false;
             rigidBody.isKinematic = true;
 
 #if UNITY_EDITOR

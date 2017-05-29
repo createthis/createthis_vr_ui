@@ -6,6 +6,7 @@ using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Scroller;
 using CreateThis.Factory.VR.UI.Container;
 using CreateThis.System;
+using CreateThis.VRTK;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
@@ -140,9 +141,17 @@ namespace CreateThis.Factory.VR.UI {
             fileOpenPanel.height = scrollerHeight;
             fileOpenPanel.searchPattern = searchPattern;
 
+            if (useVRTK) {
+                CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);
+                CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(panel);
+                interactable.isGrabbable = true;
+                interactable.grabAttachMechanicScript = grabAttach;
+            }
+
             drives = SafeAddComponent<Drives>(panel);
 
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
+            rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
             return panel;
@@ -202,6 +211,7 @@ namespace CreateThis.Factory.VR.UI {
 
         private GameObject CreateKineticScrollerItem(GameObject parent) {
             KineticScrollerItemFactory kineticScrollerItemFactory = SafeAddComponent<KineticScrollerItemFactory>(disposable);
+            kineticScrollerItemFactory.useVRTK = useVRTK;
             kineticScrollerItemFactory.parent = parent;
             kineticScrollerItemFactory.material = buttonMaterial;
             kineticScrollerItemFactory.highlight = highlight;
@@ -254,6 +264,7 @@ namespace CreateThis.Factory.VR.UI {
             fileOpenInstance.transform.localPosition = localPosition;
 
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileOpenInstance);
+            rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
             GameObject panel = Panel(fileOpenInstance, "DrivesPanel");

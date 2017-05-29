@@ -5,7 +5,7 @@ namespace CreateThis.Factory.VR.UI.Scroller {
     [CustomEditor(typeof(KineticScrollerItemFactory))]
     [CanEditMultipleObjects]
 
-    public class KineticScrollerItemFactoryEditor : Editor {
+    public class KineticScrollerItemFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
         SerializedProperty material;
         SerializedProperty highlight;
@@ -13,7 +13,8 @@ namespace CreateThis.Factory.VR.UI.Scroller {
         SerializedProperty fontColor;
         SerializedProperty kineticScroller;
 
-        protected void OnEnable() {
+        protected override void OnEnable() {
+            base.OnEnable();
             parent = serializedObject.FindProperty("parent");
             material = serializedObject.FindProperty("material");
             highlight = serializedObject.FindProperty("highlight");
@@ -22,7 +23,7 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             kineticScroller = serializedObject.FindProperty("kineticScroller");
         }
 
-        protected void BuildGenerateButton() {
+        protected override void BuildGenerateButton() {
             // Take out this if statement to set the value using setter when ever you change it in the inspector.
             // But then it gets called a couple of times when ever inspector updates
             // By having a button, you can control when the value goes through the setter and getter, your self.
@@ -34,25 +35,14 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             }
         }
 
-        protected void AdditionalProperties() {
-            // put your properties here in the override
-        }
-
-        public override void OnInspectorGUI() {
-            serializedObject.Update();
-
+        protected override void AdditionalProperties() {
+            base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
             EditorGUILayout.PropertyField(material);
             EditorGUILayout.PropertyField(highlight);
             EditorGUILayout.PropertyField(outline);
             EditorGUILayout.PropertyField(fontColor);
             EditorGUILayout.PropertyField(kineticScroller);
-
-            AdditionalProperties();
-
-            serializedObject.ApplyModifiedProperties();
-
-            BuildGenerateButton();
         }
     }
 }

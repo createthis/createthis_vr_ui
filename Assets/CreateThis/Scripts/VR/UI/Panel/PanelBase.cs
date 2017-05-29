@@ -25,10 +25,12 @@ namespace CreateThis.VR.UI.Panel {
         private bool hasInitialized = false;
 
         public override void OnGrabStart(Transform controller, int controllerIndex) {
+            Debug.Log("OnGrabStart");
             grabTarget.parent = controller;
         }
 
         public override void OnGrabStop(Transform controller, int controllerIndex) {
+            Debug.Log("OnGrabStop");
             grabTarget.parent = null;
         }
 

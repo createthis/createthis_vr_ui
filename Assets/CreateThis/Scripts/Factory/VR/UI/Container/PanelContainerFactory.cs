@@ -38,6 +38,10 @@ namespace CreateThis.Factory.VR.UI.Container {
             containerInstance.transform.localRotation = Quaternion.identity;
             if (containerName == null) containerInstance.name = "Container";
 
+            BoxCollider boxCollider = containerInstance.GetComponent<BoxCollider>(); // this comes from the cube/prefab the panel is created from
+            if (!boxCollider) Debug.Log("no box collider");
+            boxCollider.isTrigger = true;
+
             MeshRenderer meshRenderer = containerInstance.GetComponent<MeshRenderer>();
             meshRenderer.materials = new Material[1] { material };
 

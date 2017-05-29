@@ -6,6 +6,7 @@ using UnityEditor;
 using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
 using CreateThis.VR.UI;
+using CreateThis.VRTK;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Container;
 
@@ -203,7 +204,15 @@ namespace CreateThis.Factory.VR.UI {
             StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
             standardPanel.grabTarget = keyboard.transform;
 
+            if (useVRTK) {
+                CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);
+                CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(panel);
+                interactable.isGrabbable = true;
+                interactable.grabAttachMechanicScript = grabAttach;
+            }
+
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
+            rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
             return panel;
