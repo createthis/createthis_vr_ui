@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.VRTK;
 using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Interact;
@@ -63,6 +64,7 @@ namespace CreateThis.Factory.VR.UI.Button {
 
             BoxCollider boxCollider = SafeAddComponent<BoxCollider>(buttonInstance);
             boxCollider.size = bodyScale;
+            boxCollider.isTrigger = true;
 
             AddButton(buttonInstance, audioSourceDown, audioSourceUp);
 
@@ -75,6 +77,10 @@ namespace CreateThis.Factory.VR.UI.Button {
 
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(buttonInstance);
             rigidBody.isKinematic = true;
+
+            if (useVRTK) {
+                SafeAddComponent<CreateThis_VRTK_Interactable>(buttonInstance);
+            }
 
             Selectable selectable = SafeAddComponent<Selectable>(buttonInstance);
             selectable.highlightMaterial = highlight;

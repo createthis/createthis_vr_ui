@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da1450691094c443a904147d7d0cab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useVRTK: 0
+  useVRTK: 1
   parent: {fileID: 699566685}
   buttonText: Test Toggle
   buttonBody: {fileID: 1211170218}
@@ -3181,7 +3181,7 @@ Transform:
   m_GameObject: {fileID: 664794024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1241782, y: 1.5384616, z: 1}
+  m_LocalScale: {x: 1.1241783, y: 1.5384616, z: 1}
   m_Children:
   - {fileID: 2133969039}
   m_Father: {fileID: 1535069876}
@@ -3202,7 +3202,7 @@ MonoBehaviour:
   spacing: 0.01
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.04447691, y: 0.0325, z: 0}
+    m_Extent: {x: 0.044476915, y: 0.0325, z: 0}
 --- !u!1 &668230524
 GameObject:
   m_ObjectHideFlags: 0
@@ -7103,7 +7103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd50e868ca5fd094ba00a0b1700309f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useVRTK: 0
+  useVRTK: 1
   parent: {fileID: 148040261}
   buttonText: Test Momentary
   buttonBody: {fileID: 1985528231}
@@ -7242,7 +7242,7 @@ MonoBehaviour:
   minHeight: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.04447691, y: 0.0325, z: 0}
+    m_Extent: {x: 0.044476915, y: 0.0325, z: 0}
 --- !u!23 &1535069873
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7302,7 +7302,7 @@ Transform:
   m_GameObject: {fileID: 1535069870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.37, y: 1.59, z: -0.6687}
-  m_LocalScale: {x: 0.08895383, y: 0.065, z: 0.005}
+  m_LocalScale: {x: 0.08895382, y: 0.065, z: 0.005}
   m_Children:
   - {fileID: 664794025}
   m_Father: {fileID: 0}
@@ -7554,7 +7554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432801be9d07ec640bdf2e164fb324a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useVRTK: 0
+  useVRTK: 1
   parent: {fileID: 742394745}
   buttonText: Keyboard Button Test
   buttonBody: {fileID: 287152997}
@@ -7619,8 +7619,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1587210189}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.000000029802322, y: 0, z: 3.1999946}
-  m_LocalScale: {x: 6.5271797, y: 10, z: 200}
+  m_LocalPosition: {x: 0, y: 0, z: 3.1999946}
+  m_LocalScale: {x: 6.5271807, y: 10, z: 200}
   m_Children:
   - {fileID: 1103459762}
   - {fileID: 1852232195}
@@ -10474,7 +10474,7 @@ Transform:
   m_GameObject: {fileID: 2133969038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
+  m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
   - {fileID: 1587210190}
   m_Father: {fileID: 664794025}
@@ -10496,7 +10496,7 @@ MonoBehaviour:
   alignment: 0
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.04447691, y: 0.0125, z: 0}
+    m_Extent: {x: 0.044476915, y: 0.0125, z: 0}
   log: 0
 --- !u!1 &2137743558
 GameObject:
