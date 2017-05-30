@@ -19,6 +19,7 @@ namespace CreateThis.VR.UI {
             driveButton.transform.localRotation = Quaternion.identity;
             driveButton.transform.localScale = driveButtonPrefab.transform.localScale;
             driveButton.transform.localPosition = driveButtonPrefab.transform.localPosition + -driveButton.transform.right * DriveButtonRowLocalWidth();
+            driveButton.GetComponent<GrowButtonByTextMesh>().Initialize();
             driveButton.GetComponent<DriveButton>().SetPath(path);
             driveButtons.Add(driveButton);
         }
