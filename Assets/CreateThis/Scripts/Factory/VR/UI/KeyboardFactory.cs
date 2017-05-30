@@ -38,6 +38,9 @@ namespace CreateThis.Factory.VR.UI {
         public float modeKeyMinWidth;
         public float wideKeyMinWidth;
         public Camera sceneCamera;
+        public Vector3 offset;
+        public float minDistance;
+        public bool hideOnAwake;
 
         protected Keyboard keyboard;
         protected GameObject keyboardInstance;
@@ -304,6 +307,9 @@ namespace CreateThis.Factory.VR.UI {
 
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
             keyboard.sceneCamera = sceneCamera;
+            keyboard.offset = offset;
+            keyboard.minDistance = minDistance;
+            keyboard.hideOnAwake = hideOnAwake;
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {

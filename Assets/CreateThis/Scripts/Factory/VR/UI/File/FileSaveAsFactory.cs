@@ -44,6 +44,9 @@ namespace CreateThis.Factory.VR.UI.File {
         public string fileNameExtension;
         public Keyboard keyboard;
         public Camera sceneCamera;
+        public Vector3 offset;
+        public float minDistance;
+        public bool hideOnAwake;
 
         protected GameObject fileSaveAsContainerInstance;
         protected Rigidbody fileSaveAsContainerRigidbody;
@@ -156,6 +159,9 @@ namespace CreateThis.Factory.VR.UI.File {
             fileSaveAsPanel.keyboard = keyboard;
             fileSaveAsPanel.searchPattern = searchPattern;
             fileSaveAsPanel.sceneCamera = sceneCamera;
+            fileSaveAsPanel.offset = offset;
+            fileSaveAsPanel.minDistance = minDistance;
+            fileSaveAsPanel.hideOnAwake = hideOnAwake;
 
             if (useVRTK) {
                 CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);

@@ -12,7 +12,6 @@ namespace CreateThis.VR.UI {
         public static event BufferChangedAction OnBufferChanged;
         public Action<string, Transform> doneCallback;
 
-
         private string buffer;
         private bool shiftLock = false;
         private bool numLock = false;
