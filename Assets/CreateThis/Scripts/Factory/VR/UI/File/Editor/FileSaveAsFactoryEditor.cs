@@ -8,11 +8,13 @@ namespace CreateThis.Factory.VR.UI.File {
     public class FileSaveAsFactoryEditor : FileOpenFactoryEditor {
         SerializedProperty fileNameExtension;
         SerializedProperty keyboard;
+        SerializedProperty sceneCamera;
 
         protected override void OnEnable() {
             base.OnEnable();
             fileNameExtension = serializedObject.FindProperty("fileNameExtension");
             keyboard = serializedObject.FindProperty("keyboard");
+            sceneCamera = serializedObject.FindProperty("sceneCamera");
         }
 
         protected override void BuildGenerateButton() {
@@ -31,6 +33,7 @@ namespace CreateThis.Factory.VR.UI.File {
             base.AdditionalProperties();
             EditorGUILayout.PropertyField(fileNameExtension);
             EditorGUILayout.PropertyField(keyboard);
+            EditorGUILayout.PropertyField(sceneCamera);
         }
     }
 }

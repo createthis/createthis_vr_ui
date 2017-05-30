@@ -14,6 +14,7 @@ namespace CreateThis.VR.UI.File {
 
         public void SetFilename(string value) {
             filename = value;
+            Debug.Log("fileNameButton=" + fileNameButton + ",filename=" + filename);
             fileNameButton.SetPath(filename);
         }
 

@@ -67,7 +67,11 @@ namespace CreateThis.VR.UI.Panel {
         public void SetVisible(bool value) {
             bool oldValue = visible;
             visible = value;
-            gameObject.SetActive(visible);
+            if (grabTarget) {
+                grabTarget.gameObject.SetActive(visible);
+            } else {
+                gameObject.SetActive(visible);
+            }
             if (visible) {
                 if (oldValue != value) ZeroNotSelectableCount();
                 Vector3 noYOffset = offset;

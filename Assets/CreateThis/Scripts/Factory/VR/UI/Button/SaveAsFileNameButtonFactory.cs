@@ -13,6 +13,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             button.buttonBody = buttonBodyInstance;
             button.buttonText = buttonTextLabelInstance;
             button.filePanel = filePanel;
+            button.clickOnTriggerExit = true;
             if (panel) button.panel = panel;
         }
     }

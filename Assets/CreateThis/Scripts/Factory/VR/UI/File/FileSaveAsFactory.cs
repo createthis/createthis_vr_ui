@@ -43,6 +43,7 @@ namespace CreateThis.Factory.VR.UI.File {
         public string searchPattern;
         public string fileNameExtension;
         public Keyboard keyboard;
+        public Camera sceneCamera;
 
         protected GameObject fileSaveAsContainerInstance;
         protected Rigidbody fileSaveAsContainerRigidbody;
@@ -153,8 +154,8 @@ namespace CreateThis.Factory.VR.UI.File {
             fileSaveAsPanel.kineticScrollItemPrefab = kineticScrollerItem;
             fileSaveAsPanel.height = scrollerHeight;
             fileSaveAsPanel.keyboard = keyboard;
-            fileSaveAsPanel.fileNameButton = fileNameButton;
             fileSaveAsPanel.searchPattern = searchPattern;
+            fileSaveAsPanel.sceneCamera = sceneCamera;
 
             if (useVRTK) {
                 CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);
@@ -213,6 +214,7 @@ namespace CreateThis.Factory.VR.UI.File {
             Label(row, "FileNameLabel", "         FileName");
             GameObject fileNameObject = FileNameButton(fileSaveAsPanel, row, "FileName");
             fileNameButton = fileNameObject.GetComponent<SaveAsFileNameButton>();
+            fileSaveAsPanel.fileNameButton = fileNameButton;
             Label(row, "ExtLabel", fileNameExtension);
             return row;
         }
