@@ -10,7 +10,7 @@ namespace CreateThis.VR.UI {
         public StandardPanel panelSymbol;
         public delegate void BufferChangedAction();
         public static event BufferChangedAction OnBufferChanged;
-        public Action<string> doneCallback;
+        public Action<string, Transform> doneCallback;
 
 
         private string buffer;
@@ -89,8 +89,8 @@ namespace CreateThis.VR.UI {
             BufferChanged();
         }
 
-        public void Done() {
-            doneCallback(buffer);
+        public void Done(Transform controller) {
+            doneCallback(buffer, controller);
         }
 
         // Use this for initialization

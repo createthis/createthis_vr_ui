@@ -281,6 +281,37 @@ namespace CreateThis.Factory.VR.UI.File {
             CurrentPathRow(parent);
         }
 
+        /*
+        protected void CreateKeyboard(GameObject parent) {
+            if (keyboardInstance) return;
+
+            KeyboardFactory factory = SafeAddComponent<KeyboardFactory>(disposable);
+            factory.useVRTK = useVRTK;
+            factory.parent = parent;
+            factory.buttonBody = buttonBody;
+            factory.buttonMaterial = buttonMaterial;
+            factory.panelMaterial = panelMaterial;
+            factory.highlight = highlight;
+            factory.outline = outline;
+            factory.buttonClickDown = buttonClickDown;
+            factory.buttonClickUp = buttonClickUp;
+            factory.fontSize = fontSize;
+            factory.fontColor = fontColor;
+            factory.labelZ = labelZ;
+            factory.buttonZ = buttonZ;
+            factory.bodyScale = bodyScale;
+            factory.labelScale = labelScale;
+            factory.padding = padding;
+            factory.spacing = spacing;
+            factory.buttonPadding = buttonPadding;
+            factory.keyMinWidth = buttonMinWidth;
+            factory.keyCharacterSize = buttonCharacterSize;
+            factory.padding = buttonPadding;
+            factory.characterSize = buttonCharacterSize;
+            factory.panel = panel;
+        }
+        */
+
         protected void FileSaveAsPanel(GameObject parent) {
             if (fileSaveAsInstance) return;
 

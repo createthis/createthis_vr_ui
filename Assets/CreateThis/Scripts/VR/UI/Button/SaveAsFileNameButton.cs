@@ -7,7 +7,7 @@ namespace CreateThis.VR.UI.Button {
 
         protected override void ClickHandler(Transform controller, int controllerIndex) {
             base.ClickHandler(controller, controllerIndex);
-            filePanel.FileNameClick();
+            filePanel.FileNameClick(controller);
         }
 
         public void SetPath(string value) {

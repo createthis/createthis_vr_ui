@@ -37,6 +37,7 @@ namespace CreateThis.Factory.VR.UI {
         public float spacerWidth;
         public float modeKeyMinWidth;
         public float wideKeyMinWidth;
+        public Camera sceneCamera;
 
         protected Keyboard keyboard;
         protected GameObject keyboardInstance;
@@ -302,6 +303,7 @@ namespace CreateThis.Factory.VR.UI {
             keyboardInstance = EmptyChild(parent, "keyboard");
 
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
+            keyboard.sceneCamera = sceneCamera;
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {

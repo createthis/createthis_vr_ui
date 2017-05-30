@@ -38,7 +38,7 @@ namespace CreateThis.VR.UI.Panel {
             Initialize();
 
             notSelectableCount = 0;
-            boxCollider.enabled = true;
+            if (boxCollider) boxCollider.enabled = true;
         }
 
         public void SetSelectable(bool value) {
@@ -64,21 +64,23 @@ namespace CreateThis.VR.UI.Panel {
             }
         }
 
+        private GameObject GetTarget() {
+            return (grabTarget) ? grabTarget.gameObject : gameObject;
+        }
+
         public void SetVisible(bool value) {
             bool oldValue = visible;
             visible = value;
-            if (grabTarget) {
-                grabTarget.gameObject.SetActive(visible);
-            } else {
-                gameObject.SetActive(visible);
-            }
+
+            GameObject target = GetTarget();
+            target.SetActive(visible);
             if (visible) {
                 if (oldValue != value) ZeroNotSelectableCount();
                 Vector3 noYOffset = offset;
                 noYOffset.y = 0;
                 Vector3 positionWithoutYOffset = PanelUtils.Position(sceneCamera, controller, noYOffset, minDistance);
-                transform.position = PanelUtils.Position(sceneCamera, controller, offset, minDistance);
-                transform.rotation = PanelUtils.Rotation(sceneCamera, positionWithoutYOffset);
+                target.transform.position = PanelUtils.Position(sceneCamera, controller, offset, minDistance);
+                target.transform.rotation = PanelUtils.Rotation(sceneCamera, positionWithoutYOffset);
             }
         }
 
