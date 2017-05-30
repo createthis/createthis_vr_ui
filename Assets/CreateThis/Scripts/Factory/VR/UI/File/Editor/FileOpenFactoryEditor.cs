@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace CreateThis.Factory.VR.UI {
+namespace CreateThis.Factory.VR.UI.File {
     [CustomEditor(typeof(FileOpenFactory))]
     [CanEditMultipleObjects]
 

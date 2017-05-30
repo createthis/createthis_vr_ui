@@ -14,7 +14,7 @@ using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
 using CreateThis.VR.UI.Container;
 
-namespace CreateThis.Factory.VR.UI {
+namespace CreateThis.Factory.VR.UI.File {
     public class FileOpenFactory : BaseFactory {
         public GameObject parent;
         public GameObject buttonBody;

@@ -3,7 +3,7 @@ using UnityEngine;
 using CreateThis.VR.UI.Panel;
 
 namespace CreateThis.VR.UI {
-    public class Keyboard : MonoBehaviour {
+    public class Keyboard : StandardPanel {
         public StandardPanel panelLowerCase;
         public StandardPanel panelUpperCase;
         public StandardPanel panelNumber;
@@ -95,6 +95,7 @@ namespace CreateThis.VR.UI {
 
         // Use this for initialization
         void Start() {
+            Initialize();
             shiftLock = false;
             numLock = false;
 

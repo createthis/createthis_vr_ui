@@ -1,13 +1,12 @@
 using System.IO;
 using UnityEngine;
 using CreateThis.VR.UI.UnityEvent;
+using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
 
 namespace CreateThis.VR.UI.File {
     public class FileSaveAs : FileBase {
-        public TextMesh filenameButtonTextMesh;
-        public StandardPanel fileSaveAsPanel;
-        public StandardPanel keyboardPanel;
+        public SaveAsFileNameButton fileNameButton;
         public Keyboard keyboard;
         public FilePathEvent onSaveAs;
 
@@ -15,20 +14,20 @@ namespace CreateThis.VR.UI.File {
 
         public void SetFilename(string value) {
             filename = value;
-            filenameButtonTextMesh.text = filename;
+            fileNameButton.SetPath(filename);
         }
 
         public void KeyboardCallback(string filename) {
             SetFilename(filename);
-            keyboardPanel.SetVisible(false);
-            fileSaveAsPanel.SetVisible(true);
+            keyboard.SetVisible(false);
+            this.SetVisible(true);
         }
 
         public void FileNameClick() {
-            fileSaveAsPanel.SetVisible(false);
+            this.SetVisible(false);
             keyboard.SetBuffer(filename);
             keyboard.doneCallback = KeyboardCallback;
-            keyboardPanel.SetVisible(true);
+            keyboard.SetVisible(true);
         }
 
         public void SaveAs() {

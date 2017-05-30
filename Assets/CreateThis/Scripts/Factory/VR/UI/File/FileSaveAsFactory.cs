@@ -8,13 +8,14 @@ using CreateThis.Factory.VR.UI.Container;
 using CreateThis.System;
 using CreateThis.VRTK;
 using CreateThis.VR.UI;
+using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
 using CreateThis.VR.UI.Container;
 
-namespace CreateThis.Factory.VR.UI {
+namespace CreateThis.Factory.VR.UI.File {
     public class FileSaveAsFactory : BaseFactory {
         public GameObject parent;
         public GameObject buttonBody;
@@ -41,17 +42,19 @@ namespace CreateThis.Factory.VR.UI {
         public float scrollerHeight;
         public string searchPattern;
         public string fileNameExtension;
+        public Keyboard keyboard;
 
         protected GameObject fileSaveAsContainerInstance;
         protected Rigidbody fileSaveAsContainerRigidbody;
         protected GameObject fileSaveAsInstance;
-        protected FileOpen fileSaveAsPanel;
+        protected FileSaveAs fileSaveAsPanel;
         private Drives drives;
         private GameObject disposable;
         private GameObject currentPathLabel;
         private KineticScroller kineticScroller;
         private GameObject kineticScrollerItem;
         private GameObject kineticScrollerInstance;
+        private SaveAsFileNameButton fileNameButton;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
             factory.useVRTK = useVRTK;
@@ -86,7 +89,7 @@ namespace CreateThis.Factory.VR.UI {
             return button;
         }
 
-        protected GameObject DriveButton(FileOpen panel, GameObject parent, string buttonText) {
+        protected GameObject DriveButton(FileSaveAs panel, GameObject parent, string buttonText) {
             DriveButtonFactory factory = SafeAddComponent<DriveButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
@@ -95,8 +98,8 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject FileNameButton(FileOpen panel, GameObject parent, string buttonText) {
-            FileNameButtonFactory factory = SafeAddComponent<FileNameButtonFactory>(disposable);
+        protected GameObject FileNameButton(FileSaveAs panel, GameObject parent, string buttonText) {
+            SaveAsFileNameButtonFactory factory = SafeAddComponent<SaveAsFileNameButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
@@ -104,7 +107,7 @@ namespace CreateThis.Factory.VR.UI {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KnownFolderButton(FileOpen panel, GameObject parent, string buttonText, KnownFolder knownFolder) {
+        protected GameObject KnownFolderButton(FileSaveAs panel, GameObject parent, string buttonText, KnownFolder knownFolder) {
             KnownFolderButtonFactory factory = SafeAddComponent<KnownFolderButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
@@ -144,11 +147,13 @@ namespace CreateThis.Factory.VR.UI {
             factory.bodyScale = bodyScale;
             GameObject panel = factory.Generate();
 
-            fileSaveAsPanel = SafeAddComponent<FileOpen>(panel);
+            fileSaveAsPanel = SafeAddComponent<FileSaveAs>(panel);
             fileSaveAsPanel.grabTarget = fileSaveAsContainerInstance.transform;
             fileSaveAsPanel.folderPrefab = folderPrefab;
             fileSaveAsPanel.kineticScrollItemPrefab = kineticScrollerItem;
             fileSaveAsPanel.height = scrollerHeight;
+            fileSaveAsPanel.keyboard = keyboard;
+            fileSaveAsPanel.fileNameButton = fileNameButton;
             fileSaveAsPanel.searchPattern = searchPattern;
 
             if (useVRTK) {
@@ -206,7 +211,8 @@ namespace CreateThis.Factory.VR.UI {
         protected GameObject FileNameButtonRow(GameObject parent) {
             GameObject row = Row(parent, "FileNameButtonRow", TextAlignment.Left);
             Label(row, "FileNameLabel", "         FileName");
-            GameObject fileNameButtonPrefab = FileNameButton(fileSaveAsPanel, row, "FileName");
+            GameObject fileNameObject = FileNameButton(fileSaveAsPanel, row, "FileName");
+            fileNameButton = fileNameObject.GetComponent<SaveAsFileNameButton>();
             Label(row, "ExtLabel", fileNameExtension);
             return row;
         }
@@ -273,7 +279,7 @@ namespace CreateThis.Factory.VR.UI {
             CurrentPathRow(parent);
         }
 
-        protected void FileOpenPanel(GameObject parent) {
+        protected void FileSaveAsPanel(GameObject parent) {
             if (fileSaveAsInstance) return;
 
             fileSaveAsInstance = EmptyChild(parent, "FileSaveAsPanel");
@@ -315,7 +321,7 @@ namespace CreateThis.Factory.VR.UI {
             kineticScrollerItem = CreateKineticScrollerItem(fileSaveAsContainerInstance);
             kineticScrollerItem.SetActive(false);
 
-            FileOpenPanel(fileSaveAsContainerInstance);
+            FileSaveAsPanel(fileSaveAsContainerInstance);
 
             CreateKineticScroller(fileSaveAsContainerInstance);
 
