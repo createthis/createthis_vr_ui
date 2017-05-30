@@ -2,7 +2,6 @@ using System.IO;
 using UnityEngine;
 using CreateThis.VR.UI.UnityEvent;
 using CreateThis.VR.UI.Button;
-using CreateThis.VR.UI.Panel;
 
 namespace CreateThis.VR.UI.File {
     public class FileSaveAs : FileBase {
@@ -14,7 +13,6 @@ namespace CreateThis.VR.UI.File {
 
         public void SetFilename(string value) {
             filename = value;
-            Debug.Log("fileNameButton=" + fileNameButton + ",filename=" + filename);
             fileNameButton.SetPath(filename);
         }
 

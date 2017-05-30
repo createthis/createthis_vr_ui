@@ -111,6 +111,15 @@ namespace CreateThis.Factory.VR.UI.File {
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
+        protected GameObject SaveAsButton(FileSaveAs panel, GameObject parent, string buttonText) {
+            SaveAsButtonFactory factory = SafeAddComponent<SaveAsButtonFactory>(disposable);
+            SetButtonValues(factory, panel, parent);
+            factory.buttonText = buttonText;
+            factory.filePanel = panel;
+            factory.minWidth = buttonMinWidth;
+            return GenerateKeyboardButtonAndSetPosition(factory);
+        }
+
         protected GameObject KnownFolderButton(FileSaveAs panel, GameObject parent, string buttonText, KnownFolder knownFolder) {
             KnownFolderButtonFactory factory = SafeAddComponent<KnownFolderButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
@@ -215,6 +224,12 @@ namespace CreateThis.Factory.VR.UI.File {
             return row;
         }
 
+        protected GameObject SaveAsButtonRow(GameObject parent) {
+            GameObject row = Row(parent, "SaveAsButtonRow", TextAlignment.Right);
+            GameObject saveAsButtonObject = SaveAsButton(fileSaveAsPanel, row, "Save As");
+            return row;
+        }
+
         protected GameObject FileNameButtonRow(GameObject parent) {
             GameObject row = Row(parent, "FileNameButtonRow", TextAlignment.Left);
             Label(row, "FileNameLabel", "         FileName");
@@ -284,46 +299,16 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {
+            SaveAsButtonRow(parent);
             CurrentPathRow(parent);
         }
-
-        /*
-        protected void CreateKeyboard(GameObject parent) {
-            if (keyboardInstance) return;
-
-            KeyboardFactory factory = SafeAddComponent<KeyboardFactory>(disposable);
-            factory.useVRTK = useVRTK;
-            factory.parent = parent;
-            factory.buttonBody = buttonBody;
-            factory.buttonMaterial = buttonMaterial;
-            factory.panelMaterial = panelMaterial;
-            factory.highlight = highlight;
-            factory.outline = outline;
-            factory.buttonClickDown = buttonClickDown;
-            factory.buttonClickUp = buttonClickUp;
-            factory.fontSize = fontSize;
-            factory.fontColor = fontColor;
-            factory.labelZ = labelZ;
-            factory.buttonZ = buttonZ;
-            factory.bodyScale = bodyScale;
-            factory.labelScale = labelScale;
-            factory.padding = padding;
-            factory.spacing = spacing;
-            factory.buttonPadding = buttonPadding;
-            factory.keyMinWidth = buttonMinWidth;
-            factory.keyCharacterSize = buttonCharacterSize;
-            factory.padding = buttonPadding;
-            factory.characterSize = buttonCharacterSize;
-            factory.panel = panel;
-        }
-        */
 
         protected void FileSaveAsPanel(GameObject parent) {
             if (fileSaveAsInstance) return;
 
             fileSaveAsInstance = EmptyChild(parent, "FileSaveAsPanel");
             Vector3 localPosition = fileSaveAsInstance.transform.localPosition;
-            localPosition.y = -scrollerHeight * 1.50f;
+            localPosition.y = -scrollerHeight * 1.75f;
             fileSaveAsInstance.transform.localPosition = localPosition;
 
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileSaveAsInstance);
