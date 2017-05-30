@@ -10,6 +10,7 @@ namespace CreateThis.VR.UI.Controller {
         public string hardware;
         public float pointerConeZOffset;
         public List<Collider> touching; // public for debugging
+        public GameObject grabbedObject; // public for debugging
 
         private Valve.VR.EVRButtonId touchPadButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
         private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
@@ -104,15 +105,16 @@ namespace CreateThis.VR.UI.Controller {
             foreach (Collider touched in touching) {
                 if (touched.GetComponent<Grabbable>()) {
                     touched.GetComponent<Grabbable>().OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
+                    grabbedObject = touched.gameObject;
                 }
             }
         }
 
         protected void HandleGripUp() {
-            foreach (Collider touched in touching) {
-                if (touched.GetComponent<Grabbable>()) {
-                    touched.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
-                }
+            if (!grabbedObject) return;
+            if (grabbedObject.GetComponent<Grabbable>()) {
+                grabbedObject.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
+                grabbedObject = null;
             }
         }
 
