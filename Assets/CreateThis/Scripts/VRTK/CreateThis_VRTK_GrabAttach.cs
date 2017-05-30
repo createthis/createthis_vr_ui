@@ -18,10 +18,11 @@ namespace CreateThis.VRTK {
         /// <returns>Is true if the grab is successful, false if the grab is unsuccessful.</returns>
         public override bool StartGrab(GameObject grabbingObject, GameObject givenGrabbedObject, Rigidbody givenControllerAttachPoint) {
             if (base.StartGrab(grabbingObject, givenGrabbedObject, givenControllerAttachPoint)) {
+                grabbedObjectScript.isKinematic = true; // not sure why this is necessary. Bug in VRTK perhaps. Seems to turn off kinematic sometimes.
                 this.grabbingObject = grabbingObject;
                 this.givenGrabbedObject = givenGrabbedObject;
 
-                VRTK_ControllerReference controllerReference = VRTK_ControllerReference.GetControllerReference(givenGrabbedObject);
+                VRTK_ControllerReference controllerReference = VRTK_ControllerReference.GetControllerReference(grabbingObject);
                 int controllerIndex = (int)VRTK_ControllerReference.GetRealIndex(controllerReference);
                 givenGrabbedObject.GetComponent<Grabbable>().OnGrabStart(grabbingObject.transform, controllerIndex);
                 return true;
@@ -34,7 +35,7 @@ namespace CreateThis.VRTK {
         /// </summary>
         /// <param name="applyGrabbingObjectVelocity">If true will apply the current velocity of the grabbing object to the grabbed object on release.</param>
         public override void StopGrab(bool applyGrabbingObjectVelocity) {
-            VRTK_ControllerReference controllerReference = VRTK_ControllerReference.GetControllerReference(givenGrabbedObject);
+            VRTK_ControllerReference controllerReference = VRTK_ControllerReference.GetControllerReference(grabbingObject);
             int controllerIndex = (int)VRTK_ControllerReference.GetRealIndex(controllerReference);
             givenGrabbedObject.GetComponent<Grabbable>().OnGrabStop(grabbingObject.transform, controllerIndex);
             ReleaseObject(applyGrabbingObjectVelocity);

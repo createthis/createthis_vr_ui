@@ -23,15 +23,15 @@ namespace CreateThis.VR.UI.Panel {
         private BoxCollider boxCollider;
         private Selectable selectable;
         private bool hasInitialized = false;
+        private Transform oldParent;
 
         public override void OnGrabStart(Transform controller, int controllerIndex) {
-            Debug.Log("OnGrabStart");
+            oldParent = grabTarget.parent;
             grabTarget.parent = controller;
         }
 
         public override void OnGrabStop(Transform controller, int controllerIndex) {
-            Debug.Log("OnGrabStop");
-            grabTarget.parent = null;
+            grabTarget.parent = oldParent;
         }
 
         public void ZeroNotSelectableCount() {
