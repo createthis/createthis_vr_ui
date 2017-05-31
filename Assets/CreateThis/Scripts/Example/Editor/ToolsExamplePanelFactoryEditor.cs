@@ -36,6 +36,7 @@ namespace CreateThis.Example {
         SerializedProperty hideOnAwake;
         SerializedProperty fileOpen;
         SerializedProperty fileSaveAs;
+        SerializedProperty skyboxManager;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -68,6 +69,7 @@ namespace CreateThis.Example {
             hideOnAwake = serializedObject.FindProperty("hideOnAwake");
             fileOpen = serializedObject.FindProperty("fileOpen");
             fileSaveAs = serializedObject.FindProperty("fileSaveAs");
+            skyboxManager = serializedObject.FindProperty("skyboxManager");
         }
 
         protected override void BuildGenerateButton() {
@@ -113,6 +115,7 @@ namespace CreateThis.Example {
             EditorGUILayout.PropertyField(hideOnAwake);
             EditorGUILayout.PropertyField(fileOpen);
             EditorGUILayout.PropertyField(fileSaveAs);
+            EditorGUILayout.PropertyField(skyboxManager);
         }
     }
 }

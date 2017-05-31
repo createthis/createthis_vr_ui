@@ -41,6 +41,7 @@ namespace CreateThis.Example {
         public bool hideOnAwake;
         public FileOpen fileOpen;
         public FileSaveAs fileSaveAs;
+        public SkyboxManager skyboxManager;
 
         private GameObject disposable;
         private GameObject toolsPanelInstance;
@@ -114,10 +115,12 @@ namespace CreateThis.Example {
             return GenerateMomentaryButtonAndSetPosition(factory);
         }
 
-        protected GameObject ToggleButton(StandardPanel panel, GameObject parent, string buttonText) {
-            ToggleButtonFactory factory = SafeAddComponent<ToggleButtonFactory>(disposable);
+        protected GameObject SkyboxButton(StandardPanel panel, GameObject parent, string buttonText, string skybox) {
+            SkyboxButtonFactory factory = SafeAddComponent<SkyboxButtonFactory>(disposable);
             SetToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
+            factory.skybox = skybox;
+            factory.skyboxManager = skyboxManager;
             return GenerateToggleButtonAndSetPosition(factory);
         }
 
@@ -219,8 +222,8 @@ namespace CreateThis.Example {
 
         private GameObject ChangeSkyboxRow(GameObject parent) {
             GameObject row = Row(parent, "ChangeSkyboxRow", TextAlignment.Left);
-            ToggleButton(toolsPanel, row, "Blue Sky");
-            ToggleButton(toolsPanel, row, "Stars");
+            SkyboxButton(toolsPanel, row, "Blue Sky", "bluesky");
+            SkyboxButton(toolsPanel, row, "Sunset", "sunset");
             return row;
         }
 
