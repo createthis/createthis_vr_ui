@@ -2,6 +2,7 @@
 using UnityEngine;
 using CreateThis.Unity;
 using CreateThis.VR.UI.Interact;
+using CreateThis.VR.UI.UnityEvent;
 
 namespace CreateThis.VR.UI.Controller {
     public class TouchPadMenuController : MonoBehaviour {
@@ -9,7 +10,7 @@ namespace CreateThis.VR.UI.Controller {
         public class TouchPadButton {
             public string label;
             public GameObject displayObject;
-            public global::UnityEngine.Events.UnityEvent onSelected;
+            public UseEvent onSelected;
         }
 
         public Material material;
@@ -52,7 +53,7 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         void Start() {
-            Debug.Log("TouchPadController start");
+            //Debug.Log("TouchPadController start");
             donutSliceMesh = new DonutSliceMesh();
             CreateMenuPlane();
             donutSliceMesh.numVerts = numVerts;
@@ -112,7 +113,7 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private void Controller_PadClicked(object sender, ClickedEventArgs e) {
-            Debug.Log("Touchpad Pressed " + device.GetAxis().x + " " + device.GetAxis().y);
+            //Debug.Log("Touchpad Pressed " + device.GetAxis().x + " " + device.GetAxis().y);
             if (menuPlaneInstances.Count != 0) return;
             int selectedIndex = MenuPlaneIndexOfPoint(device.GetAxis());
             for (int i = 0; i < touchPadButtons.Length; i++) {
@@ -148,10 +149,13 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private void Controller_PadUnclicked(object sender, ClickedEventArgs e) {
-            Debug.Log("Touchpad Unpressed " + device.GetAxis().x + " " + device.GetAxis().y);
+            //Debug.Log("Touchpad Unpressed " + device.GetAxis().x + " " + device.GetAxis().y);
             if (menuPlaneInstances.Count != 0) {
                 int selectedIndex = MenuPlaneIndexOfPoint(device.GetAxis());
-                touchPadButtons[selectedIndex].onSelected.Invoke();
+                TouchController touchController = GetComponent<TouchController>();
+                Transform controller = touchController.GetSpawnPoint().transform;
+                int controllerIndex = touchController.GetControllerIndex();
+                touchPadButtons[selectedIndex].onSelected.Invoke(controller, controllerIndex);
                 foreach (GameObject menuPlaneInstance in menuPlaneInstances) {
                     Destroy(menuPlaneInstance);
                 }

@@ -36,6 +36,14 @@ namespace CreateThis.VR.UI.Controller {
             SteamVR_Events.RenderModelLoaded.Listen(OnRenderModelLoaded);
         }
 
+        public GameObject GetSpawnPoint() {
+            return spawnPoint;
+        }
+
+        public int GetControllerIndex() {
+            return (int)trackedObj.index;
+        }
+
         public void DetectVRHardware() {
             string model = UnityEngine.VR.VRDevice.model != null ? UnityEngine.VR.VRDevice.model : "";
             if (model.IndexOf("Rift") >= 0) {

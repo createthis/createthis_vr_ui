@@ -7,7 +7,7 @@ namespace CreateThis.VR.UI.Panel {
         void ZeroNotSelectableCount();
         void SetSelectable(bool value);
         void SetVisible(bool value);
-        void ToggleVisible();
+        void ToggleVisible(Transform controller, int controllerIndex);
     }
 
     public abstract class PanelBase : Grabbable, IPanel {
@@ -84,7 +84,8 @@ namespace CreateThis.VR.UI.Panel {
             }
         }
 
-        public void ToggleVisible() {
+        public void ToggleVisible(Transform controller, int controllerIndex) {
+            this.controller = controller;
             SetVisible(!visible);
         }
 
