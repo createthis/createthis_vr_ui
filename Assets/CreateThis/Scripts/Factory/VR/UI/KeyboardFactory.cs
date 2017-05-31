@@ -42,12 +42,12 @@ namespace CreateThis.Factory.VR.UI {
         public float minDistance;
         public bool hideOnAwake;
 
-        protected Keyboard keyboard;
-        protected GameObject keyboardInstance;
-        protected GameObject panelLowerCase;
-        protected GameObject panelUpperCase;
-        protected GameObject panelNumber;
-        protected GameObject panelSymbol;
+        private Keyboard keyboard;
+        private GameObject keyboardInstance;
+        private GameObject panelLowerCase;
+        private GameObject panelUpperCase;
+        private GameObject panelNumber;
+        private GameObject panelSymbol;
         private GameObject disposable;
 
         protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, StandardPanel panel, GameObject parent) {
