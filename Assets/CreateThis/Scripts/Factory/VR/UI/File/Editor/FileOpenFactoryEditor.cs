@@ -30,6 +30,10 @@ namespace CreateThis.Factory.VR.UI.File {
         SerializedProperty kineticScrollerSpacing;
         SerializedProperty scrollerHeight;
         SerializedProperty searchPattern;
+        SerializedProperty sceneCamera;
+        SerializedProperty offset;
+        SerializedProperty minDistance;
+        SerializedProperty hideOnAwake;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -57,6 +61,10 @@ namespace CreateThis.Factory.VR.UI.File {
             kineticScrollerSpacing = serializedObject.FindProperty("kineticScrollerSpacing");
             scrollerHeight = serializedObject.FindProperty("scrollerHeight");
             searchPattern = serializedObject.FindProperty("searchPattern");
+            sceneCamera = serializedObject.FindProperty("sceneCamera");
+            offset = serializedObject.FindProperty("offset");
+            minDistance = serializedObject.FindProperty("minDistance");
+            hideOnAwake = serializedObject.FindProperty("hideOnAwake");
         }
 
         protected override void BuildGenerateButton() {
@@ -97,6 +105,10 @@ namespace CreateThis.Factory.VR.UI.File {
             EditorGUILayout.PropertyField(kineticScrollerSpacing);
             EditorGUILayout.PropertyField(scrollerHeight);
             EditorGUILayout.PropertyField(searchPattern);
+            EditorGUILayout.PropertyField(sceneCamera);
+            EditorGUILayout.PropertyField(offset);
+            EditorGUILayout.PropertyField(minDistance);
+            EditorGUILayout.PropertyField(hideOnAwake);
         }
     }
 }

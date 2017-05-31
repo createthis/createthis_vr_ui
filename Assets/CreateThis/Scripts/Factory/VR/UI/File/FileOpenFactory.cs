@@ -40,6 +40,10 @@ namespace CreateThis.Factory.VR.UI.File {
         public float kineticScrollerSpacing;
         public float scrollerHeight;
         public string searchPattern;
+        public Camera sceneCamera;
+        public Vector3 offset;
+        public float minDistance;
+        public bool hideOnAwake;
 
         protected GameObject fileOpenContainerInstance;
         protected Rigidbody fileOpenContainerRigidbody;
@@ -140,6 +144,10 @@ namespace CreateThis.Factory.VR.UI.File {
             fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
             fileOpenPanel.height = scrollerHeight;
             fileOpenPanel.searchPattern = searchPattern;
+            fileOpenPanel.sceneCamera = sceneCamera;
+            fileOpenPanel.offset = offset;
+            fileOpenPanel.minDistance = minDistance;
+            fileOpenPanel.hideOnAwake = hideOnAwake;
 
             if (useVRTK) {
                 CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);

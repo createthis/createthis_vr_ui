@@ -154,7 +154,7 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private void OnTriggerEnter(Collider collider) {
-            Debug.Log("OnTriggerEnter collider.name=" + collider.name);
+            //Debug.Log("OnTriggerEnter collider.name=" + collider.name);
             if (!touching.Contains(collider)) {
                 touching.Add(collider);
             }
@@ -167,7 +167,7 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         private void OnTriggerExit(Collider collider) {
-            Debug.Log("OnTriggerExit collider.name=" + collider.name);
+            //Debug.Log("OnTriggerExit collider.name=" + collider.name);
             if (touching.Contains(collider)) {
                 touching.Remove(collider);
             }

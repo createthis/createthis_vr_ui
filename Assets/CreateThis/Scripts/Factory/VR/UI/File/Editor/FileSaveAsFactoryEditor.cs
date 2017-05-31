@@ -8,19 +8,11 @@ namespace CreateThis.Factory.VR.UI.File {
     public class FileSaveAsFactoryEditor : FileOpenFactoryEditor {
         SerializedProperty fileNameExtension;
         SerializedProperty keyboard;
-        SerializedProperty sceneCamera;
-        SerializedProperty offset;
-        SerializedProperty minDistance;
-        SerializedProperty hideOnAwake;
 
         protected override void OnEnable() {
             base.OnEnable();
             fileNameExtension = serializedObject.FindProperty("fileNameExtension");
             keyboard = serializedObject.FindProperty("keyboard");
-            sceneCamera = serializedObject.FindProperty("sceneCamera");
-            offset = serializedObject.FindProperty("offset");
-            minDistance = serializedObject.FindProperty("minDistance");
-            hideOnAwake = serializedObject.FindProperty("hideOnAwake");
         }
 
         protected override void BuildGenerateButton() {
@@ -39,10 +31,6 @@ namespace CreateThis.Factory.VR.UI.File {
             base.AdditionalProperties();
             EditorGUILayout.PropertyField(fileNameExtension);
             EditorGUILayout.PropertyField(keyboard);
-            EditorGUILayout.PropertyField(sceneCamera);
-            EditorGUILayout.PropertyField(offset);
-            EditorGUILayout.PropertyField(minDistance);
-            EditorGUILayout.PropertyField(hideOnAwake);
         }
     }
 }

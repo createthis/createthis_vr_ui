@@ -34,6 +34,8 @@ namespace CreateThis.Example {
         SerializedProperty offset;
         SerializedProperty minDistance;
         SerializedProperty hideOnAwake;
+        SerializedProperty fileOpen;
+        SerializedProperty fileSaveAs;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -64,6 +66,8 @@ namespace CreateThis.Example {
             offset = serializedObject.FindProperty("offset");
             minDistance = serializedObject.FindProperty("minDistance");
             hideOnAwake = serializedObject.FindProperty("hideOnAwake");
+            fileOpen = serializedObject.FindProperty("fileOpen");
+            fileSaveAs = serializedObject.FindProperty("fileSaveAs");
         }
 
         protected override void BuildGenerateButton() {
@@ -107,6 +111,8 @@ namespace CreateThis.Example {
             EditorGUILayout.PropertyField(offset);
             EditorGUILayout.PropertyField(minDistance);
             EditorGUILayout.PropertyField(hideOnAwake);
+            EditorGUILayout.PropertyField(fileOpen);
+            EditorGUILayout.PropertyField(fileSaveAs);
         }
     }
 }

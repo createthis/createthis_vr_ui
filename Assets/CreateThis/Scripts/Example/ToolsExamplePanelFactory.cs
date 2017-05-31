@@ -4,6 +4,7 @@ using UnityEditor;
 #endif
 using CreateThis.VRTK;
 using CreateThis.VR.UI.Panel;
+using CreateThis.VR.UI.File;
 using CreateThis.VR.UI.Container;
 using CreateThis.Factory;
 using CreateThis.Factory.VR.UI.Button;
@@ -38,6 +39,8 @@ namespace CreateThis.Example {
         public Vector3 offset;
         public float minDistance;
         public bool hideOnAwake;
+        public FileOpen fileOpen;
+        public FileSaveAs fileSaveAs;
 
         private GameObject disposable;
         private GameObject toolsPanelInstance;
@@ -103,10 +106,11 @@ namespace CreateThis.Example {
             return button;
         }
 
-        protected GameObject MomentaryButton(StandardPanel panel, GameObject parent, string buttonText) {
-            PanelHidingMomentaryButtonFactory factory = SafeAddComponent<PanelHidingMomentaryButtonFactory>(disposable);
+        protected GameObject PanelToggleVisibilityMomentaryButton(StandardPanel panel, GameObject parent, string buttonText, PanelBase panelToToggle) {
+            PanelToggleVisibilityMomentaryButtonFactory factory = SafeAddComponent<PanelToggleVisibilityMomentaryButtonFactory>(disposable);
             SetMomentaryButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
+            factory.panelToToggle = panelToToggle;
             return GenerateMomentaryButtonAndSetPosition(factory);
         }
 
@@ -202,8 +206,8 @@ namespace CreateThis.Example {
 
         private GameObject FileRow(GameObject parent) {
             GameObject row = Row(parent, "FileRow", TextAlignment.Left);
-            MomentaryButton(toolsPanel, row, "Open");
-            MomentaryButton(toolsPanel, row, "SaveAs");
+            PanelToggleVisibilityMomentaryButton(toolsPanel, row, "Open", fileOpen);
+            PanelToggleVisibilityMomentaryButton(toolsPanel, row, "SaveAs", fileSaveAs);
             return row;
         }
 

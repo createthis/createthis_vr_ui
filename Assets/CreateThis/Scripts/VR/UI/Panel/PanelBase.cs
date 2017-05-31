@@ -58,9 +58,11 @@ namespace CreateThis.VR.UI.Panel {
         }
 
         private void Awake() {
+            PanelManager.AddPanel(this);
             if (hideOnAwake) {
                 visible = false;
-                gameObject.SetActive(false);
+                GameObject target = GetTarget();
+                target.SetActive(false);
             }
         }
 
@@ -71,6 +73,8 @@ namespace CreateThis.VR.UI.Panel {
         public void SetVisible(bool value) {
             bool oldValue = visible;
             visible = value;
+
+            if (value) PanelManager.HideAllPanels(this);
 
             GameObject target = GetTarget();
             target.SetActive(visible);
