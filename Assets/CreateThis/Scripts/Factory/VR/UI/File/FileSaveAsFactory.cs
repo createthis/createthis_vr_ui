@@ -226,7 +226,7 @@ namespace CreateThis.Factory.VR.UI.File {
 
         protected GameObject SaveAsButtonRow(GameObject parent) {
             GameObject row = Row(parent, "SaveAsButtonRow", TextAlignment.Right);
-            GameObject saveAsButtonObject = SaveAsButton(fileSaveAsPanel, row, "Save As");
+            SaveAsButton(fileSaveAsPanel, row, "Save As");
             return row;
         }
 
