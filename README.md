@@ -3,6 +3,8 @@
 This project contains the full source code for the [Mesh Maker VR](http://store.steampowered.com/app/576790/Mesh_Maker_VR/) UI system. It includes Buttons, Panels, and automatic layout tools like Row and Column containers. It also provides File Open and SaveAs dialogs using a PhysX based kinetic scroller.
 Factory scripts are provided to quickly build these components from the Editor or from code. The intent is to save time when designing complex VR application UIs.
 
+![Youtube Video Overview](https://youtu.be/4BQ3y7y577U)
+
 # Dependencies
 
 * Download the SteamVR Plugin from the Unity Asset Store. The example scene expect it to be at Assets/SteamVR.
