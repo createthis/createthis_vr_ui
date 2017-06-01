@@ -21,7 +21,7 @@ Scaffold scripts are provided to quickly build these components from the Editor 
 * Factory - A script to quickly build aggregate objects.
 
 # Demo
-Compiled demo exe available here: [link](https://github.com/createthis/VRUI_demo)
+Compiled demo exe available here: [https://github.com/createthis/VRUI_demo](https://github.com/createthis/VRUI_demo)
 
 ![keyboard image](http://i.imgur.com/650cDDP.gif "Keyboard")
 ![toggle buttons image](http://i.imgur.com/k4CysCr.gif "Toggle Buttons")
