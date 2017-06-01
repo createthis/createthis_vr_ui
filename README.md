@@ -3,7 +3,7 @@
 This project contains the full source code for the [Mesh Maker VR](http://store.steampowered.com/app/576790/Mesh_Maker_VR/) UI system. It includes Buttons, Panels, and automatic layout tools like Row and Column containers. It also provides File Open and SaveAs dialogs using a PhysX based kinetic scroller.
 Factory scripts are provided to quickly build these components from the Editor or from code. The intent is to save time when designing complex VR application UIs.
 
-![Youtube Video Overview](https://youtu.be/4BQ3y7y577U)
+[![Youtube Video Overview](https://img.youtube.com/vi/4BQ3y7y577U/0.jpg)](https://www.youtube.com/watch?v=4BQ3y7y577U)
 
 # Dependencies
 
