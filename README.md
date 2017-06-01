@@ -18,4 +18,10 @@ Scaffold scripts are provided to quickly build these components from the Editor 
 * Controller - Touch controller specific scripts.
 * Panel - The 3d background for a UI.
 * Container - An object that controllers the layout of child objects.
-* Scaffold - A script to quickly build aggregate objects.
+* Factory - A script to quickly build aggregate objects.
+
+# Demo
+Compiled demo exe available here: [link](https://github.com/createthis/VRUI_demo)
+
+![keyboard image](http://i.imgur.com/650cDDP.gif "Keyboard")
+![toggle buttons image](http://i.imgur.com/k4CysCr.gif "Toggle Buttons")
