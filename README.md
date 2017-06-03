@@ -30,4 +30,4 @@ Compiled demo exe available here: [https://github.com/createthis/VRUI_demo](http
 
 # Chat
 
-Slack: ![createthisvrui.slack.com](https://createthisvrui.slack.com)
+Slack: [createthisvrui.slack.com](https://createthisvrui.slack.com)
