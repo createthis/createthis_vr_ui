@@ -30,4 +30,4 @@ Compiled demo exe available here: [https://github.com/createthis/VRUI_demo](http
 
 # Chat
 
-Slack: [createthisvrui.slack.com](https://createthisvrui.slack.com)
+Slack channel: [createthisvrui.slack.com](https://createthisvrui.slack.com) [Join createthisvrui invite link](https://join.slack.com/createthisvrui/shared_invite/MTkxNTk5MzM3ODI0LTE0OTY0OTY1NzgtYTcwYmE2YjY2YQ)
