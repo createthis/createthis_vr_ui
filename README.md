@@ -27,3 +27,7 @@ Compiled demo exe available here: [https://github.com/createthis/VRUI_demo](http
 
 ![keyboard image](http://i.imgur.com/650cDDP.gif "Keyboard")
 ![toggle buttons image](http://i.imgur.com/k4CysCr.gif "Toggle Buttons")
+
+# Chat
+
+Slack: ![createthisvrui.slack.com](https://createthisvrui.slack.com)
