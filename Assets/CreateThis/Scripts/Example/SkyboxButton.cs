@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using CreateThis.VR.UI.Interact;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace CreateThis.VR.UI.Button {
     public class SkyboxButton : ToggleButton {
@@ -18,14 +21,20 @@ namespace CreateThis.VR.UI.Button {
         }
 
         private void SkyboxChanged() {
-            if (skyboxManager.skybox == skybox) {
-                GetComponent<Selectable>().SetStickySelected(true);
-                if (On != true) On = true;
-            } else {
-                GetComponent<Selectable>().SetStickySelected(false);
-                if (On != false) On = false;
+#if UNITY_EDITOR
+            if (EditorApplication.isPlaying) {
+#endif
+                if (skyboxManager.skybox == skybox) {
+                    GetComponent<Selectable>().SetStickySelected(true);
+                    if (On != true) On = true;
+                } else {
+                    GetComponent<Selectable>().SetStickySelected(false);
+                    if (On != false) On = false;
+                }
+                GetComponent<Selectable>().SetSelected(GetComponent<Selectable>().selected);
+#if UNITY_EDITOR
             }
-            GetComponent<Selectable>().SetSelected(GetComponent<Selectable>().selected);
+#endif
         }
 
         // Use this for initialization

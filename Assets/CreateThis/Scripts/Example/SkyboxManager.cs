@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class SkyboxManager : MonoBehaviour {
     public Material blueSky;
@@ -13,8 +16,14 @@ public class SkyboxManager : MonoBehaviour {
 
     public void SetSkybox(string name) {
         skybox = name;
-        UpdateSkybox();
-        if (OnSkyboxChanged != null) OnSkyboxChanged();
+#if UNITY_EDITOR
+        if (EditorApplication.isPlaying) {
+#endif
+            UpdateSkybox();
+            if (OnSkyboxChanged != null) OnSkyboxChanged();
+#if UNITY_EDITOR
+        }
+#endif
     }
 
     public Material StringToMaterial(string name) {
