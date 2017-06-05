@@ -230,7 +230,6 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 1
     m_Devices:
-    - None
     - OpenVR
   - m_BuildTarget: iOS
     m_Enabled: 0

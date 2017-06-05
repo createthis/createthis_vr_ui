@@ -12,7 +12,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 
 # NOTES
 
-* The current version of VRTK adds "None" to the Supported VR SDK manager in Settings -> Player, so I've added a UseOpenVR gameobject with a UseOpenVR script to automatically switch back to OpenVR. This is not necessary in your code if you don't use VRTK.
+* The current version of VRTK adds "None" to the Supported VR SDK manager in Settings -> Player, by default, so I've disabled the Auto Manage VR Settings checkbox on the VRTK object in the VRTK scene and defaulted the SDK to SteamVR.
 * The TranslucentController.cs script only works with SteamVR at the moment (because VRTK provides no way to change the default controller model material), so the VRTK examples only work with SteamVR. This is the only VRTK limitation and could be solved with custom controller models.
 
 # Naming
