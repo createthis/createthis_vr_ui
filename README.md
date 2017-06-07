@@ -8,8 +8,11 @@ Factory scripts are provided to quickly build these components from the Editor o
 # Dependencies
 
 * Download the SteamVR Plugin from the Unity Asset Store. The example scene expect it to be at Assets/SteamVR.
-* If you want to use VRTK (not required) download VRTK via git and copy Assets/VRTK over. You will also need to add a `defineVRTK.cs` file with `#define VRTK` inside somewhere in the project.
-
+* If you want to use VRTK (not required) download VRTK via git and copy Assets/VRTK over. You will also need to add 
+  a *Platform custom #define* to Unity to enable VRTK code extensions. To do this go to File -> Build Settings -> Other Settings -> Scripting Define Symbols
+  and append `;VRTK` to the list. Make sure you press ENTER after typing VRTK or it won't save. Also, you'll probably want to exit Unity and delete your Library
+  folder at this point in order to force Unity to recompile all scripts using the VRTK define.
+  See https://docs.unity3d.com/Manual/PlatformDependentCompilation.html for more info.
 # NOTES
 
 * The current version of VRTK adds "None" to the Supported VR SDK manager in Settings -> Player, by default, so I've disabled the Auto Manage VR Settings checkbox on the VRTK object in the VRTK scene and defaulted the SDK to SteamVR.
