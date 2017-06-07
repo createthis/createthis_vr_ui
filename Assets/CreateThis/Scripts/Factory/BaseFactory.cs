@@ -5,7 +5,9 @@ using UnityEditor;
 
 namespace CreateThis.Factory {
     public class BaseFactory : MonoBehaviour {
+#if VRTK
         public bool useVRTK;
+#endif
 
         protected T SafeAddComponent<T>(GameObject target) where T : Component {
 #if UNITY_EDITOR

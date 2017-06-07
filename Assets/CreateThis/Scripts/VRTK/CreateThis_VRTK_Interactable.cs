@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if VRTK
+using UnityEngine;
 using VRTK;
 using CreateThis.VR.UI.Interact;
 
@@ -28,3 +29,4 @@ namespace CreateThis.VRTK {
         }
     }
 }
+#endif

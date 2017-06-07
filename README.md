@@ -8,7 +8,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 # Dependencies
 
 * Download the SteamVR Plugin from the Unity Asset Store. The example scene expect it to be at Assets/SteamVR.
-* If you want to use VRTK (not required) download VRTK via git and copy Assets/VRTK over.
+* If you want to use VRTK (not required) download VRTK via git and copy Assets/VRTK over. You will also need to add a `defineVRTK.cs` file with `#define VRTK` inside somewhere in the project.
 
 # NOTES
 

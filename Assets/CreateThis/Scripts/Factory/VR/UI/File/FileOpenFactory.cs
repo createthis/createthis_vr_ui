@@ -6,7 +6,9 @@ using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Scroller;
 using CreateThis.Factory.VR.UI.Container;
 using CreateThis.System;
+#if VRTK
 using CreateThis.VRTK;
+#endif
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
@@ -57,7 +59,9 @@ namespace CreateThis.Factory.VR.UI.File {
         private GameObject kineticScrollerInstance;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
+#if VRTK
             factory.useVRTK = useVRTK;
+#endif
             factory.parent = parent;
             factory.buttonBody = buttonBody;
             factory.material = buttonMaterial;
@@ -149,12 +153,14 @@ namespace CreateThis.Factory.VR.UI.File {
             fileOpenPanel.minDistance = minDistance;
             fileOpenPanel.hideOnAwake = hideOnAwake;
 
+#if VRTK
             if (useVRTK) {
                 CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);
                 CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(panel);
                 interactable.isGrabbable = true;
                 interactable.grabAttachMechanicScript = grabAttach;
             }
+#endif
 
             drives = SafeAddComponent<Drives>(panel);
 
@@ -219,7 +225,9 @@ namespace CreateThis.Factory.VR.UI.File {
 
         private GameObject CreateKineticScrollerItem(GameObject parent) {
             KineticScrollerItemFactory kineticScrollerItemFactory = SafeAddComponent<KineticScrollerItemFactory>(disposable);
+#if VRTK
             kineticScrollerItemFactory.useVRTK = useVRTK;
+#endif
             kineticScrollerItemFactory.parent = parent;
             kineticScrollerItemFactory.material = buttonMaterial;
             kineticScrollerItemFactory.highlight = highlight;

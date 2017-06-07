@@ -6,10 +6,14 @@ namespace CreateThis.Factory {
     [CanEditMultipleObjects]
 
     public abstract class BaseFactoryEditor : Editor {
+#if VRTK
         SerializedProperty useVRTK;
+#endif
 
         protected virtual void OnEnable() {
+#if VRTK
             useVRTK = serializedObject.FindProperty("useVRTK");
+#endif
         }
 
         protected virtual void BuildGenerateButton() {
@@ -25,7 +29,9 @@ namespace CreateThis.Factory {
         }
 
         protected virtual void AdditionalProperties() {
+#if VRTK
             EditorGUILayout.PropertyField(useVRTK);
+#endif
         }
 
         public override void OnInspectorGUI() {

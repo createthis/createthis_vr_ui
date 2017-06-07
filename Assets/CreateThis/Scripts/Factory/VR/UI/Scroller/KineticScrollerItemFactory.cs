@@ -2,7 +2,9 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+#if VRTK
 using CreateThis.VRTK;
+#endif
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
 
@@ -25,7 +27,7 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             int group = Undo.GetCurrentGroup();
 
             Undo.RegisterCompleteObjectUndo(this, "FileOpenFactory state");
-#endif            
+#endif
             kineticScrollerItemInstance = EmptyChild(parent, "kineticScrollerItem");
 
             KineticScrollerItem kineticScrollerItem = SafeAddComponent<KineticScrollerItem>(kineticScrollerItemInstance);
@@ -43,12 +45,14 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             selectable.unselectedMaterials = new Material[] { material };
             selectable.recursive = true;
 
+#if VRTK
             if (useVRTK) {
                 CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(kineticScrollerItemInstance);
                 CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(kineticScrollerItemInstance);
                 interactable.isGrabbable = true;
                 interactable.grabAttachMechanicScript = grabAttach;
             }
+#endif
 
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(kineticScrollerItemInstance);
             rigidBody.useGravity = false;

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if VRTK
 using CreateThis.VRTK;
+#endif
 using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Interact;
@@ -78,9 +80,11 @@ namespace CreateThis.Factory.VR.UI.Button {
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(buttonInstance);
             rigidBody.isKinematic = true;
 
+#if VRTK
             if (useVRTK) {
                 SafeAddComponent<CreateThis_VRTK_Interactable>(buttonInstance);
             }
+#endif
 
             Selectable selectable = SafeAddComponent<Selectable>(buttonInstance);
             selectable.highlightMaterial = highlight;

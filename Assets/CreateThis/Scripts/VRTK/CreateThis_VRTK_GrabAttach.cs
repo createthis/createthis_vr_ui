@@ -1,4 +1,5 @@
-﻿using VRTK;
+﻿#if VRTK
+using VRTK;
 using VRTK.GrabAttachMechanics;
 
 namespace CreateThis.VRTK {
@@ -49,3 +50,4 @@ namespace CreateThis.VRTK {
         }
     }
 }
+#endif
