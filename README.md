@@ -24,6 +24,9 @@ Factory scripts are provided to quickly build these components from the Editor o
 * Panel - The 3d background for a UI.
 * Container - An object that controllers the layout of child objects.
 * Factory - A script to quickly build aggregate objects.
+* FactoryData - A script containing data necessary to build a Factory.
+* FactoryDefaults - static class that contain system wide default FactoryData.
+* FactoryProfile - A MonoBehaviour that can be used to override FactoryDefaults.
 
 # Demo
 Compiled demo exe available here: [https://github.com/createthis/VRUI_demo](https://github.com/createthis/VRUI_demo)

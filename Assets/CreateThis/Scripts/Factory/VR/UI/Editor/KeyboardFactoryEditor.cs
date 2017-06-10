@@ -31,10 +31,7 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty spacerWidth;
         SerializedProperty modeKeyMinWidth;
         SerializedProperty wideKeyMinWidth;
-        SerializedProperty sceneCamera;
-        SerializedProperty offset;
-        SerializedProperty minDistance;
-        SerializedProperty hideOnAwake;
+        SerializedProperty panelFactoryProfile;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -63,10 +60,7 @@ namespace CreateThis.Factory.VR.UI {
             spacerWidth = serializedObject.FindProperty("spacerWidth");
             modeKeyMinWidth = serializedObject.FindProperty("modeKeyMinWidth");
             wideKeyMinWidth = serializedObject.FindProperty("wideKeyMinWidth");
-            sceneCamera = serializedObject.FindProperty("sceneCamera");
-            offset = serializedObject.FindProperty("offset");
-            minDistance = serializedObject.FindProperty("minDistance");
-            hideOnAwake = serializedObject.FindProperty("hideOnAwake");
+            panelFactoryProfile = serializedObject.FindProperty("panelFactoryProfile");
         }
 
         protected override void BuildGenerateButton() {
@@ -108,10 +102,7 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(spacerWidth);
             EditorGUILayout.PropertyField(modeKeyMinWidth);
             EditorGUILayout.PropertyField(wideKeyMinWidth);
-            EditorGUILayout.PropertyField(sceneCamera);
-            EditorGUILayout.PropertyField(offset);
-            EditorGUILayout.PropertyField(minDistance);
-            EditorGUILayout.PropertyField(hideOnAwake);
+            EditorGUILayout.PropertyField(panelFactoryProfile);
         }
     }
 }

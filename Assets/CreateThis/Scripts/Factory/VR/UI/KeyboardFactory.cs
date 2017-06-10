@@ -39,10 +39,7 @@ namespace CreateThis.Factory.VR.UI {
         public float spacerWidth;
         public float modeKeyMinWidth;
         public float wideKeyMinWidth;
-        public Camera sceneCamera;
-        public Vector3 offset;
-        public float minDistance;
-        public bool hideOnAwake;
+        public PanelFactoryProfile panelFactoryProfile;
 
         private Keyboard keyboard;
         private GameObject keyboardInstance;
@@ -321,10 +318,12 @@ namespace CreateThis.Factory.VR.UI {
             keyboardInstance = EmptyChild(parent, "keyboard");
 
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
-            keyboard.sceneCamera = sceneCamera;
-            keyboard.offset = offset;
-            keyboard.minDistance = minDistance;
-            keyboard.hideOnAwake = hideOnAwake;
+            PanelFactoryData data = FactoryDefaults.panel;
+            if (panelFactoryProfile != null) data = panelFactoryProfile.GetPanelFactoryData();
+            keyboard.sceneCamera = data.sceneCamera;
+            keyboard.offset = data.offset;
+            keyboard.minDistance = data.minDistance;
+            keyboard.hideOnAwake = data.hideOnAwake;
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {
