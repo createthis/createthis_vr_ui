@@ -7,15 +7,6 @@ namespace CreateThis.Factory.VR.UI {
         public float minDistance;
         public bool hideOnAwake;
 
-        public PanelFactoryData GetPanelFactoryData() {
-            PanelFactoryData data = new PanelFactoryData();
-            data.sceneCamera = sceneCamera;
-            data.offset = offset;
-            data.minDistance = minDistance;
-            data.hideOnAwake = hideOnAwake;
-            return data;
-        }
-
         // Use this for initialization
         void Start() {
 

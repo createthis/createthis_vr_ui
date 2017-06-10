@@ -4,18 +4,10 @@ using CreateThis.Factory.VR.UI;
 
 namespace CreateThis.VR.UI {
     public class VRUI_Defaults : MonoBehaviour {
-        [Header("Panel Defaults")]
-        public Camera sceneCamera;
-        public Vector3 offset;
-        public float minDistance;
-        public bool hideOnAwake;
+        public PanelFactoryProfile panelFactoryProfile;
 
         void OnValidate() {
-            if (FactoryDefaults.panel == null) FactoryDefaults.panel = new PanelFactoryData();
-            FactoryDefaults.panel.sceneCamera = sceneCamera;
-            FactoryDefaults.panel.offset = offset;
-            FactoryDefaults.panel.minDistance = minDistance;
-            FactoryDefaults.panel.hideOnAwake = hideOnAwake;
+            if (panelFactoryProfile != null) FactoryDefaults.panel = panelFactoryProfile;
         }
 
         // Use this for initialization
