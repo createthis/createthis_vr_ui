@@ -43,8 +43,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             return audioSource;
         }
 
-        protected virtual void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            MomentaryButton button = SafeAddComponent<MomentaryButton>(target);
+        public virtual void PopulateButton(ButtonBase button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
             if (audioSourceDown) button.buttonClickDown = audioSourceDown;
             if (audioSourceUp) button.buttonClickUp = audioSourceUp;
             button.buttonBody = buttonBodyInstance;
@@ -52,7 +51,12 @@ namespace CreateThis.Factory.VR.UI.Button {
             if (panel) button.panel = panel;
         }
 
-        private void PopulateButton() {
+        protected virtual void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+            ButtonBase button = SafeAddComponent<ButtonBase>(target);
+            PopulateButton(button, audioSourceDown, audioSourceUp);
+        }
+
+        private void BuildButton() {
             if (!buttonBodyInstance) return;
 
 #if UNITY_EDITOR
@@ -155,7 +159,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             CreateButton();
             CreateButtonBody();
             CreateTextLabel();
-            PopulateButton();
+            BuildButton();
 #if UNITY_EDITOR
             Undo.CollapseUndoOperations(group);
 #endif

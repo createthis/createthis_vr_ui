@@ -52,7 +52,7 @@ namespace CreateThis.Factory.VR.UI {
         private GameObject panelSymbol;
         private GameObject disposable;
 
-        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, StandardPanel panel, GameObject parent) {
+        protected void SetButtonValues(ButtonBaseFactory factory, StandardPanel panel, GameObject parent) {
 #if VRTK
             factory.useVRTK = useVRTK;
 #endif
@@ -69,11 +69,20 @@ namespace CreateThis.Factory.VR.UI {
             factory.labelZ = labelZ;
             factory.bodyScale = bodyScale;
             factory.labelScale = labelScale;
-            factory.keyboard = keyboard;
             factory.minWidth = keyMinWidth;
             factory.padding = buttonPadding;
             factory.characterSize = keyCharacterSize;
             factory.panel = panel;
+        }
+
+        protected void SetKeyboardButtonValues(KeyboardButtonFactory factory, StandardPanel panel, GameObject parent) {
+            SetButtonValues(factory, panel, parent);
+            factory.keyboard = keyboard;
+        }
+
+        protected void SetKeyboardToggleButtonValues(KeyboardToggleButtonFactory factory, StandardPanel panel, GameObject parent) {
+            SetButtonValues(factory, panel, parent);
+            factory.keyboard = keyboard;
         }
 
         protected void SetKeyboardButtonPosition(GameObject button) {
@@ -82,7 +91,7 @@ namespace CreateThis.Factory.VR.UI {
             button.transform.localPosition = localPosition;
         }
 
-        protected GameObject GenerateKeyboardButtonAndSetPosition(KeyboardButtonFactory factory) {
+        protected GameObject GenerateKeyboardButtonAndSetPosition(BaseFactory factory) {
             GameObject button = factory.Generate();
             SetKeyboardButtonPosition(button);
             return button;
@@ -108,7 +117,7 @@ namespace CreateThis.Factory.VR.UI {
 
         protected GameObject KeyboardShiftLockButton(StandardPanel panel, GameObject parent, string buttonText, bool on) {
             KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, panel, parent);
+            SetKeyboardToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.on = on;
             factory.minWidth = modeKeyMinWidth;
@@ -117,7 +126,7 @@ namespace CreateThis.Factory.VR.UI {
 
         protected GameObject KeyboardABCButton(StandardPanel panel, GameObject parent, string buttonText) {
             KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
-            SetKeyboardButtonValues(factory, panel, parent);
+            SetKeyboardToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.on = false;
             factory.characterSize = numLockCharacterSize;

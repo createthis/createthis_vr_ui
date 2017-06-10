@@ -8,15 +8,14 @@ namespace CreateThis.Factory.VR.UI.Button {
         public FileBase filePanel;
         public KnownFolder knownFolder;
 
+        public void PopulateButton(KnownFolderButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+            base.PopulateButton(button, audioSourceDown, audioSourceUp);
+            button.knownFolder = knownFolder;
+        }
+
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
             KnownFolderButton button = SafeAddComponent<KnownFolderButton>(target);
-            if (audioSourceDown) button.buttonClickDown = audioSourceDown;
-            if (audioSourceUp) button.buttonClickUp = audioSourceUp;
-            button.buttonBody = buttonBodyInstance;
-            button.buttonText = buttonTextLabelInstance;
-            button.filePanel = filePanel;
-            if (panel) button.panel = panel;
-            button.knownFolder = knownFolder;
+            PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }
 }

@@ -4,7 +4,6 @@ using CreateThis.VR.UI.Interact;
 
 namespace CreateThis.VR.UI.Controller {
     public class TouchController : MonoBehaviour {
-        public Material unselected;
         public Material controllerMaterial;
         public GameObject pointerConePrefab;
         public string hardware;

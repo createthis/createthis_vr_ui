@@ -5,14 +5,14 @@ namespace CreateThis.Factory.VR.UI.Button {
     public class ToggleButtonFactory : ButtonBaseFactory {
         public bool on;
 
+        public void PopulateButton(ToggleButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+            base.PopulateButton(button, audioSourceDown, audioSourceUp);
+            button.On = on;
+        }
+
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
             ToggleButton button = SafeAddComponent<ToggleButton>(target);
-            if (audioSourceDown) button.buttonClickDown = audioSourceDown;
-            if (audioSourceUp) button.buttonClickUp = audioSourceUp;
-            button.buttonBody = buttonBodyInstance;
-            button.buttonText = buttonTextLabelInstance;
-            button.On = on;
-            if (panel) button.panel = panel;
+            PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }
 }

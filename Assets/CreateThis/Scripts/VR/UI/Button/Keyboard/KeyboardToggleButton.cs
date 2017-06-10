@@ -1,5 +1,5 @@
 ﻿namespace CreateThis.VR.UI.Button {
-    public abstract class KeyboardMomentaryButton : MomentaryButton {
+    public class KeyboardToggleButton : ToggleButton {
         public Keyboard keyboard;
     }
 }
