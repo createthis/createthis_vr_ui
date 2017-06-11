@@ -21,7 +21,6 @@ namespace CreateThis.Example {
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
         public GameObject folderPrefab;
-        public Material panelMaterial;
         public float buttonZ;
         public float padding;
         public float spacing;

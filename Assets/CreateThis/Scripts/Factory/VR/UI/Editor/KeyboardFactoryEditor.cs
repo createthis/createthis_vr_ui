@@ -7,22 +7,13 @@ namespace CreateThis.Factory.VR.UI {
 
     public class KeyboardFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
-        SerializedProperty buttonBody;
-        SerializedProperty buttonMaterial;
-        SerializedProperty panelMaterial;
-        SerializedProperty highlight;
-        SerializedProperty outline;
-        SerializedProperty buttonClickDown;
-        SerializedProperty buttonClickUp;
-        SerializedProperty fontSize;
-        SerializedProperty fontColor;
-        SerializedProperty labelZ;
+        SerializedProperty panelProfile;
+        SerializedProperty panelContainerProfile;
+        SerializedProperty momentaryButtonProfile;
+        SerializedProperty toggleButtonProfile;
         SerializedProperty buttonZ;
-        SerializedProperty bodyScale;
-        SerializedProperty labelScale;
         SerializedProperty padding;
         SerializedProperty spacing;
-        SerializedProperty buttonPadding;
         SerializedProperty keyMinWidth;
         SerializedProperty keyCharacterSize;
         SerializedProperty numLockCharacterSize;
@@ -31,27 +22,17 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty spacerWidth;
         SerializedProperty modeKeyMinWidth;
         SerializedProperty wideKeyMinWidth;
-        SerializedProperty panelProfile;
 
         protected override void OnEnable() {
             base.OnEnable();
             parent = serializedObject.FindProperty("parent");
-            buttonBody = serializedObject.FindProperty("buttonBody");
-            buttonMaterial = serializedObject.FindProperty("buttonMaterial");
-            panelMaterial = serializedObject.FindProperty("panelMaterial");
-            highlight = serializedObject.FindProperty("highlight");
-            outline = serializedObject.FindProperty("outline");
-            buttonClickDown = serializedObject.FindProperty("buttonClickDown");
-            buttonClickUp = serializedObject.FindProperty("buttonClickUp");
-            fontSize = serializedObject.FindProperty("fontSize");
-            fontColor = serializedObject.FindProperty("fontColor");
-            labelZ = serializedObject.FindProperty("labelZ");
+            panelProfile = serializedObject.FindProperty("panelProfile");
+            panelContainerProfile = serializedObject.FindProperty("panelContainerProfile");
+            momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
+            toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
             buttonZ = serializedObject.FindProperty("buttonZ");
-            bodyScale = serializedObject.FindProperty("bodyScale");
-            labelScale = serializedObject.FindProperty("labelScale");
             padding = serializedObject.FindProperty("padding");
             spacing = serializedObject.FindProperty("spacing");
-            buttonPadding = serializedObject.FindProperty("buttonPadding");
             keyMinWidth = serializedObject.FindProperty("keyMinWidth");
             keyCharacterSize = serializedObject.FindProperty("keyCharacterSize");
             numLockCharacterSize = serializedObject.FindProperty("numLockCharacterSize");
@@ -60,7 +41,6 @@ namespace CreateThis.Factory.VR.UI {
             spacerWidth = serializedObject.FindProperty("spacerWidth");
             modeKeyMinWidth = serializedObject.FindProperty("modeKeyMinWidth");
             wideKeyMinWidth = serializedObject.FindProperty("wideKeyMinWidth");
-            panelProfile = serializedObject.FindProperty("panelProfile");
         }
 
         protected override void BuildGenerateButton() {
@@ -78,22 +58,13 @@ namespace CreateThis.Factory.VR.UI {
         protected override void AdditionalProperties() {
             base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
-            EditorGUILayout.PropertyField(buttonBody);
-            EditorGUILayout.PropertyField(buttonMaterial);
-            EditorGUILayout.PropertyField(panelMaterial);
-            EditorGUILayout.PropertyField(highlight);
-            EditorGUILayout.PropertyField(outline);
-            EditorGUILayout.PropertyField(buttonClickDown);
-            EditorGUILayout.PropertyField(buttonClickUp);
-            EditorGUILayout.PropertyField(fontSize);
-            EditorGUILayout.PropertyField(fontColor);
-            EditorGUILayout.PropertyField(labelZ);
+            EditorGUILayout.PropertyField(panelProfile);
+            EditorGUILayout.PropertyField(panelContainerProfile);
+            EditorGUILayout.PropertyField(momentaryButtonProfile);
+            EditorGUILayout.PropertyField(toggleButtonProfile);
             EditorGUILayout.PropertyField(buttonZ);
-            EditorGUILayout.PropertyField(bodyScale);
-            EditorGUILayout.PropertyField(labelScale);
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(spacing);
-            EditorGUILayout.PropertyField(buttonPadding);
             EditorGUILayout.PropertyField(keyMinWidth);
             EditorGUILayout.PropertyField(keyCharacterSize);
             EditorGUILayout.PropertyField(numLockCharacterSize);
@@ -102,7 +73,6 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(spacerWidth);
             EditorGUILayout.PropertyField(modeKeyMinWidth);
             EditorGUILayout.PropertyField(wideKeyMinWidth);
-            EditorGUILayout.PropertyField(panelProfile);
         }
     }
 }

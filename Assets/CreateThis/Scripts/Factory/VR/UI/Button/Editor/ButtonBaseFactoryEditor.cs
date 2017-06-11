@@ -8,42 +8,16 @@ namespace CreateThis.Factory.VR.UI.Button {
     public abstract class ButtonBaseFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
         SerializedProperty buttonText;
-        SerializedProperty buttonBody;
-        SerializedProperty material;
-        SerializedProperty highlight;
-        SerializedProperty outline;
-        SerializedProperty buttonClickDown;
-        SerializedProperty buttonClickUp;
+        SerializedProperty buttonProfile;
         SerializedProperty alignment;
-        SerializedProperty fontSize;
-        SerializedProperty fontColor;
-        SerializedProperty labelZ;
-        SerializedProperty bodyScale;
-        SerializedProperty labelScale;
-        SerializedProperty minWidth;
-        SerializedProperty padding;
-        SerializedProperty characterSize;
         SerializedProperty panel;
 
         protected override void OnEnable() {
             base.OnEnable();
             parent = serializedObject.FindProperty("parent");
             buttonText = serializedObject.FindProperty("buttonText");
-            buttonBody = serializedObject.FindProperty("buttonBody");
-            material = serializedObject.FindProperty("material");
-            highlight = serializedObject.FindProperty("highlight");
-            outline = serializedObject.FindProperty("outline");
-            buttonClickDown = serializedObject.FindProperty("buttonClickDown");
-            buttonClickUp = serializedObject.FindProperty("buttonClickUp");
+            buttonProfile = serializedObject.FindProperty("buttonProfile");
             alignment = serializedObject.FindProperty("alignment");
-            fontSize = serializedObject.FindProperty("fontSize");
-            fontColor = serializedObject.FindProperty("fontColor");
-            labelZ = serializedObject.FindProperty("labelZ");
-            bodyScale = serializedObject.FindProperty("bodyScale");
-            labelScale = serializedObject.FindProperty("labelScale");
-            minWidth = serializedObject.FindProperty("minWidth");
-            padding = serializedObject.FindProperty("padding");
-            characterSize = serializedObject.FindProperty("characterSize");
             panel = serializedObject.FindProperty("panel");
         }
 
@@ -63,21 +37,8 @@ namespace CreateThis.Factory.VR.UI.Button {
             base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
             EditorGUILayout.PropertyField(buttonText);
-            EditorGUILayout.PropertyField(buttonBody);
-            EditorGUILayout.PropertyField(material);
-            EditorGUILayout.PropertyField(highlight);
-            EditorGUILayout.PropertyField(outline);
-            EditorGUILayout.PropertyField(buttonClickDown);
-            EditorGUILayout.PropertyField(buttonClickUp);
+            EditorGUILayout.PropertyField(buttonProfile);
             EditorGUILayout.PropertyField(alignment);
-            EditorGUILayout.PropertyField(fontSize);
-            EditorGUILayout.PropertyField(fontColor);
-            EditorGUILayout.PropertyField(labelZ);
-            EditorGUILayout.PropertyField(bodyScale);
-            EditorGUILayout.PropertyField(labelScale);
-            EditorGUILayout.PropertyField(minWidth);
-            EditorGUILayout.PropertyField(padding);
-            EditorGUILayout.PropertyField(characterSize);
             EditorGUILayout.PropertyField(panel);
         }
     }

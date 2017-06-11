@@ -7,53 +7,30 @@ namespace CreateThis.Factory.VR.UI.File {
 
     public class FileOpenFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
-        SerializedProperty buttonBody;
+        SerializedProperty panelProfile;
+        SerializedProperty panelContainerProfile;
+        SerializedProperty momentaryButtonProfile;
+        SerializedProperty toggleButtonProfile;
         SerializedProperty folderPrefab;
-        SerializedProperty buttonMaterial;
-        SerializedProperty panelMaterial;
-        SerializedProperty highlight;
-        SerializedProperty outline;
-        SerializedProperty buttonClickDown;
-        SerializedProperty buttonClickUp;
-        SerializedProperty fontSize;
-        SerializedProperty fontColor;
-        SerializedProperty labelZ;
         SerializedProperty buttonZ;
-        SerializedProperty bodyScale;
-        SerializedProperty labelScale;
         SerializedProperty padding;
         SerializedProperty spacing;
-        SerializedProperty buttonPadding;
-        SerializedProperty buttonMinWidth;
-        SerializedProperty buttonCharacterSize;
         SerializedProperty labelCharacterSize;
         SerializedProperty kineticScrollerSpacing;
         SerializedProperty scrollerHeight;
         SerializedProperty searchPattern;
-        SerializedProperty panelProfile;
 
         protected override void OnEnable() {
             base.OnEnable();
             parent = serializedObject.FindProperty("parent");
-            buttonBody = serializedObject.FindProperty("buttonBody");
+            panelProfile = serializedObject.FindProperty("panelProfile");
+            panelContainerProfile = serializedObject.FindProperty("panelContainerProfile");
+            momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
+            toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
             folderPrefab = serializedObject.FindProperty("folderPrefab");
-            buttonMaterial = serializedObject.FindProperty("buttonMaterial");
-            panelMaterial = serializedObject.FindProperty("panelMaterial");
-            highlight = serializedObject.FindProperty("highlight");
-            outline = serializedObject.FindProperty("outline");
-            buttonClickDown = serializedObject.FindProperty("buttonClickDown");
-            buttonClickUp = serializedObject.FindProperty("buttonClickUp");
-            fontSize = serializedObject.FindProperty("fontSize");
-            fontColor = serializedObject.FindProperty("fontColor");
-            labelZ = serializedObject.FindProperty("labelZ");
             buttonZ = serializedObject.FindProperty("buttonZ");
-            bodyScale = serializedObject.FindProperty("bodyScale");
-            labelScale = serializedObject.FindProperty("labelScale");
             padding = serializedObject.FindProperty("padding");
             spacing = serializedObject.FindProperty("spacing");
-            buttonPadding = serializedObject.FindProperty("buttonPadding");
-            buttonMinWidth = serializedObject.FindProperty("buttonMinWidth");
-            buttonCharacterSize = serializedObject.FindProperty("buttonCharacterSize");
             labelCharacterSize = serializedObject.FindProperty("labelCharacterSize");
             kineticScrollerSpacing = serializedObject.FindProperty("kineticScrollerSpacing");
             scrollerHeight = serializedObject.FindProperty("scrollerHeight");
@@ -76,30 +53,18 @@ namespace CreateThis.Factory.VR.UI.File {
         protected override void AdditionalProperties() {
             base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
-            EditorGUILayout.PropertyField(buttonBody);
+            EditorGUILayout.PropertyField(panelProfile);
+            EditorGUILayout.PropertyField(panelContainerProfile);
+            EditorGUILayout.PropertyField(momentaryButtonProfile);
+            EditorGUILayout.PropertyField(toggleButtonProfile);
             EditorGUILayout.PropertyField(folderPrefab);
-            EditorGUILayout.PropertyField(buttonMaterial);
-            EditorGUILayout.PropertyField(panelMaterial);
-            EditorGUILayout.PropertyField(highlight);
-            EditorGUILayout.PropertyField(outline);
-            EditorGUILayout.PropertyField(buttonClickDown);
-            EditorGUILayout.PropertyField(buttonClickUp);
-            EditorGUILayout.PropertyField(fontSize);
-            EditorGUILayout.PropertyField(fontColor);
-            EditorGUILayout.PropertyField(labelZ);
             EditorGUILayout.PropertyField(buttonZ);
-            EditorGUILayout.PropertyField(bodyScale);
-            EditorGUILayout.PropertyField(labelScale);
             EditorGUILayout.PropertyField(padding);
             EditorGUILayout.PropertyField(spacing);
-            EditorGUILayout.PropertyField(buttonPadding);
-            EditorGUILayout.PropertyField(buttonMinWidth);
-            EditorGUILayout.PropertyField(buttonCharacterSize);
             EditorGUILayout.PropertyField(labelCharacterSize);
             EditorGUILayout.PropertyField(kineticScrollerSpacing);
             EditorGUILayout.PropertyField(scrollerHeight);
             EditorGUILayout.PropertyField(searchPattern);
-            EditorGUILayout.PropertyField(panelProfile);
         }
     }
 }
