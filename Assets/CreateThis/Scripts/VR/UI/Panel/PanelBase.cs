@@ -12,12 +12,9 @@ namespace CreateThis.VR.UI.Panel {
 
     public abstract class PanelBase : Grabbable, IPanel {
         public bool visible;
-        public Camera sceneCamera;
         public Transform controller;
-        public Vector3 offset;
-        public float minDistance;
-        public bool hideOnAwake;
         public Transform grabTarget;
+        public PanelProfile panelProfile;
 
         private int notSelectableCount;
         private BoxCollider boxCollider;
@@ -59,7 +56,7 @@ namespace CreateThis.VR.UI.Panel {
 
         private void Awake() {
             PanelManager.AddPanel(this);
-            if (hideOnAwake) {
+            if (panelProfile.hideOnAwake) {
                 visible = false;
                 GameObject target = GetTarget();
                 target.SetActive(false);
@@ -80,11 +77,11 @@ namespace CreateThis.VR.UI.Panel {
             target.SetActive(visible);
             if (visible) {
                 if (oldValue != value) ZeroNotSelectableCount();
-                Vector3 noYOffset = offset;
+                Vector3 noYOffset = panelProfile.offset;
                 noYOffset.y = 0;
-                Vector3 positionWithoutYOffset = PanelUtils.Position(sceneCamera, controller, noYOffset, minDistance);
-                target.transform.position = PanelUtils.Position(sceneCamera, controller, offset, minDistance);
-                target.transform.rotation = PanelUtils.Rotation(sceneCamera, positionWithoutYOffset);
+                Vector3 positionWithoutYOffset = PanelUtils.Position(panelProfile.sceneCamera, controller, noYOffset, panelProfile.minDistance);
+                target.transform.position = PanelUtils.Position(panelProfile.sceneCamera, controller, panelProfile.offset, panelProfile.minDistance);
+                target.transform.rotation = PanelUtils.Rotation(panelProfile.sceneCamera, positionWithoutYOffset);
             }
         }
 

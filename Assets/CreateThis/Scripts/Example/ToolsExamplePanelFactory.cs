@@ -5,6 +5,7 @@ using UnityEditor;
 #if VRTK
 using CreateThis.VRTK;
 #endif
+using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
 using CreateThis.VR.UI.Container;
@@ -37,10 +38,7 @@ namespace CreateThis.Example {
         public float buttonMinWidth;
         public float buttonCharacterSize;
         public float labelCharacterSize;
-        public Camera sceneCamera;
-        public Vector3 offset;
-        public float minDistance;
-        public bool hideOnAwake;
+        public PanelProfile panelProfile;
         public FileOpen fileOpen;
         public FileSaveAs fileSaveAs;
         public SkyboxManager skyboxManager;
@@ -162,10 +160,7 @@ namespace CreateThis.Example {
 
             StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
             standardPanel.grabTarget = panel.transform;
-            standardPanel.sceneCamera = sceneCamera;
-            standardPanel.offset = offset;
-            standardPanel.minDistance = minDistance;
-            standardPanel.hideOnAwake = hideOnAwake;
+            standardPanel.panelProfile = FactoryDefaults.GetProfile(panelProfile);
             toolsPanel = standardPanel;
 
 #if VRTK

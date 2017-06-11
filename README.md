@@ -24,7 +24,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 * Panel - The 3d background for a UI.
 * Container - An object that controllers the layout of child objects.
 * Factory - A script to quickly build aggregate objects.
-* FactoryProfile - A MonoBehaviour containing data necessary to build a Factory.
+* Profile - A MonoBehaviour containing data necessary to populate a UI component.
 * FactoryDefaults - static class that contain system wide default FactoryProfiles.
 
 # Demo

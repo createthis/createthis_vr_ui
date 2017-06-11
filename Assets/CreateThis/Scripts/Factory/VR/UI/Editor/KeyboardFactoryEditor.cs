@@ -31,7 +31,7 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty spacerWidth;
         SerializedProperty modeKeyMinWidth;
         SerializedProperty wideKeyMinWidth;
-        SerializedProperty panelFactoryProfile;
+        SerializedProperty panelProfile;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -60,7 +60,7 @@ namespace CreateThis.Factory.VR.UI {
             spacerWidth = serializedObject.FindProperty("spacerWidth");
             modeKeyMinWidth = serializedObject.FindProperty("modeKeyMinWidth");
             wideKeyMinWidth = serializedObject.FindProperty("wideKeyMinWidth");
-            panelFactoryProfile = serializedObject.FindProperty("panelFactoryProfile");
+            panelProfile = serializedObject.FindProperty("panelProfile");
         }
 
         protected override void BuildGenerateButton() {
@@ -102,7 +102,7 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(spacerWidth);
             EditorGUILayout.PropertyField(modeKeyMinWidth);
             EditorGUILayout.PropertyField(wideKeyMinWidth);
-            EditorGUILayout.PropertyField(panelFactoryProfile);
+            EditorGUILayout.PropertyField(panelProfile);
         }
     }
 }

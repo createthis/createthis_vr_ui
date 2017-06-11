@@ -45,10 +45,7 @@ namespace CreateThis.Factory.VR.UI.File {
         public string searchPattern;
         public string fileNameExtension;
         public Keyboard keyboard;
-        public Camera sceneCamera;
-        public Vector3 offset;
-        public float minDistance;
-        public bool hideOnAwake;
+        public PanelProfile panelProfile;
 
         protected GameObject fileSaveAsContainerInstance;
         protected Rigidbody fileSaveAsContainerRigidbody;
@@ -171,10 +168,7 @@ namespace CreateThis.Factory.VR.UI.File {
             fileSaveAsPanel.height = scrollerHeight;
             fileSaveAsPanel.keyboard = keyboard;
             fileSaveAsPanel.searchPattern = searchPattern;
-            fileSaveAsPanel.sceneCamera = sceneCamera;
-            fileSaveAsPanel.offset = offset;
-            fileSaveAsPanel.minDistance = minDistance;
-            fileSaveAsPanel.hideOnAwake = hideOnAwake;
+            fileSaveAsPanel.panelProfile = FactoryDefaults.GetProfile(panelProfile);
 
 #if VRTK
             if (useVRTK) {

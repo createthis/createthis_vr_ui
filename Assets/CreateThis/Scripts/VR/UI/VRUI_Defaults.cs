@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using CreateThis.Factory;
-using CreateThis.Factory.VR.UI;
 
 namespace CreateThis.VR.UI {
     public class VRUI_Defaults : MonoBehaviour {
-        public PanelFactoryProfile panelFactoryProfile;
+        public PanelProfile panelProfile;
 
         void OnValidate() {
-            if (panelFactoryProfile != null) FactoryDefaults.panel = panelFactoryProfile;
+            if (panelProfile != null) FactoryDefaults.panel = panelProfile;
         }
 
         // Use this for initialization

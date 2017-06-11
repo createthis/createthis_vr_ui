@@ -30,10 +30,7 @@ namespace CreateThis.Example {
         SerializedProperty buttonMinWidth;
         SerializedProperty buttonCharacterSize;
         SerializedProperty labelCharacterSize;
-        SerializedProperty sceneCamera;
-        SerializedProperty offset;
-        SerializedProperty minDistance;
-        SerializedProperty hideOnAwake;
+        SerializedProperty panelProfile;
         SerializedProperty fileOpen;
         SerializedProperty fileSaveAs;
         SerializedProperty skyboxManager;
@@ -63,10 +60,7 @@ namespace CreateThis.Example {
             buttonMinWidth = serializedObject.FindProperty("buttonMinWidth");
             buttonCharacterSize = serializedObject.FindProperty("buttonCharacterSize");
             labelCharacterSize = serializedObject.FindProperty("labelCharacterSize");
-            sceneCamera = serializedObject.FindProperty("sceneCamera");
-            offset = serializedObject.FindProperty("offset");
-            minDistance = serializedObject.FindProperty("minDistance");
-            hideOnAwake = serializedObject.FindProperty("hideOnAwake");
+            panelProfile = serializedObject.FindProperty("panelProfile");
             fileOpen = serializedObject.FindProperty("fileOpen");
             fileSaveAs = serializedObject.FindProperty("fileSaveAs");
             skyboxManager = serializedObject.FindProperty("skyboxManager");
@@ -109,10 +103,7 @@ namespace CreateThis.Example {
             EditorGUILayout.PropertyField(buttonMinWidth);
             EditorGUILayout.PropertyField(buttonCharacterSize);
             EditorGUILayout.PropertyField(labelCharacterSize);
-            EditorGUILayout.PropertyField(sceneCamera);
-            EditorGUILayout.PropertyField(offset);
-            EditorGUILayout.PropertyField(minDistance);
-            EditorGUILayout.PropertyField(hideOnAwake);
+            EditorGUILayout.PropertyField(panelProfile);
             EditorGUILayout.PropertyField(fileOpen);
             EditorGUILayout.PropertyField(fileSaveAs);
             EditorGUILayout.PropertyField(skyboxManager);

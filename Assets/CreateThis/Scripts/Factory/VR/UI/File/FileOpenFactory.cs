@@ -42,15 +42,12 @@ namespace CreateThis.Factory.VR.UI.File {
         public float kineticScrollerSpacing;
         public float scrollerHeight;
         public string searchPattern;
-        public Camera sceneCamera;
-        public Vector3 offset;
-        public float minDistance;
-        public bool hideOnAwake;
+        public PanelProfile panelProfile;
 
-        protected GameObject fileOpenContainerInstance;
-        protected Rigidbody fileOpenContainerRigidbody;
-        protected GameObject fileOpenInstance;
-        protected FileOpen fileOpenPanel;
+        private GameObject fileOpenContainerInstance;
+        private Rigidbody fileOpenContainerRigidbody;
+        private GameObject fileOpenInstance;
+        private FileOpen fileOpenPanel;
         private Drives drives;
         private GameObject disposable;
         private GameObject currentPathLabel;
@@ -148,10 +145,7 @@ namespace CreateThis.Factory.VR.UI.File {
             fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
             fileOpenPanel.height = scrollerHeight;
             fileOpenPanel.searchPattern = searchPattern;
-            fileOpenPanel.sceneCamera = sceneCamera;
-            fileOpenPanel.offset = offset;
-            fileOpenPanel.minDistance = minDistance;
-            fileOpenPanel.hideOnAwake = hideOnAwake;
+            fileOpenPanel.panelProfile = FactoryDefaults.GetProfile(panelProfile);
 
 #if VRTK
             if (useVRTK) {

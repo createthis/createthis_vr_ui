@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace CreateThis.Factory.VR.UI {
-    public class PanelFactoryProfile : MonoBehaviour {
+namespace CreateThis.VR.UI {
+    public class PanelProfile : MonoBehaviour {
         public Camera sceneCamera;
         public Vector3 offset;
         public float minDistance;
