@@ -160,7 +160,7 @@ namespace CreateThis.Example {
 
             StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
             standardPanel.grabTarget = panel.transform;
-            standardPanel.panelProfile = FactoryDefaults.GetProfile(panelProfile);
+            standardPanel.panelProfile = panelProfile;
             toolsPanel = standardPanel;
 
 #if VRTK

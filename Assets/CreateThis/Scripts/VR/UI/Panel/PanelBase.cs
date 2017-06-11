@@ -56,7 +56,9 @@ namespace CreateThis.VR.UI.Panel {
 
         private void Awake() {
             PanelManager.AddPanel(this);
-            if (panelProfile.hideOnAwake) {
+            PanelProfile profile = Defaults.GetProfile(panelProfile);
+
+            if (profile.hideOnAwake) {
                 visible = false;
                 GameObject target = GetTarget();
                 target.SetActive(false);
@@ -76,12 +78,13 @@ namespace CreateThis.VR.UI.Panel {
             GameObject target = GetTarget();
             target.SetActive(visible);
             if (visible) {
+                PanelProfile profile = Defaults.GetProfile(panelProfile);
                 if (oldValue != value) ZeroNotSelectableCount();
-                Vector3 noYOffset = panelProfile.offset;
+                Vector3 noYOffset = profile.offset;
                 noYOffset.y = 0;
-                Vector3 positionWithoutYOffset = PanelUtils.Position(panelProfile.sceneCamera, controller, noYOffset, panelProfile.minDistance);
-                target.transform.position = PanelUtils.Position(panelProfile.sceneCamera, controller, panelProfile.offset, panelProfile.minDistance);
-                target.transform.rotation = PanelUtils.Rotation(panelProfile.sceneCamera, positionWithoutYOffset);
+                Vector3 positionWithoutYOffset = PanelUtils.Position(profile.sceneCamera, controller, noYOffset, profile.minDistance);
+                target.transform.position = PanelUtils.Position(profile.sceneCamera, controller, profile.offset, profile.minDistance);
+                target.transform.rotation = PanelUtils.Rotation(profile.sceneCamera, positionWithoutYOffset);
             }
         }
 

@@ -318,7 +318,7 @@ namespace CreateThis.Factory.VR.UI {
             keyboardInstance = EmptyChild(parent, "keyboard");
 
             keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
-            keyboard.panelProfile = FactoryDefaults.GetProfile(panelProfile);
+            keyboard.panelProfile = panelProfile;
         }
 
         protected void PanelHeader(StandardPanel panel, GameObject parent) {

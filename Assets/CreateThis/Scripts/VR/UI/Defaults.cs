@@ -1,7 +1,5 @@
-﻿using CreateThis.VR.UI;
-
-namespace CreateThis.Factory {
-    public static class FactoryDefaults {
+﻿namespace CreateThis.VR.UI {
+    public static class Defaults {
         public static PanelProfile panel;
 
         private static T OverrideDefault<T>(T defaultProfile, T overrideProfile) {

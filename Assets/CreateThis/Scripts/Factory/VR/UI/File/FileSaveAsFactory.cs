@@ -168,7 +168,7 @@ namespace CreateThis.Factory.VR.UI.File {
             fileSaveAsPanel.height = scrollerHeight;
             fileSaveAsPanel.keyboard = keyboard;
             fileSaveAsPanel.searchPattern = searchPattern;
-            fileSaveAsPanel.panelProfile = FactoryDefaults.GetProfile(panelProfile);
+            fileSaveAsPanel.panelProfile = panelProfile;
 
 #if VRTK
             if (useVRTK) {

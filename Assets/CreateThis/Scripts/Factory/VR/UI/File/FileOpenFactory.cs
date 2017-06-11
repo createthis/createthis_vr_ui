@@ -145,7 +145,7 @@ namespace CreateThis.Factory.VR.UI.File {
             fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
             fileOpenPanel.height = scrollerHeight;
             fileOpenPanel.searchPattern = searchPattern;
-            fileOpenPanel.panelProfile = FactoryDefaults.GetProfile(panelProfile);
+            fileOpenPanel.panelProfile = panelProfile;
 
 #if VRTK
             if (useVRTK) {

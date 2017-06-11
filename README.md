@@ -25,7 +25,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 * Container - An object that controllers the layout of child objects.
 * Factory - A script to quickly build aggregate objects.
 * Profile - A MonoBehaviour containing data necessary to populate a UI component.
-* FactoryDefaults - static class that contain system wide default FactoryProfiles.
+* Defaults - static class that contain system wide default Profiles (See VRUI_Defaults gameobject in example scenes for corresponding MonoBehaviour).
 
 # Demo
 Compiled demo exe available here: [https://github.com/createthis/VRUI_demo](https://github.com/createthis/VRUI_demo)
