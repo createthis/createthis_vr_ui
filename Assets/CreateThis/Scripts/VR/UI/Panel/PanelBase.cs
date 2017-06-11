@@ -55,6 +55,7 @@ namespace CreateThis.VR.UI.Panel {
         }
 
         private void Awake() {
+            Debug.Log("Awake this=" + this);
             PanelManager.AddPanel(this);
             PanelProfile profile = Defaults.GetProfile(panelProfile);
 

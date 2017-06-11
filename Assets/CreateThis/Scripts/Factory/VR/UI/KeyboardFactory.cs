@@ -45,37 +45,60 @@ namespace CreateThis.Factory.VR.UI {
         private ButtonProfile numLockKeyProfile;
         private ButtonProfile returnKeyProfile;
 
+        private static T CopyComponent<T>(T original, GameObject destination) where T : Component {
+            global::System.Type type = original.GetType();
+            Component copy = destination.AddComponent(type);
+            global::System.Reflection.FieldInfo[] fields = type.GetFields();
+            foreach (global::System.Reflection.FieldInfo field in fields) {
+                field.SetValue(copy, field.GetValue(original));
+            }
+            return copy as T;
+        }
+
+        private PanelProfile CreateSubPanelProfile(GameObject parent) {
+            PanelProfile profile = Defaults.GetProfile(panelProfile);
+            PanelProfile subPanelProfile = CopyComponent(profile, parent);
+            subPanelProfile.hideOnAwake = false;
+            return subPanelProfile;
+        }
+
         private void CreateKeyProfile() {
-            keyProfile = Instantiate(Defaults.GetMomentaryButtonProfile(momentaryButtonProfile));
+            ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+            keyProfile = CopyComponent(buttonProfile, disposable);
             keyProfile.characterSize = keyCharacterSize;
         }
 
         private void CreateWideKeyProfile() {
-            wideKeyProfile = Instantiate(Defaults.GetMomentaryButtonProfile(momentaryButtonProfile));
+            ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+            wideKeyProfile = CopyComponent(buttonProfile, disposable);
             wideKeyProfile.characterSize = keyCharacterSize;
             wideKeyProfile.minWidth = wideKeyMinWidth;
         }
 
         private void CreateSpaceKeyProfile() {
-            spaceKeyProfile = Instantiate(Defaults.GetMomentaryButtonProfile(momentaryButtonProfile));
+            ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+            spaceKeyProfile = CopyComponent(buttonProfile, disposable);
             spaceKeyProfile.characterSize = keyCharacterSize;
             spaceKeyProfile.minWidth = spaceMinWidth;
         }
 
         private void CreateModeKeyProfile() {
-            modeKeyProfile = Instantiate(Defaults.GetToggleButtonProfile(toggleButtonProfile));
+            ButtonProfile buttonProfile = Defaults.GetToggleButtonProfile(toggleButtonProfile);
+            modeKeyProfile = CopyComponent(buttonProfile, disposable);
             modeKeyProfile.characterSize = keyCharacterSize;
             modeKeyProfile.minWidth = modeKeyMinWidth;
         }
 
         private void CreateNumLockKeyProfile() {
-            numLockKeyProfile = Instantiate(Defaults.GetToggleButtonProfile(toggleButtonProfile));
+            ButtonProfile buttonProfile = Defaults.GetToggleButtonProfile(toggleButtonProfile);
+            numLockKeyProfile = CopyComponent(buttonProfile, disposable);
             numLockKeyProfile.characterSize = numLockCharacterSize;
             numLockKeyProfile.minWidth = modeKeyMinWidth;
         }
 
         private void CreateReturnKeyProfile() {
-            returnKeyProfile = Instantiate(Defaults.GetMomentaryButtonProfile(momentaryButtonProfile));
+            ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+            returnKeyProfile = CopyComponent(buttonProfile, disposable);
             returnKeyProfile.characterSize = keyCharacterSize;
             returnKeyProfile.minWidth = returnMinWidth;
         }
@@ -225,7 +248,9 @@ namespace CreateThis.Factory.VR.UI {
             factory.panelContainerProfile = profile;
             GameObject panel = factory.Generate();
 
+            PanelProfile subPanelProfile = CreateSubPanelProfile(panel);
             StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
+            standardPanel.panelProfile = subPanelProfile;
             standardPanel.grabTarget = keyboard.transform;
 
 #if VRTK
@@ -454,6 +479,8 @@ namespace CreateThis.Factory.VR.UI {
 
             Undo.RegisterCompleteObjectUndo(this, "KeyboardFactory state");
 #endif
+            CreateDisposable(parent);
+
             CreateKeyProfile();
             CreateWideKeyProfile();
             CreateSpaceKeyProfile();
@@ -461,7 +488,6 @@ namespace CreateThis.Factory.VR.UI {
             CreateNumLockKeyProfile();
             CreateReturnKeyProfile();
 
-            CreateDisposable(parent);
             CreateKeyboard(parent);
             PanelLowerCase(keyboardInstance);
             PanelUpperCase(keyboardInstance);

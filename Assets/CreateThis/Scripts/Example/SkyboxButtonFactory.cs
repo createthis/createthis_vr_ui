@@ -6,13 +6,16 @@ namespace CreateThis.Factory.VR.UI.Button {
         public string skybox;
         public SkyboxManager skyboxManager;
 
-        protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            SkyboxButton button = SafeAddComponent<SkyboxButton>(target);
-            button.On = on;
+        public void PopulateButton(SkyboxButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+            base.PopulateButton(button, audioSourceDown, audioSourceUp);
             button.clickOnTriggerExit = true;
             button.skybox = skybox;
             button.skyboxManager = skyboxManager;
-            if (panel) button.panel = panel;
+        }
+
+        protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+            SkyboxButton button = SafeAddComponent<SkyboxButton>(target);
+            PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }
 }
