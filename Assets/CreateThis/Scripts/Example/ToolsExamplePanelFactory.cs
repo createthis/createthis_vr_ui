@@ -16,29 +16,16 @@ using CreateThis.Factory.VR.UI.Container;
 namespace CreateThis.Example {
     public class ToolsExamplePanelFactory : BaseFactory {
         public GameObject parent;
-        public GameObject buttonBody;
+        public PanelProfile panelProfile;
+        public PanelContainerProfile panelContainerProfile;
+        public ButtonProfile momentaryButtonProfile;
+        public ButtonProfile toggleButtonProfile;
         public GameObject folderPrefab;
-        public Material buttonMaterial;
         public Material panelMaterial;
-        public Material highlight;
-        public Material outline;
-        public AudioClip momentaryButtonClickDown;
-        public AudioClip momentaryButtonClickUp;
-        public AudioClip toggleButtonClickDown;
-        public AudioClip toggleButtonClickUp;
-        public int fontSize;
-        public Color fontColor;
-        public float labelZ;
         public float buttonZ;
-        public Vector3 bodyScale;
-        public Vector3 labelScale;
         public float padding;
         public float spacing;
-        public float buttonPadding;
-        public float buttonMinWidth;
-        public float buttonCharacterSize;
         public float labelCharacterSize;
-        public PanelProfile panelProfile;
         public FileOpen fileOpen;
         public FileSaveAs fileSaveAs;
         public SkyboxManager skyboxManager;
@@ -52,21 +39,8 @@ namespace CreateThis.Example {
             factory.useVRTK = useVRTK;
 #endif
             factory.parent = parent;
-            factory.buttonBody = buttonBody;
-            factory.material = buttonMaterial;
-            factory.highlight = highlight;
-            factory.outline = outline;
-            factory.buttonClickDown = momentaryButtonClickDown;
-            factory.buttonClickUp = momentaryButtonClickUp;
+            factory.buttonProfile = momentaryButtonProfile;
             factory.alignment = TextAlignment.Center;
-            factory.fontSize = fontSize;
-            factory.fontColor = fontColor;
-            factory.labelZ = labelZ;
-            factory.bodyScale = bodyScale;
-            factory.labelScale = labelScale;
-            factory.minWidth = buttonMinWidth;
-            factory.padding = buttonPadding;
-            factory.characterSize = buttonCharacterSize;
             factory.panel = panel;
         }
 
@@ -75,21 +49,8 @@ namespace CreateThis.Example {
             factory.useVRTK = useVRTK;
 #endif
             factory.parent = parent;
-            factory.buttonBody = buttonBody;
-            factory.material = buttonMaterial;
-            factory.highlight = highlight;
-            factory.outline = outline;
-            factory.buttonClickDown = toggleButtonClickDown;
-            factory.buttonClickUp = toggleButtonClickUp;
+            factory.buttonProfile = toggleButtonProfile;
             factory.alignment = TextAlignment.Center;
-            factory.fontSize = fontSize;
-            factory.fontColor = fontColor;
-            factory.labelZ = labelZ;
-            factory.bodyScale = bodyScale;
-            factory.labelScale = labelScale;
-            factory.minWidth = buttonMinWidth;
-            factory.padding = buttonPadding;
-            factory.characterSize = buttonCharacterSize;
             factory.panel = panel;
         }
 
@@ -150,12 +111,7 @@ namespace CreateThis.Example {
             PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
             factory.containerName = name;
-            factory.panelBody = buttonBody;
-            factory.material = panelMaterial;
-            factory.highlight = highlight;
-            factory.outline = outline;
-            factory.fontColor = fontColor;
-            factory.bodyScale = bodyScale;
+            factory.panelContainerProfile = panelContainerProfile;
             GameObject panel = factory.Generate();
 
             StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
@@ -181,13 +137,15 @@ namespace CreateThis.Example {
 
         protected GameObject Label(GameObject parent, string name, string text) {
             GameObject label = EmptyChild(parent, name);
-            label.transform.localScale = labelScale;
-            Vector3 localPosition = new Vector3(0, 0, labelZ);
+
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+            label.transform.localScale = profile.labelScale;
+            Vector3 localPosition = new Vector3(0, 0, profile.labelZ);
             label.transform.localPosition = localPosition;
             TextMesh textMesh = SafeAddComponent<TextMesh>(label);
             textMesh.text = text;
-            textMesh.fontSize = fontSize;
-            textMesh.color = fontColor;
+            textMesh.fontSize = profile.fontSize;
+            textMesh.color = profile.fontColor;
             textMesh.characterSize = labelCharacterSize;
             textMesh.anchor = TextAnchor.MiddleCenter;
 

@@ -20,32 +20,20 @@ using CreateThis.VR.UI.Container;
 namespace CreateThis.Factory.VR.UI.File {
     public class FileSaveAsFactory : BaseFactory {
         public GameObject parent;
-        public GameObject buttonBody;
+        public PanelProfile panelProfile;
+        public PanelContainerProfile panelContainerProfile;
+        public ButtonProfile momentaryButtonProfile;
+        public ButtonProfile toggleButtonProfile;
         public GameObject folderPrefab;
-        public Material buttonMaterial;
-        public Material panelMaterial;
-        public Material highlight;
-        public Material outline;
-        public AudioClip buttonClickDown;
-        public AudioClip buttonClickUp;
-        public int fontSize;
-        public Color fontColor;
-        public float labelZ;
         public float buttonZ;
-        public Vector3 bodyScale;
-        public Vector3 labelScale;
         public float padding;
         public float spacing;
-        public float buttonPadding;
-        public float buttonMinWidth;
-        public float buttonCharacterSize;
         public float labelCharacterSize;
         public float kineticScrollerSpacing;
         public float scrollerHeight;
         public string searchPattern;
         public string fileNameExtension;
         public Keyboard keyboard;
-        public PanelProfile panelProfile;
 
         protected GameObject fileSaveAsContainerInstance;
         protected Rigidbody fileSaveAsContainerRigidbody;
@@ -64,21 +52,8 @@ namespace CreateThis.Factory.VR.UI.File {
             factory.useVRTK = useVRTK;
 #endif
             factory.parent = parent;
-            factory.buttonBody = buttonBody;
-            factory.material = buttonMaterial;
-            factory.highlight = highlight;
-            factory.outline = outline;
-            factory.buttonClickDown = buttonClickDown;
-            factory.buttonClickUp = buttonClickUp;
+            factory.buttonProfile = momentaryButtonProfile;
             factory.alignment = TextAlignment.Center;
-            factory.fontSize = fontSize;
-            factory.fontColor = fontColor;
-            factory.labelZ = labelZ;
-            factory.bodyScale = bodyScale;
-            factory.labelScale = labelScale;
-            factory.minWidth = buttonMinWidth;
-            factory.padding = buttonPadding;
-            factory.characterSize = buttonCharacterSize;
             factory.panel = panel;
         }
 
@@ -94,39 +69,39 @@ namespace CreateThis.Factory.VR.UI.File {
             return button;
         }
 
-        protected GameObject DriveButton(FileSaveAs panel, GameObject parent, string buttonText) {
+        protected GameObject DriveButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText) {
             DriveButtonFactory factory = SafeAddComponent<DriveButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
-            factory.minWidth = buttonMinWidth;
+            factory.buttonProfile = buttonProfile;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject FileNameButton(FileSaveAs panel, GameObject parent, string buttonText) {
+        protected GameObject FileNameButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText) {
             SaveAsFileNameButtonFactory factory = SafeAddComponent<SaveAsFileNameButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
-            factory.minWidth = buttonMinWidth;
+            factory.buttonProfile = buttonProfile;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject SaveAsButton(FileSaveAs panel, GameObject parent, string buttonText) {
+        protected GameObject SaveAsButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText) {
             SaveAsButtonFactory factory = SafeAddComponent<SaveAsButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
-            factory.minWidth = buttonMinWidth;
+            factory.buttonProfile = buttonProfile;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
 
-        protected GameObject KnownFolderButton(FileSaveAs panel, GameObject parent, string buttonText, KnownFolder knownFolder) {
+        protected GameObject KnownFolderButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText, KnownFolder knownFolder) {
             KnownFolderButtonFactory factory = SafeAddComponent<KnownFolderButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
-            factory.minWidth = buttonMinWidth;
+            factory.buttonProfile = buttonProfile;
             factory.knownFolder = knownFolder;
             return GenerateKeyboardButtonAndSetPosition(factory);
         }
@@ -150,15 +125,11 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject Panel(GameObject parent, string name) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
             factory.containerName = name;
-            factory.panelBody = buttonBody;
-            factory.material = panelMaterial;
-            factory.highlight = highlight;
-            factory.outline = outline;
-            factory.fontColor = fontColor;
-            factory.bodyScale = bodyScale;
+            factory.panelContainerProfile = profile;
             GameObject panel = factory.Generate();
 
             fileSaveAsPanel = SafeAddComponent<FileSaveAs>(panel);
@@ -189,14 +160,15 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject Label(GameObject parent, string name, string text) {
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
             GameObject label = EmptyChild(parent, name);
-            label.transform.localScale = labelScale;
-            Vector3 localPosition = new Vector3(0, 0, labelZ);
+            label.transform.localScale = profile.labelScale;
+            Vector3 localPosition = new Vector3(0, 0, profile.labelZ);
             label.transform.localPosition = localPosition;
             TextMesh textMesh = SafeAddComponent<TextMesh>(label);
             textMesh.text = text;
-            textMesh.fontSize = fontSize;
-            textMesh.color = fontColor;
+            textMesh.fontSize = profile.fontSize;
+            textMesh.color = profile.fontColor;
             textMesh.characterSize = labelCharacterSize;
             textMesh.anchor = TextAnchor.MiddleCenter;
 
@@ -219,21 +191,27 @@ namespace CreateThis.Factory.VR.UI.File {
         protected GameObject DriveButtonRow(GameObject parent) {
             GameObject row = Row(parent, "DriveButtonRow", TextAlignment.Left);
             Label(row, "DrivesLabel", "              Drives");
-            GameObject driveButtonPrefab = DriveButton(fileSaveAsPanel, row, "C");
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+
+            GameObject driveButtonPrefab = DriveButton(fileSaveAsPanel, row, profile, "C");
             drives.driveButtonPrefab = driveButtonPrefab;
             return row;
         }
 
         protected GameObject SaveAsButtonRow(GameObject parent) {
             GameObject row = Row(parent, "SaveAsButtonRow", TextAlignment.Right);
-            SaveAsButton(fileSaveAsPanel, row, "Save As");
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+
+            SaveAsButton(fileSaveAsPanel, row, profile, "Save As");
             return row;
         }
 
         protected GameObject FileNameButtonRow(GameObject parent) {
             GameObject row = Row(parent, "FileNameButtonRow", TextAlignment.Left);
             Label(row, "FileNameLabel", "         FileName");
-            GameObject fileNameObject = FileNameButton(fileSaveAsPanel, row, "FileName");
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+
+            GameObject fileNameObject = FileNameButton(fileSaveAsPanel, row, profile, "FileName");
             fileNameButton = fileNameObject.GetComponent<SaveAsFileNameButton>();
             fileSaveAsPanel.fileNameButton = fileNameButton;
             Label(row, "ExtLabel", fileNameExtension);
@@ -243,10 +221,11 @@ namespace CreateThis.Factory.VR.UI.File {
         protected GameObject SpecialFoldersRow(GameObject parent) {
             GameObject row = Row(parent, "SpecialFoldersRow", TextAlignment.Left);
             Label(row, "SpecialFoldersLabel", "Special Folders");
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
 
-            KnownFolderButton(fileSaveAsPanel, row, "Documents", KnownFolder.Documents);
-            KnownFolderButton(fileSaveAsPanel, row, "Downloads", KnownFolder.Downloads);
-            KnownFolderButton(fileSaveAsPanel, row, "Desktop", KnownFolder.Desktop);
+            KnownFolderButton(fileSaveAsPanel, row, profile, "Documents", KnownFolder.Documents);
+            KnownFolderButton(fileSaveAsPanel, row, profile, "Downloads", KnownFolder.Downloads);
+            KnownFolderButton(fileSaveAsPanel, row, profile, "Desktop", KnownFolder.Desktop);
 
             return row;
         }
@@ -261,11 +240,13 @@ namespace CreateThis.Factory.VR.UI.File {
 #if VRTK
             kineticScrollerItemFactory.useVRTK = useVRTK;
 #endif
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+
             kineticScrollerItemFactory.parent = parent;
-            kineticScrollerItemFactory.material = buttonMaterial;
-            kineticScrollerItemFactory.highlight = highlight;
-            kineticScrollerItemFactory.outline = outline;
-            kineticScrollerItemFactory.fontColor = fontColor;
+            kineticScrollerItemFactory.material = profile.material;
+            kineticScrollerItemFactory.highlight = profile.highlight;
+            kineticScrollerItemFactory.outline = profile.outline;
+            kineticScrollerItemFactory.fontColor = profile.fontColor;
             return kineticScrollerItemFactory.Generate();
         }
 
@@ -278,11 +259,13 @@ namespace CreateThis.Factory.VR.UI.File {
             Rigidbody rigidbody = SafeAddComponent<Rigidbody>(kineticScrollerInstance);
             rigidbody.useGravity = false;
 
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+
             Selectable selectable = SafeAddComponent<Selectable>(kineticScrollerInstance);
-            selectable.highlightMaterial = highlight;
-            selectable.outlineMaterial = outline;
-            selectable.textColor = fontColor;
-            selectable.unselectedMaterials = new Material[] { buttonMaterial };
+            selectable.highlightMaterial = profile.highlight;
+            selectable.outlineMaterial = profile.outline;
+            selectable.textColor = profile.fontColor;
+            selectable.unselectedMaterials = new Material[] { profile.material };
             selectable.recursive = true;
 
             ConfigurableJoint configurableJoint = SafeAddComponent<ConfigurableJoint>(kineticScrollerInstance);

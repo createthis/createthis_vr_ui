@@ -3,6 +3,10 @@ using CreateThis.VR.UI.Button;
 
 namespace CreateThis.Factory.VR.UI.Button {
     public class ToggleButtonFactory : ButtonBaseFactory {
+        protected override ButtonBehavior buttonBehavior {
+            get { return ButtonBehavior.Toggle; }
+            set { }
+        }
         public bool on;
 
         public void PopulateButton(ToggleButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {

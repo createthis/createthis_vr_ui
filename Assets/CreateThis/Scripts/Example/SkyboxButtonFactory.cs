@@ -8,10 +8,6 @@ namespace CreateThis.Factory.VR.UI.Button {
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
             SkyboxButton button = SafeAddComponent<SkyboxButton>(target);
-            if (audioSourceDown) button.buttonClickDown = audioSourceDown;
-            if (audioSourceUp) button.buttonClickUp = audioSourceUp;
-            button.buttonBody = buttonBodyInstance;
-            button.buttonText = buttonTextLabelInstance;
             button.On = on;
             button.clickOnTriggerExit = true;
             button.skybox = skybox;

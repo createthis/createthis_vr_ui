@@ -2,6 +2,7 @@
 #if VRTK
 using CreateThis.VRTK;
 #endif
+using CreateThis.VR.UI;
 using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Interact;
@@ -10,26 +11,19 @@ using UnityEditor;
 #endif
 
 namespace CreateThis.Factory.VR.UI.Button {
+    public enum ButtonBehavior {
+        Momentary,
+        Toggle,
+    }
+
     public abstract class ButtonBaseFactory : BaseFactory {
         public GameObject parent;
         public string buttonText;
-        public GameObject buttonBody;
-        public Material material;
-        public Material highlight;
-        public Material outline;
-        public AudioClip buttonClickDown;
-        public AudioClip buttonClickUp;
+        public ButtonProfile buttonProfile;
         public TextAlignment alignment;
-        public int fontSize;
-        public Color fontColor;
-        public float labelZ;
-        public Vector3 bodyScale;
-        public Vector3 labelScale;
-        public float minWidth;
-        public float padding;
-        public float characterSize;
         public PanelBase panel;
 
+        protected abstract ButtonBehavior buttonBehavior { get; set; }
         protected GameObject buttonInstance;
         protected GameObject buttonBodyInstance;
         protected GameObject buttonTextLabelInstance;
@@ -37,7 +31,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         private AudioSource AddAudioSource(GameObject target, AudioClip audioClip) {
             if (!audioClip) return null;
             AudioSource audioSource = SafeAddComponent<AudioSource>(target);
-            audioSource.clip = buttonClickDown;
+            audioSource.clip = audioClip;
             audioSource.spatialBlend = 1f;
             audioSource.playOnAwake = false;
             return audioSource;
@@ -56,20 +50,30 @@ namespace CreateThis.Factory.VR.UI.Button {
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
 
-        private void BuildButton() {
+        private ButtonProfile GetButtonProfile() {
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(buttonProfile);
+            if (buttonBehavior == ButtonBehavior.Toggle) {
+                profile = Defaults.GetToggleButtonProfile(buttonProfile);
+            }
+            return profile;
+        }
+
+        private void BuildButton(ButtonProfile profile) {
             if (!buttonBodyInstance) return;
 
 #if UNITY_EDITOR
             Undo.RegisterCompleteObjectUndo(buttonInstance, "Change name before");
 #endif
+            if (buttonBehavior == ButtonBehavior.Momentary) {
+            }
 
             buttonInstance.name = "Button_" + buttonText;
 
-            AudioSource audioSourceDown = AddAudioSource(buttonInstance, buttonClickDown);
-            AudioSource audioSourceUp = AddAudioSource(buttonInstance, buttonClickUp);
+            AudioSource audioSourceDown = AddAudioSource(buttonInstance, profile.buttonClickDown);
+            AudioSource audioSourceUp = AddAudioSource(buttonInstance, profile.buttonClickUp);
 
             BoxCollider boxCollider = SafeAddComponent<BoxCollider>(buttonInstance);
-            boxCollider.size = bodyScale;
+            boxCollider.size = profile.bodyScale;
             boxCollider.isTrigger = true;
 
             AddButton(buttonInstance, audioSourceDown, audioSourceUp);
@@ -78,8 +82,8 @@ namespace CreateThis.Factory.VR.UI.Button {
             growButton.buttonBody = buttonBodyInstance;
             growButton.textMesh = buttonTextLabelInstance.GetComponent<TextMesh>();
             growButton.alignment = alignment;
-            growButton.minWidth = minWidth;
-            growButton.padding = padding;
+            growButton.minWidth = profile.minWidth;
+            growButton.padding = profile.padding;
 
             Rigidbody rigidBody = SafeAddComponent<Rigidbody>(buttonInstance);
             rigidBody.isKinematic = true;
@@ -91,10 +95,10 @@ namespace CreateThis.Factory.VR.UI.Button {
 #endif
 
             Selectable selectable = SafeAddComponent<Selectable>(buttonInstance);
-            selectable.highlightMaterial = highlight;
-            selectable.outlineMaterial = outline;
-            selectable.textColor = fontColor;
-            selectable.unselectedMaterials = new Material[] { material };
+            selectable.highlightMaterial = profile.highlight;
+            selectable.outlineMaterial = profile.outline;
+            selectable.textColor = profile.fontColor;
+            selectable.unselectedMaterials = new Material[] { profile.material };
             selectable.recursive = true;
 
             growButton.Resize();
@@ -105,46 +109,46 @@ namespace CreateThis.Factory.VR.UI.Button {
             buttonInstance = EmptyChild(parent, "Button");
         }
 
-        private void CreateButtonBody() {
+        private void CreateButtonBody(ButtonProfile profile) {
             if (buttonBodyInstance) return;
-            buttonBodyInstance = Instantiate(buttonBody);
+            buttonBodyInstance = Instantiate(profile.buttonBody);
 
 #if UNITY_EDITOR
             Undo.RegisterCreatedObjectUndo(buttonBodyInstance, "Created ButtonBody");
 #endif
             buttonBodyInstance.SetActive(true);
-            buttonBodyInstance.transform.localScale = bodyScale;
+            buttonBodyInstance.transform.localScale = profile.bodyScale;
             buttonBodyInstance.transform.parent = buttonInstance.transform;
             buttonBodyInstance.transform.localPosition = Vector3.zero;
             buttonBodyInstance.transform.localRotation = Quaternion.identity;
             buttonBodyInstance.name = "ButtonBody";
 
             MeshRenderer meshRenderer = buttonBodyInstance.GetComponent<MeshRenderer>();
-            meshRenderer.materials = new Material[1] { material };
+            meshRenderer.materials = new Material[1] { profile.material };
 
             Selectable selectable = buttonBodyInstance.AddComponent<Selectable>();
-            selectable.highlightMaterial = highlight;
-            selectable.outlineMaterial = outline;
-            selectable.textColor = fontColor;
-            selectable.unselectedMaterials = new Material[] { material };
+            selectable.highlightMaterial = profile.highlight;
+            selectable.outlineMaterial = profile.outline;
+            selectable.textColor = profile.fontColor;
+            selectable.unselectedMaterials = new Material[] { profile.material };
 
             if (!buttonBodyInstance.GetComponent<BoxCollider>()) {
                 buttonBodyInstance.AddComponent<BoxCollider>();
             }
         }
 
-        private void CreateTextLabel() {
+        private void CreateTextLabel(ButtonProfile profile) {
             if (buttonTextLabelInstance) return;
-            buttonTextLabelInstance = EmptyChild(buttonInstance, "ButtonTextLabel", labelScale);
-            buttonTextLabelInstance.transform.localPosition = new Vector3(0, 0, labelZ);
+            buttonTextLabelInstance = EmptyChild(buttonInstance, "ButtonTextLabel", profile.labelScale);
+            buttonTextLabelInstance.transform.localPosition = new Vector3(0, 0, profile.labelZ);
 
             TextMesh textMesh = buttonTextLabelInstance.AddComponent<TextMesh>();
             textMesh.text = buttonText;
-            textMesh.fontSize = fontSize;
-            textMesh.color = fontColor;
+            textMesh.fontSize = profile.fontSize;
+            textMesh.color = profile.fontColor;
             textMesh.anchor = TextAnchor.MiddleCenter;
             textMesh.alignment = TextAlignment.Left;
-            textMesh.characterSize = characterSize;
+            textMesh.characterSize = profile.characterSize;
         }
 
         public override GameObject Generate() {
@@ -156,10 +160,11 @@ namespace CreateThis.Factory.VR.UI.Button {
 
             Undo.RegisterCompleteObjectUndo(this, "ButtonFactory state");
 #endif
+            ButtonProfile profile = GetButtonProfile();
             CreateButton();
-            CreateButtonBody();
-            CreateTextLabel();
-            BuildButton();
+            CreateButtonBody(profile);
+            CreateTextLabel(profile);
+            BuildButton(profile);
 #if UNITY_EDITOR
             Undo.CollapseUndoOperations(group);
 #endif
