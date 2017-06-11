@@ -60,6 +60,8 @@ Assets/CoherentUI/DebuggerWindows.meta
 
 # External tools
 
+Assets/AssetStoreTools/
+Assets/AssetStoreTools.meta
 Assets/SteamVR/
 Assets/SteamVR.meta
 Assets/VRTK/
