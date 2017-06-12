@@ -5,6 +5,7 @@ using UnityEditor;
 #if VRTK
 using CreateThis.VRTK;
 #endif
+using CreateThis.Unity;
 using CreateThis.VR.UI.Interact;
 using CreateThis.VR.UI.Scroller;
 
@@ -30,15 +31,15 @@ namespace CreateThis.Factory.VR.UI.Scroller {
 #endif
             kineticScrollerItemInstance = EmptyChild(parent, "kineticScrollerItem");
 
-            KineticScrollerItem kineticScrollerItem = SafeAddComponent<KineticScrollerItem>(kineticScrollerItemInstance);
+            KineticScrollerItem kineticScrollerItem = Undoable.AddComponent<KineticScrollerItem>(kineticScrollerItemInstance);
             kineticScrollerItem.kineticScroller = kineticScroller;
 
-            SafeAddComponent<MeshFilter>(kineticScrollerItemInstance);
-            SafeAddComponent<MeshRenderer>(kineticScrollerItemInstance);
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(kineticScrollerItemInstance);
+            Undoable.AddComponent<MeshFilter>(kineticScrollerItemInstance);
+            Undoable.AddComponent<MeshRenderer>(kineticScrollerItemInstance);
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(kineticScrollerItemInstance);
             boxCollider.isTrigger = true;
 
-            Selectable selectable = SafeAddComponent<Selectable>(kineticScrollerItemInstance);
+            Selectable selectable = Undoable.AddComponent<Selectable>(kineticScrollerItemInstance);
             selectable.highlightMaterial = highlight;
             selectable.outlineMaterial = outline;
             selectable.textColor = fontColor;
@@ -54,7 +55,7 @@ namespace CreateThis.Factory.VR.UI.Scroller {
             }
 #endif
 
-            Rigidbody rigidBody = SafeAddComponent<Rigidbody>(kineticScrollerItemInstance);
+            Rigidbody rigidBody = Undoable.AddComponent<Rigidbody>(kineticScrollerItemInstance);
             rigidBody.useGravity = false;
             rigidBody.isKinematic = true;
 

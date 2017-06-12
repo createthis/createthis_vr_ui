@@ -2,6 +2,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using CreateThis.Unity;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Container;
 using CreateThis.VR.UI.Interact;
@@ -11,7 +12,7 @@ namespace CreateThis.Factory.VR.UI.Container {
         public PanelContainerProfile panelContainerProfile;
 
         protected override void AddContainer(GameObject target) {
-            PanelContainer container = SafeAddComponent<PanelContainer>(target);
+            PanelContainer container = Undoable.AddComponent<PanelContainer>(target);
             PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
 
             if (containerName == null) target.name = "Panel";

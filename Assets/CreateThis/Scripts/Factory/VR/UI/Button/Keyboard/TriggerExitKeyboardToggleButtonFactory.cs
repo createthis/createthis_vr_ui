@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.Unity;
 using CreateThis.VR.UI.Button;
 
 namespace CreateThis.Factory.VR.UI.Button {
@@ -9,7 +10,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            ToggleButton button = SafeAddComponent<KeyboardToggleButton>(target);
+            ToggleButton button = Undoable.AddComponent<KeyboardToggleButton>(target);
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }

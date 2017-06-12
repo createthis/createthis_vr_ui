@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.Unity;
 using CreateThis.VR.UI.Button;
 
 namespace CreateThis.Factory.VR.UI.Button {
@@ -6,7 +7,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         public string value;
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            KeyboardMomentaryKeyButton button = SafeAddComponent<KeyboardMomentaryKeyButton>(target);
+            KeyboardMomentaryKeyButton button = Undoable.AddComponent<KeyboardMomentaryKeyButton>(target);
             if (audioSourceDown) button.buttonClickDown = audioSourceDown;
             if (audioSourceUp) button.buttonClickUp = audioSourceUp;
             button.buttonBody = buttonBodyInstance;

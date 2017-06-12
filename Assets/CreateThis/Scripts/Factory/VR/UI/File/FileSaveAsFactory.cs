@@ -9,6 +9,7 @@ using CreateThis.System;
 #if VRTK
 using CreateThis.VRTK;
 #endif
+using CreateThis.Unity;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
@@ -70,7 +71,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject DriveButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText) {
-            DriveButtonFactory factory = SafeAddComponent<DriveButtonFactory>(disposable);
+            DriveButtonFactory factory = Undoable.AddComponent<DriveButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
@@ -79,7 +80,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject FileNameButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText) {
-            SaveAsFileNameButtonFactory factory = SafeAddComponent<SaveAsFileNameButtonFactory>(disposable);
+            SaveAsFileNameButtonFactory factory = Undoable.AddComponent<SaveAsFileNameButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
@@ -88,7 +89,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject SaveAsButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText) {
-            SaveAsButtonFactory factory = SafeAddComponent<SaveAsButtonFactory>(disposable);
+            SaveAsButtonFactory factory = Undoable.AddComponent<SaveAsButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
@@ -97,7 +98,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject KnownFolderButton(FileSaveAs panel, GameObject parent, ButtonProfile buttonProfile, string buttonText, KnownFolder knownFolder) {
-            KnownFolderButtonFactory factory = SafeAddComponent<KnownFolderButtonFactory>(disposable);
+            KnownFolderButtonFactory factory = Undoable.AddComponent<KnownFolderButtonFactory>(disposable);
             SetButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.filePanel = panel;
@@ -107,7 +108,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
-            RowContainerFactory factory = SafeAddComponent<RowContainerFactory>(disposable);
+            RowContainerFactory factory = Undoable.AddComponent<RowContainerFactory>(disposable);
             factory.containerName = name;
             factory.parent = parent;
             factory.padding = padding;
@@ -117,7 +118,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject Column(GameObject parent) {
-            ColumnContainerFactory factory = SafeAddComponent<ColumnContainerFactory>(disposable);
+            ColumnContainerFactory factory = Undoable.AddComponent<ColumnContainerFactory>(disposable);
             factory.parent = parent;
             factory.padding = padding;
             factory.spacing = spacing;
@@ -126,13 +127,13 @@ namespace CreateThis.Factory.VR.UI.File {
 
         protected GameObject Panel(GameObject parent, string name) {
             PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
-            PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
+            PanelContainerFactory factory = Undoable.AddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
             factory.containerName = name;
             factory.panelContainerProfile = profile;
             GameObject panel = factory.Generate();
 
-            fileSaveAsPanel = SafeAddComponent<FileSaveAs>(panel);
+            fileSaveAsPanel = Undoable.AddComponent<FileSaveAs>(panel);
             fileSaveAsPanel.grabTarget = fileSaveAsContainerInstance.transform;
             fileSaveAsPanel.folderPrefab = folderPrefab;
             fileSaveAsPanel.kineticScrollItemPrefab = kineticScrollerItem;
@@ -150,9 +151,9 @@ namespace CreateThis.Factory.VR.UI.File {
             }
 #endif
 
-            drives = SafeAddComponent<Drives>(panel);
+            drives = Undoable.AddComponent<Drives>(panel);
 
-            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
+            Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(panel);
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
@@ -165,16 +166,16 @@ namespace CreateThis.Factory.VR.UI.File {
             label.transform.localScale = profile.labelScale;
             Vector3 localPosition = new Vector3(0, 0, profile.labelZ);
             label.transform.localPosition = localPosition;
-            TextMesh textMesh = SafeAddComponent<TextMesh>(label);
+            TextMesh textMesh = Undoable.AddComponent<TextMesh>(label);
             textMesh.text = text;
             textMesh.fontSize = profile.fontSize;
             textMesh.color = profile.fontColor;
             textMesh.characterSize = labelCharacterSize;
             textMesh.anchor = TextAnchor.MiddleCenter;
 
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(label);
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(label);
 
-            UpdateBoxColliderFromTextMesh updateBoxCollider = SafeAddComponent<UpdateBoxColliderFromTextMesh>(label);
+            UpdateBoxColliderFromTextMesh updateBoxCollider = Undoable.AddComponent<UpdateBoxColliderFromTextMesh>(label);
             updateBoxCollider.textMesh = textMesh;
             updateBoxCollider.boxCollider = boxCollider;
             return label;
@@ -236,7 +237,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         private GameObject CreateKineticScrollerItem(GameObject parent) {
-            KineticScrollerItemFactory kineticScrollerItemFactory = SafeAddComponent<KineticScrollerItemFactory>(disposable);
+            KineticScrollerItemFactory kineticScrollerItemFactory = Undoable.AddComponent<KineticScrollerItemFactory>(disposable);
 #if VRTK
             kineticScrollerItemFactory.useVRTK = useVRTK;
 #endif
@@ -252,23 +253,23 @@ namespace CreateThis.Factory.VR.UI.File {
 
         private GameObject CreateKineticScroller(GameObject parent) {
             kineticScrollerInstance = EmptyChild(parent, "KineticScroller");
-            kineticScroller = SafeAddComponent<KineticScroller>(kineticScrollerInstance);
+            kineticScroller = Undoable.AddComponent<KineticScroller>(kineticScrollerInstance);
             kineticScroller.space = kineticScrollerSpacing;
             fileSaveAsPanel.kineticScroller = kineticScroller;
 
-            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(kineticScrollerInstance);
+            Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(kineticScrollerInstance);
             rigidbody.useGravity = false;
 
             ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
 
-            Selectable selectable = SafeAddComponent<Selectable>(kineticScrollerInstance);
+            Selectable selectable = Undoable.AddComponent<Selectable>(kineticScrollerInstance);
             selectable.highlightMaterial = profile.highlight;
             selectable.outlineMaterial = profile.outline;
             selectable.textColor = profile.fontColor;
             selectable.unselectedMaterials = new Material[] { profile.material };
             selectable.recursive = true;
 
-            ConfigurableJoint configurableJoint = SafeAddComponent<ConfigurableJoint>(kineticScrollerInstance);
+            ConfigurableJoint configurableJoint = Undoable.AddComponent<ConfigurableJoint>(kineticScrollerInstance);
             configurableJoint.connectedBody = fileSaveAsContainerRigidbody;
             configurableJoint.anchor = Vector3.zero;
             configurableJoint.xMotion = ConfigurableJointMotion.Limited;
@@ -296,7 +297,7 @@ namespace CreateThis.Factory.VR.UI.File {
             localPosition.y = -scrollerHeight * 1.75f;
             fileSaveAsInstance.transform.localPosition = localPosition;
 
-            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(fileSaveAsInstance);
+            Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(fileSaveAsInstance);
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
@@ -323,7 +324,7 @@ namespace CreateThis.Factory.VR.UI.File {
             CreateDisposable(parent);
 
             fileSaveAsContainerInstance = EmptyChild(parent, "FileSaveAsContainer");
-            fileSaveAsContainerRigidbody = SafeAddComponent<Rigidbody>(fileSaveAsContainerInstance);
+            fileSaveAsContainerRigidbody = Undoable.AddComponent<Rigidbody>(fileSaveAsContainerInstance);
             fileSaveAsContainerRigidbody.useGravity = false;
             fileSaveAsContainerRigidbody.isKinematic = true;
 

@@ -2,6 +2,7 @@
 #if VRTK
 using CreateThis.VRTK;
 #endif
+using CreateThis.Unity;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Button;
 using CreateThis.VR.UI.Panel;
@@ -30,7 +31,7 @@ namespace CreateThis.Factory.VR.UI.Button {
 
         private AudioSource AddAudioSource(GameObject target, AudioClip audioClip) {
             if (!audioClip) return null;
-            AudioSource audioSource = SafeAddComponent<AudioSource>(target);
+            AudioSource audioSource = Undoable.AddComponent<AudioSource>(target);
             audioSource.clip = audioClip;
             audioSource.spatialBlend = 1f;
             audioSource.playOnAwake = false;
@@ -46,7 +47,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected virtual void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            ButtonBase button = SafeAddComponent<ButtonBase>(target);
+            ButtonBase button = Undoable.AddComponent<ButtonBase>(target);
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
 
@@ -72,20 +73,20 @@ namespace CreateThis.Factory.VR.UI.Button {
             AudioSource audioSourceDown = AddAudioSource(buttonInstance, profile.buttonClickDown);
             AudioSource audioSourceUp = AddAudioSource(buttonInstance, profile.buttonClickUp);
 
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(buttonInstance);
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(buttonInstance);
             boxCollider.size = profile.bodyScale;
             boxCollider.isTrigger = true;
 
             AddButton(buttonInstance, audioSourceDown, audioSourceUp);
 
-            GrowButtonByTextMesh growButton = SafeAddComponent<GrowButtonByTextMesh>(buttonInstance);
+            GrowButtonByTextMesh growButton = Undoable.AddComponent<GrowButtonByTextMesh>(buttonInstance);
             growButton.buttonBody = buttonBodyInstance;
             growButton.textMesh = buttonTextLabelInstance.GetComponent<TextMesh>();
             growButton.alignment = alignment;
             growButton.minWidth = profile.minWidth;
             growButton.padding = profile.padding;
 
-            Rigidbody rigidBody = SafeAddComponent<Rigidbody>(buttonInstance);
+            Rigidbody rigidBody = Undoable.AddComponent<Rigidbody>(buttonInstance);
             rigidBody.isKinematic = true;
 
 #if VRTK
@@ -94,7 +95,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             }
 #endif
 
-            Selectable selectable = SafeAddComponent<Selectable>(buttonInstance);
+            Selectable selectable = Undoable.AddComponent<Selectable>(buttonInstance);
             selectable.highlightMaterial = profile.highlight;
             selectable.outlineMaterial = profile.outline;
             selectable.textColor = profile.fontColor;

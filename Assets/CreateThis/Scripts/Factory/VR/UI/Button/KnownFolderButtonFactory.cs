@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.Unity;
 using CreateThis.System;
 using CreateThis.VR.UI.File;
 using CreateThis.VR.UI.Button;
@@ -14,7 +15,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            KnownFolderButton button = SafeAddComponent<KnownFolderButton>(target);
+            KnownFolderButton button = Undoable.AddComponent<KnownFolderButton>(target);
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }

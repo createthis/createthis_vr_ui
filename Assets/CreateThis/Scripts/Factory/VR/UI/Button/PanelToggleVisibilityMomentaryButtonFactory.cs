@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.Unity;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.Button;
 
@@ -13,7 +14,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            PanelToggleVisibilityMomentaryButton button = SafeAddComponent<PanelToggleVisibilityMomentaryButton>(target);
+            PanelToggleVisibilityMomentaryButton button = Undoable.AddComponent<PanelToggleVisibilityMomentaryButton>(target);
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }

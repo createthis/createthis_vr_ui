@@ -5,6 +5,7 @@ using UnityEditor;
 #if VRTK
 using CreateThis.VRTK;
 #endif
+using CreateThis.Unity;
 using CreateThis.VR.UI;
 using CreateThis.VR.UI.Panel;
 using CreateThis.VR.UI.File;
@@ -72,7 +73,7 @@ namespace CreateThis.Example {
         }
 
         protected GameObject PanelToggleVisibilityMomentaryButton(StandardPanel panel, GameObject parent, string buttonText, PanelBase panelToToggle) {
-            PanelToggleVisibilityMomentaryButtonFactory factory = SafeAddComponent<PanelToggleVisibilityMomentaryButtonFactory>(disposable);
+            PanelToggleVisibilityMomentaryButtonFactory factory = Undoable.AddComponent<PanelToggleVisibilityMomentaryButtonFactory>(disposable);
             SetMomentaryButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.panelToToggle = panelToToggle;
@@ -80,7 +81,7 @@ namespace CreateThis.Example {
         }
 
         protected GameObject SkyboxButton(StandardPanel panel, GameObject parent, string buttonText, string skybox) {
-            SkyboxButtonFactory factory = SafeAddComponent<SkyboxButtonFactory>(disposable);
+            SkyboxButtonFactory factory = Undoable.AddComponent<SkyboxButtonFactory>(disposable);
             SetToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.skybox = skybox;
@@ -89,7 +90,7 @@ namespace CreateThis.Example {
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
-            RowContainerFactory factory = SafeAddComponent<RowContainerFactory>(disposable);
+            RowContainerFactory factory = Undoable.AddComponent<RowContainerFactory>(disposable);
             factory.containerName = name;
             factory.parent = parent;
             factory.padding = padding;
@@ -99,7 +100,7 @@ namespace CreateThis.Example {
         }
 
         protected GameObject Column(GameObject parent) {
-            ColumnContainerFactory factory = SafeAddComponent<ColumnContainerFactory>(disposable);
+            ColumnContainerFactory factory = Undoable.AddComponent<ColumnContainerFactory>(disposable);
             factory.parent = parent;
             factory.padding = padding;
             factory.spacing = spacing;
@@ -107,13 +108,13 @@ namespace CreateThis.Example {
         }
 
         protected GameObject Panel(GameObject parent, string name) {
-            PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
+            PanelContainerFactory factory = Undoable.AddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
             factory.containerName = name;
             factory.panelContainerProfile = panelContainerProfile;
             GameObject panel = factory.Generate();
 
-            StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
+            StandardPanel standardPanel = Undoable.AddComponent<StandardPanel>(panel);
             standardPanel.grabTarget = panel.transform;
             standardPanel.panelProfile = panelProfile;
             toolsPanel = standardPanel;
@@ -127,7 +128,7 @@ namespace CreateThis.Example {
             }
 #endif
 
-            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
+            Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(panel);
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
@@ -141,16 +142,16 @@ namespace CreateThis.Example {
             label.transform.localScale = profile.labelScale;
             Vector3 localPosition = new Vector3(0, 0, profile.labelZ);
             label.transform.localPosition = localPosition;
-            TextMesh textMesh = SafeAddComponent<TextMesh>(label);
+            TextMesh textMesh = Undoable.AddComponent<TextMesh>(label);
             textMesh.text = text;
             textMesh.fontSize = profile.fontSize;
             textMesh.color = profile.fontColor;
             textMesh.characterSize = labelCharacterSize;
             textMesh.anchor = TextAnchor.MiddleCenter;
 
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(label);
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(label);
 
-            UpdateBoxColliderFromTextMesh updateBoxCollider = SafeAddComponent<UpdateBoxColliderFromTextMesh>(label);
+            UpdateBoxColliderFromTextMesh updateBoxCollider = Undoable.AddComponent<UpdateBoxColliderFromTextMesh>(label);
             updateBoxCollider.textMesh = textMesh;
             updateBoxCollider.boxCollider = boxCollider;
             return label;

@@ -11,7 +11,6 @@ namespace CreateThis.VR.UI {
             Initialize();
 
             foreach (PanelBase panel in panels) {
-                Debug.Log("panel=" + panel + ",except=" + except);
                 if (panel && panel != except) panel.SetVisible(false);
             }
         }
@@ -19,7 +18,6 @@ namespace CreateThis.VR.UI {
         public static void AddPanel(PanelBase panel) {
             Initialize();
 
-            Debug.Log("AddPanel panel=" + panel);
             panels.Add(panel);
         }
 

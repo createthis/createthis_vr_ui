@@ -9,14 +9,6 @@ namespace CreateThis.Factory {
         public bool useVRTK;
 #endif
 
-        protected T SafeAddComponent<T>(GameObject target) where T : Component {
-#if UNITY_EDITOR
-            return Undo.AddComponent<T>(target);
-#else
-            return target.AddComponent<T>();
-#endif
-        }
-
         protected GameObject EmptyChild(GameObject parent, string name, Vector3 localScale = new Vector3()) {
             GameObject instance = new GameObject();
 #if UNITY_EDITOR

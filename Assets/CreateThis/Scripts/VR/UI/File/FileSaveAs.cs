@@ -26,7 +26,6 @@ namespace CreateThis.VR.UI.File {
 
         public void FileNameClick(Transform controller) {
             this.SetVisible(false);
-            Debug.Log("keyboard=" + keyboard);
             keyboard.controller = controller;
             keyboard.SetBuffer(filename);
             keyboard.doneCallback = KeyboardCallback;

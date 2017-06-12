@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CreateThis.Unity;
 using CreateThis.VR.UI.File;
 using CreateThis.VR.UI.Button;
 
@@ -12,7 +13,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            DriveButton button = SafeAddComponent<DriveButton>(target);
+            DriveButton button = Undoable.AddComponent<DriveButton>(target);
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }

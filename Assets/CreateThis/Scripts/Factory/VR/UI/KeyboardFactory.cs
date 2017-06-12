@@ -3,6 +3,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using CreateThis.Unity;
 using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
 using CreateThis.VR.UI;
@@ -45,60 +46,50 @@ namespace CreateThis.Factory.VR.UI {
         private ButtonProfile numLockKeyProfile;
         private ButtonProfile returnKeyProfile;
 
-        private static T CopyComponent<T>(T original, GameObject destination) where T : Component {
-            global::System.Type type = original.GetType();
-            Component copy = destination.AddComponent(type);
-            global::System.Reflection.FieldInfo[] fields = type.GetFields();
-            foreach (global::System.Reflection.FieldInfo field in fields) {
-                field.SetValue(copy, field.GetValue(original));
-            }
-            return copy as T;
-        }
-
         private PanelProfile CreateSubPanelProfile(GameObject parent) {
             PanelProfile profile = Defaults.GetProfile(panelProfile);
-            PanelProfile subPanelProfile = CopyComponent(profile, parent);
+            PanelProfile subPanelProfile = ScriptUtils.CopyComponent(profile, parent);
             subPanelProfile.hideOnAwake = false;
             return subPanelProfile;
         }
 
         private void CreateKeyProfile() {
             ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
-            keyProfile = CopyComponent(buttonProfile, disposable);
+            keyProfile = ScriptUtils.CopyComponent(buttonProfile, disposable);
             keyProfile.characterSize = keyCharacterSize;
         }
 
         private void CreateWideKeyProfile() {
             ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
-            wideKeyProfile = CopyComponent(buttonProfile, disposable);
+            wideKeyProfile = ScriptUtils.CopyComponent(buttonProfile, disposable);
             wideKeyProfile.characterSize = keyCharacterSize;
             wideKeyProfile.minWidth = wideKeyMinWidth;
         }
 
         private void CreateSpaceKeyProfile() {
             ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
-            spaceKeyProfile = CopyComponent(buttonProfile, disposable);
+            spaceKeyProfile = ScriptUtils.CopyComponent(buttonProfile, disposable);
             spaceKeyProfile.characterSize = keyCharacterSize;
             spaceKeyProfile.minWidth = spaceMinWidth;
         }
 
         private void CreateModeKeyProfile() {
             ButtonProfile buttonProfile = Defaults.GetToggleButtonProfile(toggleButtonProfile);
-            modeKeyProfile = CopyComponent(buttonProfile, disposable);
+            modeKeyProfile = ScriptUtils.CopyComponent(buttonProfile, disposable);
             modeKeyProfile.characterSize = keyCharacterSize;
             modeKeyProfile.minWidth = modeKeyMinWidth;
         }
 
         private void CreateNumLockKeyProfile() {
             ButtonProfile buttonProfile = Defaults.GetToggleButtonProfile(toggleButtonProfile);
-            numLockKeyProfile = CopyComponent(buttonProfile, disposable);
+            numLockKeyProfile = ScriptUtils.CopyComponent(buttonProfile, disposable);
             numLockKeyProfile.characterSize = numLockCharacterSize;
             numLockKeyProfile.minWidth = modeKeyMinWidth;
         }
 
         private void CreateReturnKeyProfile() {
             ButtonProfile buttonProfile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
-            returnKeyProfile = CopyComponent(buttonProfile, disposable);
+            returnKeyProfile = ScriptUtils.CopyComponent(buttonProfile, disposable);
             returnKeyProfile.characterSize = keyCharacterSize;
             returnKeyProfile.minWidth = returnMinWidth;
         }
@@ -136,7 +127,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardButton(StandardPanel panel, GameObject parent, ButtonProfile profile, string buttonText) {
-            KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
+            KeyboardMomentaryKeyButtonFactory factory = Undoable.AddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.value = buttonText;
@@ -145,7 +136,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardSpaceButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardMomentaryKeyButtonFactory factory = SafeAddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
+            KeyboardMomentaryKeyButtonFactory factory = Undoable.AddComponent<KeyboardMomentaryKeyButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.value = " ";
@@ -154,7 +145,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardShiftLockButton(StandardPanel panel, GameObject parent, string buttonText, bool on) {
-            KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
+            KeyboardShiftLockButtonFactory factory = Undoable.AddComponent<KeyboardShiftLockButtonFactory>(disposable);
             SetKeyboardToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.on = on;
@@ -163,7 +154,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardABCButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardShiftLockButtonFactory factory = SafeAddComponent<KeyboardShiftLockButtonFactory>(disposable);
+            KeyboardShiftLockButtonFactory factory = Undoable.AddComponent<KeyboardShiftLockButtonFactory>(disposable);
             SetKeyboardToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.on = false;
@@ -172,7 +163,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardNumLockButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardNumLockButtonFactory factory = SafeAddComponent<KeyboardNumLockButtonFactory>(disposable);
+            KeyboardNumLockButtonFactory factory = Undoable.AddComponent<KeyboardNumLockButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.buttonProfile = numLockKeyProfile;
@@ -180,7 +171,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardReturnButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardReturnButtonFactory factory = SafeAddComponent<KeyboardReturnButtonFactory>(disposable);
+            KeyboardReturnButtonFactory factory = Undoable.AddComponent<KeyboardReturnButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.buttonProfile = returnKeyProfile;
@@ -188,7 +179,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardDoneButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardDoneButtonFactory factory = SafeAddComponent<KeyboardDoneButtonFactory>(disposable);
+            KeyboardDoneButtonFactory factory = Undoable.AddComponent<KeyboardDoneButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.buttonProfile = returnKeyProfile;
@@ -196,7 +187,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardSymbolButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardSymbolButtonFactory factory = SafeAddComponent<KeyboardSymbolButtonFactory>(disposable);
+            KeyboardSymbolButtonFactory factory = Undoable.AddComponent<KeyboardSymbolButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.buttonProfile = numLockKeyProfile;
@@ -204,7 +195,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject KeyboardBackspaceButton(StandardPanel panel, GameObject parent, string buttonText) {
-            KeyboardBackspaceButtonFactory factory = SafeAddComponent<KeyboardBackspaceButtonFactory>(disposable);
+            KeyboardBackspaceButtonFactory factory = Undoable.AddComponent<KeyboardBackspaceButtonFactory>(disposable);
             SetKeyboardButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             return GenerateKeyboardButtonAndSetPosition(factory);
@@ -212,7 +203,7 @@ namespace CreateThis.Factory.VR.UI {
 
         protected GameObject ButtonSpacer(GameObject parent, float width) {
             ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
-            ButtonSpacerFactory factory = SafeAddComponent<ButtonSpacerFactory>(disposable);
+            ButtonSpacerFactory factory = Undoable.AddComponent<ButtonSpacerFactory>(disposable);
             factory.parent = parent;
             Vector3 size = profile.bodyScale;
             size.x = width;
@@ -223,7 +214,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
-            RowContainerFactory factory = SafeAddComponent<RowContainerFactory>(disposable);
+            RowContainerFactory factory = Undoable.AddComponent<RowContainerFactory>(disposable);
             factory.containerName = name;
             factory.parent = parent;
             factory.padding = padding;
@@ -233,7 +224,7 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject Column(GameObject parent) {
-            ColumnContainerFactory factory = SafeAddComponent<ColumnContainerFactory>(disposable);
+            ColumnContainerFactory factory = Undoable.AddComponent<ColumnContainerFactory>(disposable);
             factory.parent = parent;
             factory.padding = padding;
             factory.spacing = spacing;
@@ -242,14 +233,14 @@ namespace CreateThis.Factory.VR.UI {
 
         protected GameObject Panel(GameObject parent, string name) {
             PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
-            PanelContainerFactory factory = SafeAddComponent<PanelContainerFactory>(disposable);
+            PanelContainerFactory factory = Undoable.AddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
             factory.containerName = name;
             factory.panelContainerProfile = profile;
             GameObject panel = factory.Generate();
 
             PanelProfile subPanelProfile = CreateSubPanelProfile(panel);
-            StandardPanel standardPanel = SafeAddComponent<StandardPanel>(panel);
+            StandardPanel standardPanel = Undoable.AddComponent<StandardPanel>(panel);
             standardPanel.panelProfile = subPanelProfile;
             standardPanel.grabTarget = keyboard.transform;
 
@@ -262,7 +253,7 @@ namespace CreateThis.Factory.VR.UI {
             }
 #endif
 
-            Rigidbody rigidbody = SafeAddComponent<Rigidbody>(panel);
+            Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(panel);
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
 
@@ -277,19 +268,19 @@ namespace CreateThis.Factory.VR.UI {
             label.transform.localScale = profile.labelScale;
             Vector3 localPosition = new Vector3(0, 0, profile.labelZ);
             label.transform.localPosition = localPosition;
-            TextMesh textMesh = SafeAddComponent<TextMesh>(label);
+            TextMesh textMesh = Undoable.AddComponent<TextMesh>(label);
             textMesh.text = "keyboard display";
             textMesh.fontSize = profile.fontSize;
             textMesh.color = profile.fontColor;
             textMesh.anchor = TextAnchor.MiddleCenter;
 
-            KeyboardLabel keyboardLabel = SafeAddComponent<KeyboardLabel>(label);
+            KeyboardLabel keyboardLabel = Undoable.AddComponent<KeyboardLabel>(label);
             keyboardLabel.keyboard = keyboard;
             keyboardLabel.textMesh = textMesh;
 
-            BoxCollider boxCollider = SafeAddComponent<BoxCollider>(label);
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(label);
 
-            UpdateBoxColliderFromTextMesh updateBoxCollider = SafeAddComponent<UpdateBoxColliderFromTextMesh>(label);
+            UpdateBoxColliderFromTextMesh updateBoxCollider = Undoable.AddComponent<UpdateBoxColliderFromTextMesh>(label);
             updateBoxCollider.textMesh = textMesh;
             updateBoxCollider.boxCollider = boxCollider;
 
@@ -354,7 +345,7 @@ namespace CreateThis.Factory.VR.UI {
             if (keyboardInstance) return;
             keyboardInstance = EmptyChild(parent, "keyboard");
 
-            keyboard = SafeAddComponent<Keyboard>(keyboardInstance);
+            keyboard = Undoable.AddComponent<Keyboard>(keyboardInstance);
             keyboard.panelProfile = panelProfile;
         }
 
