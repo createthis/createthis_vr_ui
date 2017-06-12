@@ -12,6 +12,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         public void PopulateButton(KnownFolderButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
             base.PopulateButton(button, audioSourceDown, audioSourceUp);
             button.knownFolder = knownFolder;
+            button.filePanel = filePanel;
         }
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
