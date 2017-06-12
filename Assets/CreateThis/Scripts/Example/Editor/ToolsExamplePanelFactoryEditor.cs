@@ -12,11 +12,6 @@ namespace CreateThis.Example {
         SerializedProperty panelContainerProfile;
         SerializedProperty momentaryButtonProfile;
         SerializedProperty toggleButtonProfile;
-        SerializedProperty folderPrefab;
-        SerializedProperty buttonZ;
-        SerializedProperty padding;
-        SerializedProperty spacing;
-        SerializedProperty labelCharacterSize;
         SerializedProperty fileOpen;
         SerializedProperty fileSaveAs;
         SerializedProperty skyboxManager;
@@ -28,11 +23,6 @@ namespace CreateThis.Example {
             panelContainerProfile = serializedObject.FindProperty("panelContainerProfile");
             momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
             toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
-            folderPrefab = serializedObject.FindProperty("folderPrefab");
-            buttonZ = serializedObject.FindProperty("buttonZ");
-            padding = serializedObject.FindProperty("padding");
-            spacing = serializedObject.FindProperty("spacing");
-            labelCharacterSize = serializedObject.FindProperty("labelCharacterSize");
             panelProfile = serializedObject.FindProperty("panelProfile");
             fileOpen = serializedObject.FindProperty("fileOpen");
             fileSaveAs = serializedObject.FindProperty("fileSaveAs");
@@ -58,11 +48,6 @@ namespace CreateThis.Example {
             EditorGUILayout.PropertyField(panelContainerProfile);
             EditorGUILayout.PropertyField(momentaryButtonProfile);
             EditorGUILayout.PropertyField(toggleButtonProfile);
-            EditorGUILayout.PropertyField(folderPrefab);
-            EditorGUILayout.PropertyField(buttonZ);
-            EditorGUILayout.PropertyField(padding);
-            EditorGUILayout.PropertyField(spacing);
-            EditorGUILayout.PropertyField(labelCharacterSize);
             EditorGUILayout.PropertyField(fileOpen);
             EditorGUILayout.PropertyField(fileSaveAs);
             EditorGUILayout.PropertyField(skyboxManager);

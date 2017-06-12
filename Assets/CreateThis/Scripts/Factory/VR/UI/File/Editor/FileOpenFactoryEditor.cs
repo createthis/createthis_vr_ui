@@ -11,10 +11,7 @@ namespace CreateThis.Factory.VR.UI.File {
         SerializedProperty panelContainerProfile;
         SerializedProperty momentaryButtonProfile;
         SerializedProperty toggleButtonProfile;
-        SerializedProperty folderPrefab;
-        SerializedProperty kineticScrollerSpacing;
-        SerializedProperty scrollerHeight;
-        SerializedProperty searchPattern;
+        SerializedProperty filePanelProfile;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -23,11 +20,7 @@ namespace CreateThis.Factory.VR.UI.File {
             panelContainerProfile = serializedObject.FindProperty("panelContainerProfile");
             momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
             toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
-            folderPrefab = serializedObject.FindProperty("folderPrefab");
-            kineticScrollerSpacing = serializedObject.FindProperty("kineticScrollerSpacing");
-            scrollerHeight = serializedObject.FindProperty("scrollerHeight");
-            searchPattern = serializedObject.FindProperty("searchPattern");
-            panelProfile = serializedObject.FindProperty("panelProfile");
+            filePanelProfile = serializedObject.FindProperty("filePanelProfile");
         }
 
         protected override void BuildGenerateButton() {
@@ -49,10 +42,7 @@ namespace CreateThis.Factory.VR.UI.File {
             EditorGUILayout.PropertyField(panelContainerProfile);
             EditorGUILayout.PropertyField(momentaryButtonProfile);
             EditorGUILayout.PropertyField(toggleButtonProfile);
-            EditorGUILayout.PropertyField(folderPrefab);
-            EditorGUILayout.PropertyField(kineticScrollerSpacing);
-            EditorGUILayout.PropertyField(scrollerHeight);
-            EditorGUILayout.PropertyField(searchPattern);
+            EditorGUILayout.PropertyField(filePanelProfile);
         }
     }
 }

@@ -4,6 +4,7 @@
         public static ButtonProfile momentaryButton;
         public static ButtonProfile toggleButton;
         public static PanelContainerProfile panelContainer;
+        public static FilePanelProfile filePanel;
 
         private static T OverrideDefault<T>(T defaultProfile, T overrideProfile) {
             T result = defaultProfile;
@@ -13,6 +14,10 @@
 
         public static PanelProfile GetProfile(PanelProfile overrideProfile) {
             return OverrideDefault(panel, overrideProfile);
+        }
+
+        public static FilePanelProfile GetProfile(FilePanelProfile overrideProfile) {
+            return OverrideDefault(filePanel, overrideProfile);
         }
 
         public static ButtonProfile GetMomentaryButtonProfile(ButtonProfile overrideProfile) {

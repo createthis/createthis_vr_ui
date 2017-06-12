@@ -24,10 +24,7 @@ namespace CreateThis.Factory.VR.UI.File {
         public PanelContainerProfile panelContainerProfile;
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
-        public GameObject folderPrefab;
-        public float kineticScrollerSpacing;
-        public float scrollerHeight;
-        public string searchPattern;
+        public FilePanelProfile filePanelProfile;
 
         private GameObject fileOpenContainerInstance;
         private Rigidbody fileOpenContainerRigidbody;
@@ -104,6 +101,7 @@ namespace CreateThis.Factory.VR.UI.File {
 
         protected GameObject Panel(GameObject parent, string name) {
             PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
+            FilePanelProfile fpProfile = Defaults.GetProfile(filePanelProfile);
             PanelContainerFactory factory = Undoable.AddComponent<PanelContainerFactory>(disposable);
             factory.parent = parent;
             factory.containerName = name;
@@ -112,10 +110,10 @@ namespace CreateThis.Factory.VR.UI.File {
 
             fileOpenPanel = Undoable.AddComponent<FileOpen>(panel);
             fileOpenPanel.grabTarget = fileOpenContainerInstance.transform;
-            fileOpenPanel.folderPrefab = folderPrefab;
+            fileOpenPanel.folderPrefab = fpProfile.folderPrefab;
             fileOpenPanel.kineticScrollItemPrefab = kineticScrollerItem;
-            fileOpenPanel.height = scrollerHeight;
-            fileOpenPanel.searchPattern = searchPattern;
+            fileOpenPanel.height = fpProfile.scrollerHeight;
+            fileOpenPanel.searchPattern = fpProfile.searchPattern;
             fileOpenPanel.panelProfile = panelProfile;
 
 #if VRTK
@@ -209,9 +207,10 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         private GameObject CreateKineticScroller(GameObject parent) {
+            FilePanelProfile fpProfile = Defaults.GetProfile(filePanelProfile);
             kineticScrollerInstance = EmptyChild(parent, "KineticScroller");
             kineticScroller = Undoable.AddComponent<KineticScroller>(kineticScrollerInstance);
-            kineticScroller.space = kineticScrollerSpacing;
+            kineticScroller.space = fpProfile.kineticScrollerSpacing;
             fileOpenPanel.kineticScroller = kineticScroller;
 
             Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(kineticScrollerInstance);
@@ -248,9 +247,10 @@ namespace CreateThis.Factory.VR.UI.File {
         protected void FileOpenPanel(GameObject parent) {
             if (fileOpenInstance) return;
 
+            FilePanelProfile fpProfile = Defaults.GetProfile(filePanelProfile);
             fileOpenInstance = EmptyChild(parent, "FileOpenPanel");
             Vector3 localPosition = fileOpenInstance.transform.localPosition;
-            localPosition.y = -scrollerHeight * 1.50f;
+            localPosition.y = -fpProfile.scrollerHeight * 1.50f;
             fileOpenInstance.transform.localPosition = localPosition;
 
             Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(fileOpenInstance);
