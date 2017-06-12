@@ -25,10 +25,6 @@ namespace CreateThis.Factory.VR.UI.File {
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
         public GameObject folderPrefab;
-        public float buttonZ;
-        public float padding;
-        public float spacing;
-        public float labelCharacterSize;
         public float kineticScrollerSpacing;
         public float scrollerHeight;
         public string searchPattern;
@@ -55,8 +51,9 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected void SetKeyboardButtonPosition(GameObject button) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             Vector3 localPosition = button.transform.localPosition;
-            localPosition.z = buttonZ;
+            localPosition.z = profile.buttonZ;
             button.transform.localPosition = localPosition;
         }
 
@@ -86,20 +83,22 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             RowContainerFactory factory = Undoable.AddComponent<RowContainerFactory>(disposable);
             factory.containerName = name;
             factory.parent = parent;
-            factory.padding = padding;
-            factory.spacing = spacing;
+            factory.padding = profile.padding;
+            factory.spacing = profile.spacing;
             factory.alignment = alignment;
             return factory.Generate();
         }
 
         protected GameObject Column(GameObject parent) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             ColumnContainerFactory factory = Undoable.AddComponent<ColumnContainerFactory>(disposable);
             factory.parent = parent;
-            factory.padding = padding;
-            factory.spacing = spacing;
+            factory.padding = profile.padding;
+            factory.spacing = profile.spacing;
             return factory.Generate();
         }
 
@@ -138,6 +137,7 @@ namespace CreateThis.Factory.VR.UI.File {
         }
 
         protected GameObject Label(GameObject parent, string name, string text) {
+            PanelContainerProfile pcProfile = Defaults.GetProfile(panelContainerProfile);
             ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
             GameObject label = EmptyChild(parent, name);
             label.transform.localScale = profile.labelScale;
@@ -147,7 +147,7 @@ namespace CreateThis.Factory.VR.UI.File {
             textMesh.text = text;
             textMesh.fontSize = profile.fontSize;
             textMesh.color = profile.fontColor;
-            textMesh.characterSize = labelCharacterSize;
+            textMesh.characterSize = pcProfile.labelCharacterSize;
             textMesh.anchor = TextAnchor.MiddleCenter;
 
             BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(label);

@@ -11,9 +11,6 @@ namespace CreateThis.Factory.VR.UI {
         SerializedProperty panelContainerProfile;
         SerializedProperty momentaryButtonProfile;
         SerializedProperty toggleButtonProfile;
-        SerializedProperty buttonZ;
-        SerializedProperty padding;
-        SerializedProperty spacing;
         SerializedProperty keyMinWidth;
         SerializedProperty keyCharacterSize;
         SerializedProperty numLockCharacterSize;
@@ -30,9 +27,6 @@ namespace CreateThis.Factory.VR.UI {
             panelContainerProfile = serializedObject.FindProperty("panelContainerProfile");
             momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
             toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
-            buttonZ = serializedObject.FindProperty("buttonZ");
-            padding = serializedObject.FindProperty("padding");
-            spacing = serializedObject.FindProperty("spacing");
             keyMinWidth = serializedObject.FindProperty("keyMinWidth");
             keyCharacterSize = serializedObject.FindProperty("keyCharacterSize");
             numLockCharacterSize = serializedObject.FindProperty("numLockCharacterSize");
@@ -62,9 +56,6 @@ namespace CreateThis.Factory.VR.UI {
             EditorGUILayout.PropertyField(panelContainerProfile);
             EditorGUILayout.PropertyField(momentaryButtonProfile);
             EditorGUILayout.PropertyField(toggleButtonProfile);
-            EditorGUILayout.PropertyField(buttonZ);
-            EditorGUILayout.PropertyField(padding);
-            EditorGUILayout.PropertyField(spacing);
             EditorGUILayout.PropertyField(keyMinWidth);
             EditorGUILayout.PropertyField(keyCharacterSize);
             EditorGUILayout.PropertyField(numLockCharacterSize);

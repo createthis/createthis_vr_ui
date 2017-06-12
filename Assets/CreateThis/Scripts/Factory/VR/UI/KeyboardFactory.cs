@@ -20,9 +20,6 @@ namespace CreateThis.Factory.VR.UI {
         public PanelContainerProfile panelContainerProfile;
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
-        public float buttonZ;
-        public float padding;
-        public float spacing;
         public float keyMinWidth;
         public float keyCharacterSize;
         public float numLockCharacterSize;
@@ -115,8 +112,9 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected void SetKeyboardButtonPosition(GameObject button) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             Vector3 localPosition = button.transform.localPosition;
-            localPosition.z = buttonZ;
+            localPosition.z = profile.buttonZ;
             button.transform.localPosition = localPosition;
         }
 
@@ -214,20 +212,22 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             RowContainerFactory factory = Undoable.AddComponent<RowContainerFactory>(disposable);
             factory.containerName = name;
             factory.parent = parent;
-            factory.padding = padding;
-            factory.spacing = spacing;
+            factory.padding = profile.padding;
+            factory.spacing = profile.spacing;
             factory.alignment = alignment;
             return factory.Generate();
         }
 
         protected GameObject Column(GameObject parent) {
+            PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
             ColumnContainerFactory factory = Undoable.AddComponent<ColumnContainerFactory>(disposable);
             factory.parent = parent;
-            factory.padding = padding;
-            factory.spacing = spacing;
+            factory.padding = profile.padding;
+            factory.spacing = profile.spacing;
             return factory.Generate();
         }
 

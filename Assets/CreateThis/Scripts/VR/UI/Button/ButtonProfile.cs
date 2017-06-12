@@ -8,14 +8,14 @@ namespace CreateThis.VR.UI {
         public Material material;
         public Material highlight;
         public Material outline;
-        public int fontSize;
-        public Color fontColor;
-        public float labelZ;
-        public Vector3 bodyScale;
-        public Vector3 labelScale;
-        public float minWidth;
-        public float padding;
-        public float characterSize;
+        public int fontSize = 60;
+        public Color fontColor = Color.white;
+        public float labelZ = -0.01370001f;
+        public Vector3 bodyScale = new Vector3(1, 0.025f, 0.025f);
+        public Vector3 labelScale = new Vector3(0.004f, 0.004f, 0.004f);
+        public float minWidth = 0.025f;
+        public float padding = 0.002f;
+        public float characterSize = 0.8f;
 
         // Use this for initialization
         void Start() {

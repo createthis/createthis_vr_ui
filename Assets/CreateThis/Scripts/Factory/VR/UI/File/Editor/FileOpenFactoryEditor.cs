@@ -12,10 +12,6 @@ namespace CreateThis.Factory.VR.UI.File {
         SerializedProperty momentaryButtonProfile;
         SerializedProperty toggleButtonProfile;
         SerializedProperty folderPrefab;
-        SerializedProperty buttonZ;
-        SerializedProperty padding;
-        SerializedProperty spacing;
-        SerializedProperty labelCharacterSize;
         SerializedProperty kineticScrollerSpacing;
         SerializedProperty scrollerHeight;
         SerializedProperty searchPattern;
@@ -28,10 +24,6 @@ namespace CreateThis.Factory.VR.UI.File {
             momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
             toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
             folderPrefab = serializedObject.FindProperty("folderPrefab");
-            buttonZ = serializedObject.FindProperty("buttonZ");
-            padding = serializedObject.FindProperty("padding");
-            spacing = serializedObject.FindProperty("spacing");
-            labelCharacterSize = serializedObject.FindProperty("labelCharacterSize");
             kineticScrollerSpacing = serializedObject.FindProperty("kineticScrollerSpacing");
             scrollerHeight = serializedObject.FindProperty("scrollerHeight");
             searchPattern = serializedObject.FindProperty("searchPattern");
@@ -58,10 +50,6 @@ namespace CreateThis.Factory.VR.UI.File {
             EditorGUILayout.PropertyField(momentaryButtonProfile);
             EditorGUILayout.PropertyField(toggleButtonProfile);
             EditorGUILayout.PropertyField(folderPrefab);
-            EditorGUILayout.PropertyField(buttonZ);
-            EditorGUILayout.PropertyField(padding);
-            EditorGUILayout.PropertyField(spacing);
-            EditorGUILayout.PropertyField(labelCharacterSize);
             EditorGUILayout.PropertyField(kineticScrollerSpacing);
             EditorGUILayout.PropertyField(scrollerHeight);
             EditorGUILayout.PropertyField(searchPattern);
