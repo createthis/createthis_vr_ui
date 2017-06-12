@@ -20,14 +20,14 @@ namespace CreateThis.Factory.VR.UI {
         public PanelContainerProfile panelContainerProfile;
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
-        public float keyMinWidth;
-        public float keyCharacterSize;
-        public float numLockCharacterSize;
-        public float spaceMinWidth;
-        public float returnMinWidth;
-        public float spacerWidth;
-        public float modeKeyMinWidth;
-        public float wideKeyMinWidth;
+        public float keyMinWidth = 0.025f;
+        public float keyCharacterSize = 0.8f;
+        public float numLockCharacterSize = 0.4f;
+        public float spaceMinWidth = 0.272f;
+        public float returnMinWidth = 0.07f;
+        public float spacerWidth = 0.001f;
+        public float modeKeyMinWidth = 0.025f;
+        public float wideKeyMinWidth = 0.0435f;
 
         private Keyboard keyboard;
         private GameObject keyboardInstance;
