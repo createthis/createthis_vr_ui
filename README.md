@@ -39,4 +39,4 @@ Slack channel: [createthisvrui.slack.com](https://createthisvrui.slack.com) [Joi
 
 # Patreon
 
-Love this project and want to help it be successful? Support us on Patreon, today: [CreateThis VR UI Patreon Page](https://www.patreon.com/user?u=2499700)
+Love this project and want to help it be successful? Support us on Patreon, today: [CreateThis VR UI Patreon Page](https://www.patreon.com/createthis)
