@@ -119,8 +119,8 @@ namespace CreateThis.Factory.VR.UI.File {
 
 #if VRTK
             if (useVRTK) {
-                CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(panel);
-                CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(panel);
+                CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
+                CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
                 interactable.isGrabbable = true;
                 interactable.grabAttachMechanicScript = grabAttach;
             }

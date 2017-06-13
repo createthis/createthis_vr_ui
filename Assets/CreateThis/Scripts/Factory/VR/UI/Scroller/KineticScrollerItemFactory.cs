@@ -48,8 +48,8 @@ namespace CreateThis.Factory.VR.UI.Scroller {
 
 #if VRTK
             if (useVRTK) {
-                CreateThis_VRTK_Interactable interactable = SafeAddComponent<CreateThis_VRTK_Interactable>(kineticScrollerItemInstance);
-                CreateThis_VRTK_GrabAttach grabAttach = SafeAddComponent<CreateThis_VRTK_GrabAttach>(kineticScrollerItemInstance);
+                CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(kineticScrollerItemInstance);
+                CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(kineticScrollerItemInstance);
                 interactable.isGrabbable = true;
                 interactable.grabAttachMechanicScript = grabAttach;
             }

@@ -91,7 +91,7 @@ namespace CreateThis.Factory.VR.UI.Button {
 
 #if VRTK
             if (useVRTK) {
-                SafeAddComponent<CreateThis_VRTK_Interactable>(buttonInstance);
+                Undoable.AddComponent<CreateThis_VRTK_Interactable>(buttonInstance);
             }
 #endif
 
