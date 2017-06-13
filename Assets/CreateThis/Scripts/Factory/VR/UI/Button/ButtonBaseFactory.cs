@@ -90,9 +90,7 @@ namespace CreateThis.Factory.VR.UI.Button {
             rigidBody.isKinematic = true;
 
 #if VRTK
-            if (useVRTK) {
-                Undoable.AddComponent<CreateThis_VRTK_Interactable>(buttonInstance);
-            }
+            Undoable.AddComponent<CreateThis_VRTK_Interactable>(buttonInstance);
 #endif
 
             Selectable selectable = Undoable.AddComponent<Selectable>(buttonInstance);

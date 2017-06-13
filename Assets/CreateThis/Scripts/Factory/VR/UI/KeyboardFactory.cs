@@ -92,9 +92,6 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         protected void SetButtonValues(ButtonBaseFactory factory, StandardPanel panel, GameObject parent) {
-#if VRTK
-            factory.useVRTK = useVRTK;
-#endif
             factory.parent = parent;
             factory.buttonProfile = keyProfile;
             factory.alignment = TextAlignment.Center;
@@ -245,12 +242,10 @@ namespace CreateThis.Factory.VR.UI {
             standardPanel.grabTarget = keyboard.transform;
 
 #if VRTK
-            if (useVRTK) {
-                CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
-                CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
-                interactable.isGrabbable = true;
-                interactable.grabAttachMechanicScript = grabAttach;
-            }
+            CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
+            CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
+            interactable.isGrabbable = true;
+            interactable.grabAttachMechanicScript = grabAttach;
 #endif
 
             Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(panel);

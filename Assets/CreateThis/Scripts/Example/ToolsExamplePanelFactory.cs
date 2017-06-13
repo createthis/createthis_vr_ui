@@ -30,9 +30,6 @@ namespace CreateThis.Example {
         private StandardPanel toolsPanel;
 
         protected void SetMomentaryButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
-#if VRTK
-            factory.useVRTK = useVRTK;
-#endif
             factory.parent = parent;
             factory.buttonProfile = momentaryButtonProfile;
             factory.alignment = TextAlignment.Center;
@@ -40,9 +37,6 @@ namespace CreateThis.Example {
         }
 
         protected void SetToggleButtonValues(ToggleButtonFactory factory, StandardPanel panel, GameObject parent) {
-#if VRTK
-            factory.useVRTK = useVRTK;
-#endif
             factory.parent = parent;
             factory.buttonProfile = toggleButtonProfile;
             factory.alignment = TextAlignment.Center;
@@ -118,12 +112,10 @@ namespace CreateThis.Example {
             toolsPanel = standardPanel;
 
 #if VRTK
-            if (useVRTK) {
-                CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
-                CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
-                interactable.isGrabbable = true;
-                interactable.grabAttachMechanicScript = grabAttach;
-            }
+            CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
+            CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
+            interactable.isGrabbable = true;
+            interactable.grabAttachMechanicScript = grabAttach;
 #endif
 
             Rigidbody rigidbody = Undoable.AddComponent<Rigidbody>(panel);

@@ -35,9 +35,6 @@ namespace CreateThis.Factory.VR.UI.File {
         protected GameObject kineticScrollerInstance;
 
         protected void SetButtonValues(MomentaryButtonFactory factory, StandardPanel panel, GameObject parent) {
-#if VRTK
-            factory.useVRTK = useVRTK;
-#endif
             factory.parent = parent;
             factory.buttonProfile = momentaryButtonProfile;
             factory.alignment = TextAlignment.Center;
@@ -118,12 +115,10 @@ namespace CreateThis.Factory.VR.UI.File {
             filePanel.panelProfile = panelProfile;
 
 #if VRTK
-            if (useVRTK) {
-                CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
-                CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
-                interactable.isGrabbable = true;
-                interactable.grabAttachMechanicScript = grabAttach;
-            }
+            CreateThis_VRTK_Interactable interactable = Undoable.AddComponent<CreateThis_VRTK_Interactable>(panel);
+            CreateThis_VRTK_GrabAttach grabAttach = Undoable.AddComponent<CreateThis_VRTK_GrabAttach>(panel);
+            interactable.isGrabbable = true;
+            interactable.grabAttachMechanicScript = grabAttach;
 #endif
 
             drives = Undoable.AddComponent<Drives>(panel);
@@ -194,9 +189,6 @@ namespace CreateThis.Factory.VR.UI.File {
 
         protected GameObject CreateKineticScrollerItem(GameObject parent) {
             KineticScrollerItemFactory kineticScrollerItemFactory = Undoable.AddComponent<KineticScrollerItemFactory>(disposable);
-#if VRTK
-            kineticScrollerItemFactory.useVRTK = useVRTK;
-#endif
             ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
 
             kineticScrollerItemFactory.parent = parent;
