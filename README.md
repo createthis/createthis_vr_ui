@@ -4,6 +4,7 @@ This project contains the full source code for the [Mesh Maker VR](http://store.
 Factory scripts are provided to quickly build these components from the Editor or from code. The intent is to save time when designing complex VR application UIs.
 
 [![Youtube Video Overview](https://img.youtube.com/vi/4BQ3y7y577U/0.jpg)](https://www.youtube.com/watch?v=4BQ3y7y577U)
+[![VR UI Profiles](https://img.youtube.com/vi/qdyMXNkXdQY/0.jpg)](https://youtu.be/qdyMXNkXdQY)
 
 # Dependencies
 
