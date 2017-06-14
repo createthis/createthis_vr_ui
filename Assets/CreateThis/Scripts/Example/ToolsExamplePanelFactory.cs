@@ -23,7 +23,7 @@ namespace CreateThis.Example {
         public ButtonProfile toggleButtonProfile;
         public FileOpen fileOpen;
         public FileSaveAs fileSaveAs;
-        public SkyboxManager skyboxManager;
+        public ExampleSkyboxManager skyboxManager;
 
         private GameObject disposable;
         private GameObject toolsPanelInstance;
@@ -71,7 +71,7 @@ namespace CreateThis.Example {
         }
 
         protected GameObject SkyboxButton(StandardPanel panel, GameObject parent, string buttonText, string skybox) {
-            SkyboxButtonFactory factory = Undoable.AddComponent<SkyboxButtonFactory>(disposable);
+            ExampleSkyboxButtonFactory factory = Undoable.AddComponent<ExampleSkyboxButtonFactory>(disposable);
             SetToggleButtonValues(factory, panel, parent);
             factory.buttonText = buttonText;
             factory.skybox = skybox;

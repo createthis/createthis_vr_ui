@@ -3,11 +3,12 @@ using CreateThis.VR.UI.Interact;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using CreateThis.VR.UI.Button;
 
-namespace CreateThis.VR.UI.Button {
-    public class SkyboxButton : ToggleButton {
+namespace CreateThis.Example {
+    public class ExampleSkyboxButton : ToggleButton {
         public string skybox;
-        public SkyboxManager skyboxManager;
+        public ExampleSkyboxManager skyboxManager;
 
         protected override void HitTravelLimitHandler(Transform controller, int controllerIndex) {
             // ShiftLock does NOT change the On state when it hits the travel limit. It's On state may only be set externally.
@@ -40,7 +41,7 @@ namespace CreateThis.VR.UI.Button {
         // Use this for initialization
         void Start() {
             Initialize();
-            SkyboxManager.OnSkyboxChanged += SkyboxChanged;
+            ExampleSkyboxManager.OnSkyboxChanged += SkyboxChanged;
             SkyboxChanged();
         }
     }

@@ -15,7 +15,7 @@ using CreateThis.VR.UI.Controller;
 namespace CreateThis.Example {
     public class ExampleMasterUIFactory : BaseFactory {
         public GameObject parent;
-        public SkyboxManager skyboxManager;
+        public ExampleSkyboxManager skyboxManager;
         public TouchPadMenuController touchPadMenuController;
 
         private GameObject disposable;

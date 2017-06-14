@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using CreateThis.Unity;
-using CreateThis.VR.UI.Button;
+using CreateThis.Factory.VR.UI.Button;
 
-namespace CreateThis.Factory.VR.UI.Button {
-    public class SkyboxButtonFactory : ToggleButtonFactory {
+namespace CreateThis.Example {
+    public class ExampleSkyboxButtonFactory : ToggleButtonFactory {
         public string skybox;
-        public SkyboxManager skyboxManager;
+        public ExampleSkyboxManager skyboxManager;
 
-        public void PopulateButton(SkyboxButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
+        public void PopulateButton(ExampleSkyboxButton button, AudioSource audioSourceDown, AudioSource audioSourceUp) {
             base.PopulateButton(button, audioSourceDown, audioSourceUp);
             button.clickOnTriggerExit = true;
             button.skybox = skybox;
@@ -15,7 +15,7 @@ namespace CreateThis.Factory.VR.UI.Button {
         }
 
         protected override void AddButton(GameObject target, AudioSource audioSourceDown, AudioSource audioSourceUp) {
-            SkyboxButton button = Undoable.AddComponent<SkyboxButton>(target);
+            ExampleSkyboxButton button = Undoable.AddComponent<ExampleSkyboxButton>(target);
             PopulateButton(button, audioSourceDown, audioSourceUp);
         }
     }

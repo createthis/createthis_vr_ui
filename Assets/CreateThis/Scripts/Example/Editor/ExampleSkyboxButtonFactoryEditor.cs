@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using CreateThis.Factory.VR.UI.Button;
 
-namespace CreateThis.Factory.VR.UI.Button {
-    [CustomEditor(typeof(SkyboxButtonFactory))]
+namespace CreateThis.Example {
+    [CustomEditor(typeof(ExampleSkyboxButtonFactory))]
     [CanEditMultipleObjects]
-    public class SkyboxButtonFactoryEditor : ToggleButtonFactoryEditor {
+    public class ExampleSkyboxButtonFactoryEditor : ToggleButtonFactoryEditor {
         SerializedProperty skybox;
         SerializedProperty skyboxManager;
 
@@ -16,8 +17,8 @@ namespace CreateThis.Factory.VR.UI.Button {
 
         protected override void BuildGenerateButton() {
             if (GUILayout.Button("Generate")) {
-                if (target.GetType() == typeof(SkyboxButtonFactory)) {
-                    SkyboxButtonFactory buttonFactory = (SkyboxButtonFactory)target;
+                if (target.GetType() == typeof(ExampleSkyboxButtonFactory)) {
+                    ExampleSkyboxButtonFactory buttonFactory = (ExampleSkyboxButtonFactory)target;
                     buttonFactory.Generate();
                 }
             }
