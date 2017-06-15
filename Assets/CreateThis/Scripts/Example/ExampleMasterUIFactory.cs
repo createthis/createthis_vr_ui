@@ -2,6 +2,7 @@
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.Events;
 #endif
 using CreateThis.Unity;
 using CreateThis.Factory;
@@ -65,8 +66,10 @@ namespace CreateThis.Example {
             toolsInstance = panel;
 
             var touchPadButtons = touchPadMenuController.touchPadButtons;
-            touchPadButtons[0].onSelected.RemoveAllListeners();
-            touchPadButtons[0].onSelected.AddListener(toolsInstance.GetComponent<StandardPanel>().ToggleVisible);
+            for (int i=0; i < touchPadButtons[0].onSelected.GetPersistentEventCount(); i++) {
+                UnityEventTools.RemovePersistentListener(touchPadButtons[0].onSelected, 0);
+            }
+            UnityEventTools.AddPersistentListener(touchPadButtons[0].onSelected, toolsInstance.GetComponent<StandardPanel>().ToggleVisible);
             touchPadMenuController.touchPadButtons = touchPadButtons;
 
             return panel;
