@@ -42,7 +42,7 @@ See https://docs.unity3d.com/Manual/PlatformDependentCompilation.html for more i
 * Container - An object that controllers the layout of child objects.
 * Factory - A script to quickly build aggregate objects.
 * Profile - A MonoBehaviour containing data necessary to populate a UI component.
-* Defaults - static class that contain system wide default Profiles (See VRUI_Defaults gameobject in example scenes for corresponding MonoBehaviour).
+* Defaults - A static class that contains system wide default Profiles (See VRUI_Defaults gameobject in example scenes for corresponding MonoBehaviour).
 
 # Demo
 
