@@ -12,7 +12,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 # Dependencies
 
 * SteamVR Plugin - Download the SteamVR Plugin from the Unity Asset Store. All example scenes require SteamVR, though theoretically the VRTK scene could be modified to use Oculus SDK instead.
-* Color Picker (optional) - Download the Free `Simple color picker` asset from the Unity Asset Store by Filipp, Keks. Next, add the `;COLOR_PICKER` *Platform custom #define* (see instructions below).
+* Color Picker (optional) - Download the Free `Simple color picker` asset from the Unity Asset Store by Filipp, Keks [link](http://u3d.as/4iC). Next, add the `;COLOR_PICKER` *Platform custom #define* (see instructions below).
 * VRTK (optional) - Download VRTK via git and copy Assets/VRTK over. You will also need to add the `;VRTK` *Platform custom #define* (see instructions below).
 
 # Platform Custom Defines
