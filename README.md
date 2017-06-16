@@ -17,9 +17,10 @@ Factory scripts are provided to quickly build these components from the Editor o
 
 # Platform Custom Defines
 
-To add a *Platform custom #define* in Unity, go to `File -> Build Settings -> Other Settings -> Scripting Define Symbols`.
-Append your custom define to the list. Make sure you press ENTER after typing the define or it won't save. Also, you may want to exit Unity and delete your Library
-folder in order to force Unity to recompile all scripts using the new custom define.
+To add a *Platform custom #define* in Unity:
+1. Navigate to `File -> Build Settings -> Other Settings -> Scripting Define Symbols`.
+1. Append your custom define to the list. Make sure you press ENTER after typing the define or it won't save.
+1. You may want to exit Unity and delete your Library folder in order to force Unity to recompile all scripts using the new custom define.
 
 See https://docs.unity3d.com/Manual/PlatformDependentCompilation.html for more info.
 
