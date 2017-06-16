@@ -11,7 +11,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 
 # Dependencies
 
-* Download the SteamVR Plugin from the Unity Asset Store. The example scenes require SteamVR, though theoretically the VRTK scene could be modified to use Oculus SDK instead.
+* SteamVR Plugin - Download the SteamVR Plugin from the Unity Asset Store. All example scenes require SteamVR, though theoretically the VRTK scene could be modified to use Oculus SDK instead.
 * Color Picker (optional) - Download the Free `Simple color picker` asset from the Unity Asset Store by Filipp, Keks. Next, add the `;COLOR_PICKER` *Platform custom #define* (see instructions below).
 * VRTK (optional) - Download VRTK via git and copy Assets/VRTK over. You will also need to add the `;VRTK` *Platform custom #define* (see instructions below).
 
@@ -26,7 +26,7 @@ See https://docs.unity3d.com/Manual/PlatformDependentCompilation.html for more i
 
 # NOTES
 
-* The current version of VRTK adds "None" to the Supported VR SDK manager in Settings -> Player, by default.
+* The current version of VRTK adds `None` to the Supported VR SDK manager in Settings -> Player, by default.
   This makes switching between non-vrtk and vrtk scenes difficult, so we've disabled the *Auto Manage VR Settings* checkbox on the VRTK object in the VRTK scene.
   We've also defaulted the SDK to SteamVR.
 * The TranslucentController.cs script only works with SteamVR at the moment (because VRTK provides no way to change the default controller model material), so the VRTK examples only work with SteamVR.
