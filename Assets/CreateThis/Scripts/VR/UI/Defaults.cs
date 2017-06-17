@@ -5,6 +5,7 @@
         public static ButtonProfile toggleButton;
         public static PanelContainerProfile panelContainer;
         public static FilePanelProfile filePanel;
+        public static ColorPickerProfile colorPicker;
 
         private static T OverrideDefault<T>(T defaultProfile, T overrideProfile) {
             T result = defaultProfile;
@@ -30,6 +31,10 @@
 
         public static PanelContainerProfile GetProfile(PanelContainerProfile overrideProfile) {
             return OverrideDefault(panelContainer, overrideProfile);
+        }
+
+        public static ColorPickerProfile GetProfile(ColorPickerProfile overrideProfile) {
+            return OverrideDefault(colorPicker, overrideProfile);
         }
     }
 }

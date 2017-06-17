@@ -7,10 +7,12 @@ namespace CreateThis.Factory.VR.UI {
 
     public class ColorPickerFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
+        SerializedProperty colorPickerProfile;
 
         protected override void OnEnable() {
             base.OnEnable();
             parent = serializedObject.FindProperty("parent");
+            colorPickerProfile = serializedObject.FindProperty("colorPickerProfile");
         }
 
         protected override void BuildGenerateButton() {
@@ -28,6 +30,7 @@ namespace CreateThis.Factory.VR.UI {
         protected override void AdditionalProperties() {
             base.AdditionalProperties();
             EditorGUILayout.PropertyField(parent);
+            EditorGUILayout.PropertyField(colorPickerProfile);
         }
     }
 }

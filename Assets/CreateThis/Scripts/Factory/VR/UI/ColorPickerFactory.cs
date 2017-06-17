@@ -9,18 +9,19 @@ using CreateThis.VR.UI;
 namespace CreateThis.Factory.VR.UI {
     public class ColorPickerFactory : BaseFactory {
         public GameObject parent;
-        public ButtonProfile buttonProfile;
+        public ColorPickerProfile colorPickerProfile;
 
         private GameObject colorPickerInstance;
 
         private GameObject CreateColorSaturationBrightnessThumb(GameObject parent) {
             GameObject thumb = EmptyChild(parent, "ColorSaturationBrightnessThumb");
             MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(thumb);
-            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(buttonProfile);
-            meshFilter.mesh = profile.buttonBody.GetComponent<MeshFilter>().mesh;
-            thumb.transform.localPosition = new Vector3(-0.108f, 0.009f, -1.74f);
-            thumb.transform.localScale = new Vector3(0.03703703f, 0.01355932f, 0);
+            ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
+            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
+            thumb.transform.localPosition = profile.thumbLocalPosition;
+            thumb.transform.localScale = profile.thumbScale;
             MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(thumb);
+            meshRenderer.materials = new Material[] { profile.thumbMaterial };
 
             return thumb;
         }
