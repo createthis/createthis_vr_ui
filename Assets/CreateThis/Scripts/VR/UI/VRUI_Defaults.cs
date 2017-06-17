@@ -7,7 +7,9 @@ namespace CreateThis.VR.UI {
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
         public FilePanelProfile filePanelProfile;
+#if COLOR_PICKER
         public ColorPickerProfile colorPickerProfile;
+#endif
 
         void OnValidate() {
             if (panelProfile != null) Defaults.panel = panelProfile;
@@ -15,7 +17,9 @@ namespace CreateThis.VR.UI {
             if (momentaryButtonProfile != null) Defaults.momentaryButton = momentaryButtonProfile;
             if (toggleButtonProfile != null) Defaults.toggleButton = toggleButtonProfile;
             if (filePanelProfile != null) Defaults.filePanel = filePanelProfile;
+#if COLOR_PICKER
             if (colorPickerProfile != null) Defaults.colorPicker = colorPickerProfile;
+#endif
         }
 
         // Use this for initialization

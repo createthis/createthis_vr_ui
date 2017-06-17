@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if COLOR_PICKER
+using UnityEngine;
 using UnityEditor;
 
 namespace CreateThis.Factory.VR.UI {
@@ -34,3 +35,4 @@ namespace CreateThis.Factory.VR.UI {
         }
     }
 }
+#endif

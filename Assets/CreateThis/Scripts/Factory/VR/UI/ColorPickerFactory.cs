@@ -15,6 +15,7 @@ namespace CreateThis.Factory.VR.UI {
         private GameObject colorHuePickerThumbInstance;
         private GameObject colorPickerContainerInstance;
         private GameObject colorHuePickerInstance;
+        private GameObject colorSaturationBrightnessPickerInstance;
 
         private GameObject CreateColorSaturationBrightnessThumb(GameObject parent) {
             GameObject thumb = EmptyChild(parent, "ColorSaturationBrightnessThumb");
@@ -50,14 +51,60 @@ namespace CreateThis.Factory.VR.UI {
 
         private GameObject CreateColorHuePicker(GameObject parent) {
             GameObject container = EmptyChild(parent, "ColorHuePicker");
-            // FIXME: This needs to be Touchable
-            MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(container);
             ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
-            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
             container.transform.localPosition = profile.huePickerLocalPosition;
             container.transform.localScale = profile.huePickerScale;
+
+            Undoable.AddComponent<ColorHuePicker>(container);
+
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(container);
+            boxCollider.isTrigger = true;
+
+            // FIXME: This needs to be Touchable
+
+            MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(container);
+            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
+
             MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(container);
             meshRenderer.materials = new Material[] { profile.colorHueMaterial };
+            return container;
+        }
+
+        private GameObject CreateColorIndicator(GameObject parent) {
+            GameObject container = EmptyChild(parent, "ColorIndicator");
+            ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
+            container.transform.localPosition = profile.colorIndicatorLocalPosition;
+            container.transform.localScale = profile.colorIndicatorScale;
+
+            Undoable.AddComponent<ColorIndicator>(container);
+
+            MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(container);
+            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
+            
+            MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(container);
+            meshRenderer.materials = new Material[] { profile.solidColorMaterial };
+            return container;
+        }
+
+        private GameObject CreateColorSaturationBrightnessPicker(GameObject parent) {
+            GameObject container = EmptyChild(parent, "ColorSaturationBrightnessPicker");
+            ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
+            container.transform.localPosition = profile.colorSBLocalPosition;
+            container.transform.localScale = profile.colorSBScale;
+
+            var script = Undoable.AddComponent<ColorSaturationBrightnessPicker>(container);
+            script.backgroundMaterial = profile.colorSaturationBrightnessMaterial;
+
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(container);
+            boxCollider.isTrigger = true;
+
+            // FIXME: This needs to be Touchable
+
+            MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(container);
+            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
+            
+            MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(container);
+            meshRenderer.materials = new Material[] { profile.colorSaturationBrightnessMaterial };
             return container;
         }
 
@@ -81,6 +128,8 @@ namespace CreateThis.Factory.VR.UI {
             colorHuePickerThumbInstance = CreateColorHuePickerThumb(colorPickerInstance);
             colorPickerContainerInstance = CreateColorPickerContainer(colorPickerInstance);
             colorHuePickerInstance = CreateColorHuePicker(colorPickerContainerInstance);
+            CreateColorIndicator(colorPickerContainerInstance);
+            CreateColorSaturationBrightnessPicker(colorPickerContainerInstance);
 #if UNITY_EDITOR
             Undo.CollapseUndoOperations(group);
 #endif
