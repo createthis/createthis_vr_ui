@@ -1,7 +1,7 @@
 ﻿#if COLOR_PICKER
 using UnityEngine;
 
-namespace CreateThis.VR.UI {
+namespace CreateThis.VR.UI.ColorPicker {
     public class ColorPickerProfile : MonoBehaviour {
         public GameObject thumbBody;
         public Material thumbMaterial;

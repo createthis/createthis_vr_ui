@@ -1,4 +1,6 @@
-﻿namespace CreateThis.VR.UI {
+﻿using CreateThis.VR.UI.ColorPicker;
+
+namespace CreateThis.VR.UI {
     public static class Defaults {
         public static PanelProfile panel;
         public static ButtonProfile momentaryButton;

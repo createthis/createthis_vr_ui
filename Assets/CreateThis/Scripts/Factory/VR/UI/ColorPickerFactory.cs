@@ -5,6 +5,9 @@ using UnityEditor;
 #endif
 using CreateThis.Unity;
 using CreateThis.VR.UI;
+#if COLOR_PICKER
+using CreateThis.VR.UI.ColorPicker;
+#endif
 
 namespace CreateThis.Factory.VR.UI {
     public class ColorPickerFactory : BaseFactory {
@@ -12,9 +15,9 @@ namespace CreateThis.Factory.VR.UI {
         public ColorPickerProfile colorPickerProfile;
 
         private GameObject colorPickerInstance;
-        private GameObject colorHuePickerThumbInstance;
+        private GameObject sbThumbInstance;
+        private GameObject hueThumbInstance;
         private GameObject colorPickerContainerInstance;
-        private GameObject colorHuePickerInstance;
         private GameObject colorSaturationBrightnessPickerInstance;
 
         private GameObject CreateColorSaturationBrightnessThumb(GameObject parent) {
@@ -57,6 +60,10 @@ namespace CreateThis.Factory.VR.UI {
 
             Undoable.AddComponent<ColorHuePicker>(container);
 
+            ColorPickerThumbTouchable thumbTouchable = Undoable.AddComponent<ColorPickerThumbTouchable>(container);
+            thumbTouchable.fixY = true;
+            thumbTouchable.thumb = hueThumbInstance.transform;
+
             BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(container);
             boxCollider.isTrigger = true;
 
@@ -95,6 +102,10 @@ namespace CreateThis.Factory.VR.UI {
             var script = Undoable.AddComponent<ColorSaturationBrightnessPicker>(container);
             script.backgroundMaterial = profile.colorSaturationBrightnessMaterial;
 
+            ColorPickerThumbTouchable thumbTouchable = Undoable.AddComponent<ColorPickerThumbTouchable>(container);
+            thumbTouchable.fixY = false;
+            thumbTouchable.thumb = sbThumbInstance.transform;
+
             BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(container);
             boxCollider.isTrigger = true;
 
@@ -124,10 +135,10 @@ namespace CreateThis.Factory.VR.UI {
             Undo.RegisterCompleteObjectUndo(this, "ColorPickerFactory state");
 #endif
             colorPickerInstance = CreateColorPicker(parent);
-            CreateColorSaturationBrightnessThumb(colorPickerInstance);
-            colorHuePickerThumbInstance = CreateColorHuePickerThumb(colorPickerInstance);
+            sbThumbInstance = CreateColorSaturationBrightnessThumb(colorPickerInstance);
+            hueThumbInstance = CreateColorHuePickerThumb(colorPickerInstance);
             colorPickerContainerInstance = CreateColorPickerContainer(colorPickerInstance);
-            colorHuePickerInstance = CreateColorHuePicker(colorPickerContainerInstance);
+            CreateColorHuePicker(colorPickerContainerInstance);
             CreateColorIndicator(colorPickerContainerInstance);
             CreateColorSaturationBrightnessPicker(colorPickerContainerInstance);
 #if UNITY_EDITOR
