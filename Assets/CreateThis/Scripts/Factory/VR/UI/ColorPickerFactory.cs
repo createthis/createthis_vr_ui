@@ -120,8 +120,10 @@ namespace CreateThis.Factory.VR.UI {
         }
 
         private GameObject CreateColorPicker(GameObject parent) {
+            ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
             GameObject colorPicker = EmptyChild(parent, "ColorPicker");
-            Undoable.AddComponent<BoxCollider>(colorPicker);
+            BoxCollider boxCollider = Undoable.AddComponent<BoxCollider>(colorPicker);
+            boxCollider.size = profile.boxColliderSize;
             return colorPicker;
         }
 
