@@ -13,6 +13,10 @@ using CreateThis.VR.UI.Container;
 using CreateThis.Factory;
 using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
+#if COLOR_PICKER
+using CreateThis.VR.UI.ColorPicker;
+using CreateThis.Factory.VR.UI.ColorPicker;
+#endif
 
 namespace CreateThis.Example {
     public class ToolsExamplePanelFactory : BaseFactory {
@@ -21,6 +25,9 @@ namespace CreateThis.Example {
         public PanelContainerProfile panelContainerProfile;
         public ButtonProfile momentaryButtonProfile;
         public ButtonProfile toggleButtonProfile;
+#if COLOR_PICKER
+        public ColorPickerProfile colorPickerProfile;
+#endif
         public FileOpen fileOpen;
         public FileSaveAs fileSaveAs;
         public ExampleSkyboxManager skyboxManager;
@@ -78,6 +85,18 @@ namespace CreateThis.Example {
             factory.skyboxManager = skyboxManager;
             return GenerateToggleButtonAndSetPosition(factory);
         }
+
+#if COLOR_PICKER
+        protected GameObject ColorPicker(StandardPanel panel, GameObject parent) {
+            ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
+            ColorPickerFactory factory = Undoable.AddComponent<ColorPickerFactory>(disposable);
+            factory.parent = parent;
+            factory.colorPickerProfile = Defaults.GetProfile(colorPickerProfile);
+            GameObject colorPicker = factory.Generate();
+            colorPicker.transform.localPosition = new Vector3(0, 0, profile.labelZ);
+            return colorPicker;
+        }
+#endif
 
         protected GameObject Row(GameObject parent, string name = null, TextAlignment alignment = TextAlignment.Center) {
             PanelContainerProfile profile = Defaults.GetProfile(panelContainerProfile);
@@ -153,12 +172,6 @@ namespace CreateThis.Example {
             disposable = EmptyChild(parent, "disposable");
         }
 
-        private GameObject FileLabelRow(GameObject parent) {
-            GameObject row = Row(parent, "FileLabelRow", TextAlignment.Left);
-            Label(row, "FileLabel", "File");
-            return row;
-        }
-
         private GameObject FileRow(GameObject parent) {
             GameObject row = Row(parent, "FileRow", TextAlignment.Left);
             PanelToggleVisibilityMomentaryButton(toolsPanel, row, "Open", fileOpen);
@@ -166,11 +179,19 @@ namespace CreateThis.Example {
             return row;
         }
 
-        private GameObject ChangeSkyboxLabelRow(GameObject parent) {
-            GameObject row = Row(parent, "ChangeSkyboxLabelRow", TextAlignment.Left);
-            Label(row, "ChangeSkyboxLabel", "Change Skybox");
+        protected GameObject LabelRow(GameObject parent, string text) {
+            GameObject row = Row(parent, text + "LabelRow", TextAlignment.Left);
+            Label(row, text + "Label", text);
             return row;
         }
+
+#if COLOR_PICKER
+        private GameObject ColorPickerRow(GameObject parent) {
+            GameObject row = Row(parent, "ColorPickerRow", TextAlignment.Left);
+            ColorPicker(toolsPanel, row);
+            return row;
+        }
+#endif
 
         private GameObject ChangeSkyboxRow(GameObject parent) {
             GameObject row = Row(parent, "ChangeSkyboxRow", TextAlignment.Left);
@@ -182,9 +203,13 @@ namespace CreateThis.Example {
         private void CreateToolsPanel(GameObject parent) {
             toolsPanelInstance = Panel(parent, "ToolsPanelInstance");
             GameObject column = Column(toolsPanelInstance);
-            FileLabelRow(column);
+            LabelRow(column, "File");
             FileRow(column);
-            ChangeSkyboxLabelRow(column);
+#if COLOR_PICKER
+            LabelRow(column, "Color Picker");
+            ColorPickerRow(column);
+#endif
+            LabelRow(column, "Change Skybox");
             ChangeSkyboxRow(column);
         }
 

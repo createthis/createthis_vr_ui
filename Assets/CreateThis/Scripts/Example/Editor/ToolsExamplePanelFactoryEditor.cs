@@ -12,6 +12,7 @@ namespace CreateThis.Example {
         SerializedProperty panelContainerProfile;
         SerializedProperty momentaryButtonProfile;
         SerializedProperty toggleButtonProfile;
+        SerializedProperty colorPickerProfile;
         SerializedProperty fileOpen;
         SerializedProperty fileSaveAs;
         SerializedProperty skyboxManager;
@@ -23,7 +24,7 @@ namespace CreateThis.Example {
             panelContainerProfile = serializedObject.FindProperty("panelContainerProfile");
             momentaryButtonProfile = serializedObject.FindProperty("momentaryButtonProfile");
             toggleButtonProfile = serializedObject.FindProperty("toggleButtonProfile");
-            panelProfile = serializedObject.FindProperty("panelProfile");
+            colorPickerProfile = serializedObject.FindProperty("colorPickerProfile");
             fileOpen = serializedObject.FindProperty("fileOpen");
             fileSaveAs = serializedObject.FindProperty("fileSaveAs");
             skyboxManager = serializedObject.FindProperty("skyboxManager");
@@ -48,6 +49,7 @@ namespace CreateThis.Example {
             EditorGUILayout.PropertyField(panelContainerProfile);
             EditorGUILayout.PropertyField(momentaryButtonProfile);
             EditorGUILayout.PropertyField(toggleButtonProfile);
+            EditorGUILayout.PropertyField(colorPickerProfile);
             EditorGUILayout.PropertyField(fileOpen);
             EditorGUILayout.PropertyField(fileSaveAs);
             EditorGUILayout.PropertyField(skyboxManager);

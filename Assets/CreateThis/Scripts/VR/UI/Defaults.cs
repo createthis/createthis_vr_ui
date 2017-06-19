@@ -1,10 +1,17 @@
-﻿namespace CreateThis.VR.UI {
+﻿#if COLOR_PICKER
+using CreateThis.VR.UI.ColorPicker;
+#endif
+
+namespace CreateThis.VR.UI {
     public static class Defaults {
         public static PanelProfile panel;
         public static ButtonProfile momentaryButton;
         public static ButtonProfile toggleButton;
         public static PanelContainerProfile panelContainer;
         public static FilePanelProfile filePanel;
+#if COLOR_PICKER
+        public static ColorPickerProfile colorPicker;
+#endif
 
         private static T OverrideDefault<T>(T defaultProfile, T overrideProfile) {
             T result = defaultProfile;
@@ -31,5 +38,11 @@
         public static PanelContainerProfile GetProfile(PanelContainerProfile overrideProfile) {
             return OverrideDefault(panelContainer, overrideProfile);
         }
+
+#if COLOR_PICKER
+        public static ColorPickerProfile GetProfile(ColorPickerProfile overrideProfile) {
+            return OverrideDefault(colorPicker, overrideProfile);
+        }
+#endif
     }
 }
