@@ -13,8 +13,7 @@ namespace CreateThis.VR.UI {
 #if COLOR_PICKER
         public ColorPickerProfile colorPickerProfile;
 #endif
-
-        void OnValidate() {
+        private void Initialize() {
             if (panelProfile != null) Defaults.panel = panelProfile;
             if (panelContainerProfile != null) Defaults.panelContainer = panelContainerProfile;
             if (momentaryButtonProfile != null) Defaults.momentaryButton = momentaryButtonProfile;
@@ -23,7 +22,18 @@ namespace CreateThis.VR.UI {
 #if COLOR_PICKER
             if (colorPickerProfile != null) Defaults.colorPicker = colorPickerProfile;
 #endif
+            Defaults.Changed();
         }
+
+#if UNITY_EDITOR
+        void OnValidate() {
+            Initialize();
+        }
+#else
+        void Awake() {
+            Initialize();
+        }
+#endif
 
         // Use this for initialization
         void Start() {
