@@ -1,4 +1,6 @@
-﻿using CreateThis.VR.UI.ColorPicker;
+﻿#if COLOR_PICKER
+using CreateThis.VR.UI.ColorPicker;
+#endif
 
 namespace CreateThis.VR.UI {
     public static class Defaults {
