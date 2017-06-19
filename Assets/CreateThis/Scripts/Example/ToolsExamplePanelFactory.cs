@@ -15,7 +15,7 @@ using CreateThis.Factory.VR.UI.Button;
 using CreateThis.Factory.VR.UI.Container;
 #if COLOR_PICKER
 using CreateThis.VR.UI.ColorPicker;
-using CreateThis.Factory.VR.UI.ColorPicker;
+using CreateThis.Example.ColorPicker;
 #endif
 
 namespace CreateThis.Example {
@@ -89,7 +89,7 @@ namespace CreateThis.Example {
 #if COLOR_PICKER
         protected GameObject ColorPicker(StandardPanel panel, GameObject parent) {
             ButtonProfile profile = Defaults.GetMomentaryButtonProfile(momentaryButtonProfile);
-            ColorPickerFactory factory = Undoable.AddComponent<ColorPickerFactory>(disposable);
+            ExampleColorPickerFactory factory = Undoable.AddComponent<ExampleColorPickerFactory>(disposable);
             factory.parent = parent;
             factory.colorPickerProfile = Defaults.GetProfile(colorPickerProfile);
             GameObject colorPicker = factory.Generate();
