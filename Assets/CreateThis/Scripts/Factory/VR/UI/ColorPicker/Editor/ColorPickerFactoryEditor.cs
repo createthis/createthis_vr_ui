@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace CreateThis.Factory.VR.UI {
+namespace CreateThis.Factory.VR.UI.ColorPicker {
     [CustomEditor(typeof(ColorPickerFactory))]
     [CanEditMultipleObjects]
 

@@ -9,7 +9,7 @@ using CreateThis.VR.UI;
 using CreateThis.VR.UI.ColorPicker;
 #endif
 
-namespace CreateThis.Factory.VR.UI {
+namespace CreateThis.Factory.VR.UI.ColorPicker {
     public class ColorPickerFactory : BaseFactory {
         public GameObject parent;
         public ColorPickerProfile colorPickerProfile;
@@ -73,15 +73,15 @@ namespace CreateThis.Factory.VR.UI {
             meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
 
             MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(container);
-            meshRenderer.materials = new Material[] { profile.colorHueMaterial };
+            meshRenderer.materials = new Material[] { profile.hueMaterial };
             return container;
         }
 
         private GameObject CreateColorIndicator(GameObject parent) {
             GameObject container = EmptyChild(parent, "ColorIndicator");
             ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
-            container.transform.localPosition = profile.colorIndicatorLocalPosition;
-            container.transform.localScale = profile.colorIndicatorScale;
+            container.transform.localPosition = profile.indicatorLocalPosition;
+            container.transform.localScale = profile.indicatorScale;
 
             Undoable.AddComponent<ColorIndicator>(container);
 
@@ -96,11 +96,11 @@ namespace CreateThis.Factory.VR.UI {
         private GameObject CreateColorSaturationBrightnessPicker(GameObject parent) {
             GameObject container = EmptyChild(parent, "ColorSaturationBrightnessPicker");
             ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
-            container.transform.localPosition = profile.colorSBLocalPosition;
-            container.transform.localScale = profile.colorSBScale;
+            container.transform.localPosition = profile.sbLocalPosition;
+            container.transform.localScale = profile.sbScale;
 
             var script = Undoable.AddComponent<ColorSaturationBrightnessPicker>(container);
-            script.backgroundMaterial = profile.colorSaturationBrightnessMaterial;
+            script.backgroundMaterial = profile.sbMaterial;
 
             ColorPickerThumbTouchable thumbTouchable = Undoable.AddComponent<ColorPickerThumbTouchable>(container);
             thumbTouchable.fixY = false;
@@ -115,7 +115,7 @@ namespace CreateThis.Factory.VR.UI {
             meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
             
             MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(container);
-            meshRenderer.materials = new Material[] { profile.colorSaturationBrightnessMaterial };
+            meshRenderer.materials = new Material[] { profile.sbMaterial };
             return container;
         }
 
