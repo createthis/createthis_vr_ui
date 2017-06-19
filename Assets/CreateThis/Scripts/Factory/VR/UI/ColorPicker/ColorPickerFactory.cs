@@ -119,6 +119,10 @@ namespace CreateThis.Factory.VR.UI.ColorPicker {
             return container;
         }
 
+        protected virtual void CreateColorPickerIO(GameObject parent) {
+            // override
+        }
+
         private GameObject CreateColorPicker(GameObject parent) {
             ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
             GameObject colorPicker = EmptyChild(parent, "ColorPicker");
@@ -137,6 +141,7 @@ namespace CreateThis.Factory.VR.UI.ColorPicker {
             Undo.RegisterCompleteObjectUndo(this, "ColorPickerFactory state");
 #endif
             colorPickerInstance = CreateColorPicker(parent);
+            CreateColorPickerIO(colorPickerInstance);
             sbThumbInstance = CreateColorSaturationBrightnessThumb(colorPickerInstance);
             hueThumbInstance = CreateColorHuePickerThumb(colorPickerInstance);
             colorPickerContainerInstance = CreateColorPickerContainer(colorPickerInstance);

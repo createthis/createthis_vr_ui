@@ -6,7 +6,7 @@ namespace CreateThis.Example {
     [CustomEditor(typeof(ExampleMasterUIFactory))]
     [CanEditMultipleObjects]
 
-    public class MMVR_MasterUIFactoryEditor : BaseFactoryEditor {
+    public class ExampleMasterUIFactoryEditor : BaseFactoryEditor {
         SerializedProperty parent;
         SerializedProperty skyboxManager;
         SerializedProperty touchPadMenuController;
