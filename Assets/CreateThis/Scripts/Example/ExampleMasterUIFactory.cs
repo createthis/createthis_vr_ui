@@ -65,12 +65,14 @@ namespace CreateThis.Example {
             GameObject panel = factory.Generate();
             toolsInstance = panel;
 
+#if UNITY_EDITOR
             var touchPadButtons = touchPadMenuController.touchPadButtons;
             for (int i=0; i < touchPadButtons[0].onSelected.GetPersistentEventCount(); i++) {
                 UnityEventTools.RemovePersistentListener(touchPadButtons[0].onSelected, 0);
             }
             UnityEventTools.AddPersistentListener(touchPadButtons[0].onSelected, toolsInstance.GetComponent<StandardPanel>().ToggleVisible);
             touchPadMenuController.touchPadButtons = touchPadButtons;
+#endif
 
             return panel;
         }
@@ -83,7 +85,11 @@ namespace CreateThis.Example {
         private void CleanParent() {
             var children = new List<GameObject>();
             foreach (Transform child in parent.transform) children.Add(child.gameObject);
+#if UNITY_EDITOR
             children.ForEach(child => Undo.DestroyObjectImmediate(child));
+#else
+            children.ForEach(child => GameObject.DestroyImmediate(child));
+#endif
         }
 
         public override GameObject Generate() {

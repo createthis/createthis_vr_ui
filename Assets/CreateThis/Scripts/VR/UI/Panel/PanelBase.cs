@@ -21,6 +21,7 @@ namespace CreateThis.VR.UI.Panel {
         private Selectable selectable;
         private bool hasInitialized = false;
         private Transform oldParent;
+        private bool eventsSubscribed = false;
 
         public override void OnGrabStart(Transform controller, int controllerIndex) {
             oldParent = grabTarget.parent;
@@ -54,8 +55,7 @@ namespace CreateThis.VR.UI.Panel {
             }
         }
 
-        private void Awake() {
-            PanelManager.AddPanel(this);
+        public void OnDefaultsChanged() {
             PanelProfile profile = Defaults.GetProfile(panelProfile);
 
             if (profile.hideOnAwake) {
@@ -63,6 +63,36 @@ namespace CreateThis.VR.UI.Panel {
                 GameObject target = GetTarget();
                 target.SetActive(false);
             }
+        }
+
+        private void SubscribeEvents() {
+            if (eventsSubscribed) return;
+            Defaults.OnDefaultsChanged += OnDefaultsChanged;
+            eventsSubscribed = true;
+        }
+
+        private void UnsubscribeEvents() {
+            if (!eventsSubscribed) return;
+            Defaults.OnDefaultsChanged -= OnDefaultsChanged;
+            eventsSubscribed = false;
+        }
+
+        private void OnEnable() {
+            SubscribeEvents();
+        }
+
+        private void OnDisable() {
+            UnsubscribeEvents();
+        }
+
+        private void OnDestroy() {
+            UnsubscribeEvents();
+        }
+
+        private void Awake() {
+            PanelManager.AddPanel(this);
+            SubscribeEvents();
+            if (Defaults.hasInitialized) OnDefaultsChanged();
         }
 
         private GameObject GetTarget() {

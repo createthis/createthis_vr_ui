@@ -4,6 +4,9 @@ using CreateThis.VR.UI.ColorPicker;
 
 namespace CreateThis.VR.UI {
     public static class Defaults {
+        public static bool hasInitialized = false;
+        public delegate void DefaultsChanged();
+        public static event DefaultsChanged OnDefaultsChanged;
         public static PanelProfile panel;
         public static ButtonProfile momentaryButton;
         public static ButtonProfile toggleButton;
@@ -12,6 +15,10 @@ namespace CreateThis.VR.UI {
 #if COLOR_PICKER
         public static ColorPickerProfile colorPicker;
 #endif
+        public static void Changed() {
+            hasInitialized = true;
+            if (OnDefaultsChanged != null) OnDefaultsChanged();
+        }
 
         private static T OverrideDefault<T>(T defaultProfile, T overrideProfile) {
             T result = defaultProfile;
