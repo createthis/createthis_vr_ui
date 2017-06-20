@@ -17,11 +17,11 @@ namespace CreateThis.VR.UI.Controller {
 
         private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
         private SteamVR_TrackedObject trackedObj;
-        private GameObject pointerConeInstance;
+        protected GameObject pointerConeInstance;
         private GameObject spawnPoint;
 
         // Use this for initialization
-        void Start() {
+        protected virtual void Start() {
             trackedObj = GetComponent<SteamVR_TrackedObject>();
             Debug.Log("TouchController[" + trackedObj.index + "] start");
             DetectVRHardware();
@@ -126,7 +126,7 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         // Update is called once per frame
-        void Update() {
+        protected virtual void Update() {
             UpdatePointerCone();
             if (controller == null) {
                 Debug.Log("[" + trackedObj.index + "] Controller not initialized");

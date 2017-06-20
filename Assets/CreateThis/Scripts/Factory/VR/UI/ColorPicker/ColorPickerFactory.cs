@@ -141,10 +141,10 @@ namespace CreateThis.Factory.VR.UI.ColorPicker {
             Undo.RegisterCompleteObjectUndo(this, "ColorPickerFactory state");
 #endif
             colorPickerInstance = CreateColorPicker(parent);
-            CreateColorPickerIO(colorPickerInstance);
             sbThumbInstance = CreateColorSaturationBrightnessThumb(colorPickerInstance);
             hueThumbInstance = CreateColorHuePickerThumb(colorPickerInstance);
             colorPickerContainerInstance = CreateColorPickerContainer(colorPickerInstance);
+            CreateColorPickerIO(colorPickerContainerInstance);
             CreateColorHuePicker(colorPickerContainerInstance);
             CreateColorIndicator(colorPickerContainerInstance);
             CreateColorSaturationBrightnessPicker(colorPickerContainerInstance);
