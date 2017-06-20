@@ -6,10 +6,13 @@ namespace CreateThis.VR.UI.Controller {
     public class TouchController : MonoBehaviour {
         public Material controllerMaterial;
         public GameObject pointerConePrefab;
+        public Grabbable defaultGrabbable;
+        public Triggerable defaultTriggerable;
         public string hardware;
         public float pointerConeZOffset;
         public List<Collider> touching; // public for debugging
-        public GameObject grabbedObject; // public for debugging
+        public List<GameObject> triggeredObjects; // public for debugging
+        public List<GameObject> grabbedObjects; // public for debugging
 
         private Valve.VR.EVRButtonId touchPadButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
         private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
@@ -93,36 +96,49 @@ namespace CreateThis.VR.UI.Controller {
         }
 
         protected void HandleTriggerDown() {
+            if (touching.Count == 0 && defaultTriggerable != null) {
+                defaultTriggerable.OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
+                triggeredObjects.Add(defaultTriggerable.gameObject);
+            }
             foreach (Collider touched in touching) {
                 if (touched.GetComponent<Triggerable>()) {
                     touched.GetComponent<Triggerable>().OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
+                    triggeredObjects.Add(touched.gameObject);
                 }
             }
         }
 
         protected void HandleTriggerUp() {
-            foreach (Collider touched in touching) {
-                if (touched.GetComponent<Triggerable>()) {
-                    touched.GetComponent<Triggerable>().OnTriggerUp(spawnPoint.transform, (int)trackedObj.index);
+            if (triggeredObjects.Count == 0) return;
+            foreach (GameObject triggeredObject in triggeredObjects) {
+                if (triggeredObject && triggeredObject.GetComponent<Triggerable>()) {
+                    triggeredObject.GetComponent<Triggerable>().OnTriggerUp(spawnPoint.transform, (int)trackedObj.index);
                 }
             }
+            triggeredObjects.Clear();
         }
 
         protected void HandleGripDown() {
+            if (touching.Count == 0 && defaultGrabbable != null) {
+                defaultGrabbable.OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
+                grabbedObjects.Add(defaultGrabbable.gameObject);
+            }
             foreach (Collider touched in touching) {
                 if (touched.GetComponent<Grabbable>()) {
                     touched.GetComponent<Grabbable>().OnGrabStart(spawnPoint.transform, (int)trackedObj.index);
-                    grabbedObject = touched.gameObject;
+                    grabbedObjects.Add(touched.gameObject);
                 }
             }
         }
 
         protected void HandleGripUp() {
-            if (!grabbedObject) return;
-            if (grabbedObject.GetComponent<Grabbable>()) {
-                grabbedObject.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
-                grabbedObject = null;
+            if (grabbedObjects.Count == 0) return;
+            foreach (GameObject grabbedObject in grabbedObjects) {
+                if (grabbedObject && grabbedObject.GetComponent<Grabbable>()) {
+                    grabbedObject.GetComponent<Grabbable>().OnGrabStop(spawnPoint.transform, (int)trackedObj.index);
+                }
             }
+            grabbedObjects.Clear();
         }
 
         // Update is called once per frame
