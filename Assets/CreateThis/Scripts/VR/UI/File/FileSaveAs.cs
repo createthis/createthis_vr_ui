@@ -18,7 +18,7 @@ namespace CreateThis.VR.UI.File {
 
         public void KeyboardCallback(string filename, Transform controller) {
             SetFilename(filename);
-            keyboard.controller = controller;
+            keyboard.SetController(controller);
             keyboard.SetVisible(false);
             this.controller = controller;
             this.SetVisible(true);
@@ -26,7 +26,7 @@ namespace CreateThis.VR.UI.File {
 
         public void FileNameClick(Transform controller) {
             this.SetVisible(false);
-            keyboard.controller = controller;
+            keyboard.SetController(controller);
             keyboard.SetBuffer(filename);
             keyboard.doneCallback = KeyboardCallback;
             keyboard.SetVisible(true);

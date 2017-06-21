@@ -12,7 +12,6 @@ namespace CreateThis.VR.UI.Panel {
 
     public abstract class PanelBase : Grabbable, IPanel {
         public bool visible;
-        public Transform controller;
         public Transform grabTarget;
         public PanelProfile panelProfile;
 
@@ -24,11 +23,13 @@ namespace CreateThis.VR.UI.Panel {
         private bool eventsSubscribed = false;
 
         public override void OnGrabStart(Transform controller, int controllerIndex) {
+            base.OnGrabStart(controller, controllerIndex);
             oldParent = grabTarget.parent;
             grabTarget.parent = controller;
         }
 
         public override void OnGrabStop(Transform controller, int controllerIndex) {
+            base.OnGrabStop(controller, controllerIndex);
             grabTarget.parent = oldParent;
         }
 
@@ -134,11 +135,6 @@ namespace CreateThis.VR.UI.Panel {
         // Use this for initialization
         void Start() {
             Initialize();
-        }
-
-        // Update is called once per frame
-        void Update() {
-
         }
     }
 }

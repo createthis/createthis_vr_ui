@@ -18,24 +18,22 @@ namespace CreateThis.VR.UI.Button {
         protected bool hitTravelLimit;
         protected Vector3 startingBodyButtonLocalPosition;
         protected Vector3 startingTextButtonLocalPosition;
-        protected Transform controller;
-        protected int controllerIndex;
         private float buttonBodyDepth;
         private float travelLimit;
         private float firstUpdateIgnoreThreshold;
         private bool hasInitialized = false;
 
         public override void OnTouchStart(Transform controller, int controllerIndex) {
+            base.OnTouchStart(controller, controllerIndex);
             if (panel && !pushing) {
                 panel.SetSelectable(false);
             }
             pushing = true;
             UpdatePosition(controller, controllerIndex, true);
-            this.controller = controller;
-            this.controllerIndex = controllerIndex;
         }
 
         public override void OnTouchStop(Transform controller, int controllerIndex) {
+            base.OnTouchStop(controller, controllerIndex);
             if (!pushing) return;
             pushing = false;
             bool tmpHitTravelLimit = hitTravelLimit; // hitTravelLimit is set to false in ResetPosition.
@@ -131,7 +129,8 @@ namespace CreateThis.VR.UI.Button {
         }
 
         // Update is called once per frame
-        void Update() {
+        protected override void Update() {
+            base.Update();
             if (pushing) UpdatePosition(controller, controllerIndex);
         }
     }

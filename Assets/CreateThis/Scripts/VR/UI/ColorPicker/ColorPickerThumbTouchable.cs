@@ -9,16 +9,20 @@ namespace CreateThis.VR.UI.ColorPicker {
         public float thumbOffset = 0.0025f;
 
         private Vector3 lastPosition;
-        private Transform controller;
-        private bool touching;
 
         public override void OnTouchStart(Transform controller, int controllerIndex) {
+            base.OnTouchStart(controller, controllerIndex);
             Move(controller.position);
             touching = true;
-            this.controller = controller;
+        }
+
+        public override void OnTouchUpdate(Transform controller, int controllerIndex) {
+            base.OnTouchUpdate(controller, controllerIndex);
+            Move(controller.position);
         }
 
         public override void OnTouchStop(Transform controller, int controllerIndex) {
+            base.OnTouchStop(controller, controllerIndex);
             Move(controller.position);
             touching = false;
         }
@@ -61,13 +65,6 @@ namespace CreateThis.VR.UI.ColorPicker {
         // Use this for initialization
         void Start() {
 
-        }
-
-        // Update is called once per frame
-        void Update() {
-            if (touching) {
-                Move(controller.position);
-            }
         }
     }
 }

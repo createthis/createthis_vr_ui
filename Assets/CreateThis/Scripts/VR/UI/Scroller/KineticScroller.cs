@@ -146,10 +146,5 @@ namespace CreateThis.VR.UI.Scroller {
         void Start() {
             Initialize();
         }
-
-        // Update is called once per frame
-        void Update() {
-
-        }
     }
 }
