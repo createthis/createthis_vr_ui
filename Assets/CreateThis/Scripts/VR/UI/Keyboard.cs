@@ -21,6 +21,11 @@ namespace CreateThis.VR.UI {
                 OnBufferChanged();
         }
 
+        public void SetController(Transform controller) {
+            // FIXME: This is a hack. It's only used from the SaveAs dialog, AFAIK, and the purpose is to prime the controller Transform so the keyboard panel can appear properly.
+            this.controller = controller;
+        }
+
         public void PressKey(string value) {
             buffer += value;
             BufferChanged();
@@ -106,11 +111,6 @@ namespace CreateThis.VR.UI {
             panelNumber.gameObject.transform.localPosition = Vector3.zero;
             panelSymbol.gameObject.SetActive(false);
             panelSymbol.gameObject.transform.localPosition = Vector3.zero;
-        }
-
-        // Update is called once per frame
-        void Update() {
-
         }
     }
 }

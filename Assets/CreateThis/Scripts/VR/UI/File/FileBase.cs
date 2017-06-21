@@ -160,10 +160,5 @@ namespace CreateThis.VR.UI.File {
             list = new List<GameObject>();
             ListDirectory();
         }
-
-        // Update is called once per frame
-        void Update() {
-
-        }
     }
 }
