@@ -14,7 +14,7 @@ namespace CreateThis.VR.UI.ColorPicker {
             transform.BroadcastMessage("SetColor", hsbColor, SendMessageOptions.DontRequireReceiver);
         }
 
-        void Start() {
+        protected virtual void Start() {
             SetColorPickerColor(this.color);
         }
     }
