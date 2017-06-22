@@ -8,7 +8,7 @@ Factory scripts are provided to quickly build these components from the Editor o
 
 [![Youtube Video Overview](https://img.youtube.com/vi/4BQ3y7y577U/0.jpg)](https://www.youtube.com/watch?v=4BQ3y7y577U)
 [![VR UI Profiles](https://img.youtube.com/vi/qdyMXNkXdQY/0.jpg)](https://youtu.be/qdyMXNkXdQY)
-[![Getting Started and Color Picker] (https://img.youtube.com/vi/IHZIVWOqJCk/0.jpg)](https://youtu.be/IHZIVWOqJCk)
+[![Getting Started and Color Picker](https://img.youtube.com/vi/IHZIVWOqJCk/0.jpg)](https://youtu.be/IHZIVWOqJCk)
 
 # Dependencies
 
