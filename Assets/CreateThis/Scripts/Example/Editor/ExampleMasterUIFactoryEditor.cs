@@ -10,12 +10,20 @@ namespace CreateThis.Example {
         SerializedProperty parent;
         SerializedProperty skyboxManager;
         SerializedProperty touchPadMenuController;
+        SerializedProperty toolsLocalPosition;
+        SerializedProperty keyboardLocalPosition;
+        SerializedProperty fileOpenLocalPosition;
+        SerializedProperty fileSaveAsLocalPosition;
 
         protected override void OnEnable() {
             base.OnEnable();
             parent = serializedObject.FindProperty("parent");
             skyboxManager = serializedObject.FindProperty("skyboxManager");
             touchPadMenuController = serializedObject.FindProperty("touchPadMenuController");
+            toolsLocalPosition = serializedObject.FindProperty("toolsLocalPosition");
+            keyboardLocalPosition = serializedObject.FindProperty("keyboardLocalPosition");
+            fileOpenLocalPosition = serializedObject.FindProperty("fileOpenLocalPosition");
+            fileSaveAsLocalPosition = serializedObject.FindProperty("fileSaveAsLocalPosition");
         }
 
         protected override void BuildGenerateButton() {
@@ -35,6 +43,10 @@ namespace CreateThis.Example {
             EditorGUILayout.PropertyField(parent);
             EditorGUILayout.PropertyField(skyboxManager);
             EditorGUILayout.PropertyField(touchPadMenuController);
+            EditorGUILayout.PropertyField(toolsLocalPosition);
+            EditorGUILayout.PropertyField(keyboardLocalPosition);
+            EditorGUILayout.PropertyField(fileOpenLocalPosition);
+            EditorGUILayout.PropertyField(fileSaveAsLocalPosition);
         }
     }
 }

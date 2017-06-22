@@ -18,6 +18,10 @@ namespace CreateThis.Example {
         public GameObject parent;
         public ExampleSkyboxManager skyboxManager;
         public TouchPadMenuController touchPadMenuController;
+        public Vector3 fileOpenLocalPosition = new Vector3(-1.329f, 0, 0);
+        public Vector3 fileSaveAsLocalPosition = new Vector3(-0.754f, 0, 0);
+        public Vector3 toolsLocalPosition = new Vector3(-0.3367146f, 0.3599027f, 0);
+        public Vector3 keyboardLocalPosition = new Vector3(0.357f, 0, 0);
 
         private GameObject disposable;
         private GameObject keyboardInstance;
@@ -33,6 +37,9 @@ namespace CreateThis.Example {
             factory.parent = parent;
             GameObject panel = factory.Generate();
             keyboardInstance = panel;
+            Vector3 localPosition = keyboardInstance.transform.localPosition;
+            localPosition.x = keyboardLocalPosition.x;
+            keyboardInstance.transform.localPosition = localPosition;
             keyboard = keyboardInstance.GetComponent<Keyboard>();
             return panel;
         }
@@ -43,6 +50,8 @@ namespace CreateThis.Example {
             factory.keyboard = keyboard;
             GameObject panel = factory.Generate();
             fileSaveAsInstance = panel;
+            GameObject fileSaveAsContainer = panel.transform.parent.gameObject;
+            fileSaveAsContainer.transform.localPosition = fileSaveAsLocalPosition;
             fileSaveAs = fileSaveAsInstance.transform.Find("DrivesPanel").GetComponent<FileSaveAs>();
             return panel;
         }
@@ -52,6 +61,8 @@ namespace CreateThis.Example {
             factory.parent = parent;
             GameObject panel = factory.Generate();
             fileOpenInstance = panel;
+            GameObject fileOpenContainer = panel.transform.parent.gameObject;
+            fileOpenContainer.transform.localPosition = fileOpenLocalPosition;
             fileOpen = fileOpenInstance.transform.Find("DrivesPanel").GetComponent<FileOpen>();
             return panel;
         }
@@ -64,6 +75,9 @@ namespace CreateThis.Example {
             factory.skyboxManager = skyboxManager;
             GameObject panel = factory.Generate();
             toolsInstance = panel;
+            Vector3 localPosition = toolsInstance.transform.localPosition;
+            localPosition.x = toolsLocalPosition.x;
+            toolsInstance.transform.localPosition = localPosition;
 
 #if UNITY_EDITOR
             var touchPadButtons = touchPadMenuController.touchPadButtons;
