@@ -95,6 +95,10 @@ namespace CreateThis.VR.UI.Controller {
             touching.Clear();
         }
 
+        private void CleanTouching() {
+            touching.RemoveAll(item => item == null || item.gameObject.activeSelf == false);
+        }
+
         protected void HandleTriggerDown() {
             if (touching.Count == 0 && defaultTriggerable != null) {
                 defaultTriggerable.OnTriggerDown(spawnPoint.transform, (int)trackedObj.index);
@@ -143,6 +147,7 @@ namespace CreateThis.VR.UI.Controller {
 
         // Update is called once per frame
         protected virtual void Update() {
+            CleanTouching();
             UpdatePointerCone();
             if (controller == null) {
                 Debug.Log("[" + trackedObj.index + "] Controller not initialized");
