@@ -37,7 +37,7 @@ namespace CreateThis.VR.UI.File {
             onSaveAs.Invoke(path);
         }
 
-        protected new void ClickedFile(string path) {
+        protected override void ClickedFile(string path) {
             SetFilename(Path.GetFileNameWithoutExtension(path));
         }
     }
