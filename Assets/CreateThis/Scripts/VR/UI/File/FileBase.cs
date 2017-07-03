@@ -123,7 +123,7 @@ namespace CreateThis.VR.UI.File {
             ListDirectory();
         }
 
-        protected void ClickedFile(string path) {
+        protected virtual void ClickedFile(string path) {
 
         }
 

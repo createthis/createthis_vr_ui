@@ -4,7 +4,7 @@ namespace CreateThis.VR.UI.File {
     public class FileOpen : FileBase {
         public FilePathEvent onOpen;
 
-        protected new void ClickedFile(string path) {
+        protected override void ClickedFile(string path) {
             onOpen.Invoke(path);
         }
     }
