@@ -37,7 +37,7 @@ namespace CreateThis.Factory.VR.UI.ColorPicker {
             GameObject thumb = EmptyChild(parent, "ColorHuePickerThumb");
             MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(thumb);
             ColorPickerProfile profile = Defaults.GetProfile(colorPickerProfile);
-            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
+            meshFilter.sharedMesh = profile.thumbBody.GetComponent<MeshFilter>().sharedMesh;
             thumb.transform.localPosition = profile.hueThumbLocalPosition;
             thumb.transform.localScale = profile.hueThumbScale;
             MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(thumb);
