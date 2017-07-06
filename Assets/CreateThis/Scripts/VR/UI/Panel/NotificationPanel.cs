@@ -24,14 +24,14 @@ namespace CreateThis.VR.UI.Panel {
             SetVisible(false);
         }
 
-        public void DisplayMessage(string message) {
+        public void DisplayMessage(string message, Transform controller, int controllerIndex) {
             notificationLabel.text = message;
-            SetVisible(true);
+            SetVisible(true, controller, controllerIndex);
             StartCoroutine(Fade());
         }
 
-        public new void SetVisible(bool value) {
-            base.SetVisible(value);
+        public new void SetVisible(bool value, Transform controller, int controllerIndex) {
+            base.SetVisible(value, controller, controllerIndex);
             if (value) Opaque();
         }
     }
