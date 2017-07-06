@@ -70,7 +70,7 @@ namespace CreateThis.Factory.VR.UI.ColorPicker {
             // FIXME: This needs to be Touchable
 
             MeshFilter meshFilter = Undoable.AddComponent<MeshFilter>(container);
-            meshFilter.mesh = profile.thumbBody.GetComponent<MeshFilter>().mesh;
+            meshFilter.sharedMesh = profile.thumbBody.GetComponent<MeshFilter>().sharedMesh;
 
             MeshRenderer meshRenderer = Undoable.AddComponent<MeshRenderer>(container);
             meshRenderer.materials = new Material[] { profile.hueMaterial };
