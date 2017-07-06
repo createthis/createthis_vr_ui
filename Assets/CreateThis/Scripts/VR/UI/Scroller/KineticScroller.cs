@@ -9,7 +9,7 @@ namespace CreateThis.VR.UI.Scroller {
     public class KineticScroller : Grabbable {
         public FixedJoint fixedJoint;
         public float space = 0.1f;
-        public delegate void ClickAction(GameObject fileObject);
+        public delegate void ClickAction(GameObject fileObject, Transform controller, int controllerIndex);
         public static event ClickAction OnClicked;
         public GameObject fileObjectGrabbed;
 
@@ -48,7 +48,7 @@ namespace CreateThis.VR.UI.Scroller {
             if (distance <= movementThresholdForClick) {
                 if (OnClicked != null) {
                     controller.parent.GetComponent<TouchController>().ClearTouching();
-                    OnClicked(fileObjectGrabbed);
+                    OnClicked(fileObjectGrabbed, controller, controllerIndex);
                 }
             } else {
                 SteamVR_Controller.Device device = SteamVR_Controller.Input((int)controllerIndex);

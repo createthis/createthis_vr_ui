@@ -32,12 +32,12 @@ namespace CreateThis.VR.UI.File {
             keyboard.SetVisible(true);
         }
 
-        public void SaveAs() {
+        public void SaveAs(Transform controller, int controllerIndex) {
             string path = Path.Combine(currentPath, filename);
-            onSaveAs.Invoke(path);
+            onSaveAs.Invoke(path, controller, controllerIndex);
         }
 
-        protected override void ClickedFile(string path) {
+        protected override void ClickedFile(string path, Transform controller, int controllerIndex) {
             SetFilename(Path.GetFileNameWithoutExtension(path));
         }
     }
