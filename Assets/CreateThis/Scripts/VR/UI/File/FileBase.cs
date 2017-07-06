@@ -123,11 +123,11 @@ namespace CreateThis.VR.UI.File {
             ListDirectory();
         }
 
-        protected virtual void ClickedFile(string path) {
+        protected virtual void ClickedFile(string path, Transform controller, int controllerIndex) {
 
         }
 
-        public void HandleClick(GameObject fileObject) {
+        public void HandleClick(GameObject fileObject, Transform controller, int controllerIndex) {
             FileData fileData = fileObject.GetComponent<FileData>();
             string path = fileData.path;
             if (fileData.isFolder) {
@@ -136,7 +136,7 @@ namespace CreateThis.VR.UI.File {
                 }
                 ChangeDirectory(path);
             } else {
-                ClickedFile(path);
+                ClickedFile(path, controller, controllerIndex);
             }
         }
 

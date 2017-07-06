@@ -7,7 +7,7 @@ namespace CreateThis.VR.UI.Button {
 
         protected override void ClickHandler(Transform controller, int controllerIndex) {
             base.ClickHandler(controller, controllerIndex);
-            filePanel.SaveAs();
+            filePanel.SaveAs(controller, controllerIndex);
         }
     }
 }

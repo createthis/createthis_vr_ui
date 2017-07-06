@@ -100,6 +100,11 @@ namespace CreateThis.VR.UI.Panel {
             return (grabTarget) ? grabTarget.gameObject : gameObject;
         }
 
+        public void SetVisible(bool value, Transform controller, int controllerIndex) {
+            this.controller = controller;
+            SetVisible(value);
+        }
+
         public void SetVisible(bool value) {
             bool oldValue = visible;
             visible = value;
